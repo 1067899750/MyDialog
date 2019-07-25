@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="city_name">
+        <item>日常支出</item>
+        <item>教育支出</item>
+        <item>医疗支出</item>
+        <item>生产材料支出</item>
+        <item>生产工具支出</item>
+        <item>其他</item>
+    </string-array>
+</resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
