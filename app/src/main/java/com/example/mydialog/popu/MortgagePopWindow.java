@@ -1,11 +1,14 @@
 package com.example.mydialog.popu;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.PopupWindow;
 
 import com.example.mydialog.R;
 import com.example.mydialog.popu.adapter.MortgageTopSortFilterSelectAdapter;
+import com.example.mydialog.untils.BarConfig;
 import com.example.mydialog.untils.NavigationBarUtil;
 
 import java.util.ArrayList;
@@ -69,28 +73,40 @@ public class MortgagePopWindow extends PopupWindow {
 
         setClippingEnabled(false);
 
-        WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
-        int screenWidth = wm.getDefaultDisplay().getWidth();
-        int screenHeight = wm.getDefaultDisplay().getHeight();
 
-        int navigatorHeight = NavigationBarUtil.getNavigationBarHeight(mContext);//获得导航栏高度
+//        int navigatorHeight = NavigationBarUtil.getNavigationBarHeight(mContext);//获得导航栏高度
+
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {//24
             showAsDropDown(mPresentView, 0, 0);
         } else {
+            Activity activity = (Activity) mPresentView.getContext();
+            WindowManager windowManager = activity.getWindowManager();
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            windowManager.getDefaultDisplay().getRealMetrics(displayMetrics);
+            int screenHeight = displayMetrics.heightPixels;
+
+            int navigatorHeight = BarConfig.getNavigationBarHeight(mContext);
             int[] location = new int[2];  // 获取控件在屏幕的位置
             mPresentView.getLocationOnScreen(location);
             int offsetY = location[1] + mPresentView.getHeight();
-            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1) { //25
-                int tempheight = getHeight();
-                if (tempheight == WindowManager.LayoutParams.MATCH_PARENT || screenHeight <= tempheight) {
-                    setHeight(screenHeight - offsetY + navigatorHeight);
-                }
-            } else {
-                setHeight(screenHeight - offsetY + navigatorHeight);
-            }
+            int height = screenHeight - offsetY - navigatorHeight;
+            setHeight(screenHeight - offsetY - navigatorHeight);
             showAtLocation(mPresentView, Gravity.NO_GRAVITY, location[0], offsetY);
         }
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            Rect anchorRect = new Rect();
+//            mPresentView.getGlobalVisibleRect(anchorRect);
+//
+//            Activity activity = (Activity) mPresentView.getContext();
+//            WindowManager windowManager = activity.getWindowManager();
+//            DisplayMetrics displayMetrics = new DisplayMetrics();
+//            windowManager.getDefaultDisplay().getRealMetrics(displayMetrics);
+//            int height = displayMetrics.heightPixels - BarConfig.getNavigationBarHeight(activity) - anchorRect.bottom;
+//            setHeight(height);
+//        }
+//        showAsDropDown(mPresentView);
 
 
         mRecyclerView = view.findViewById(R.id.sort_type_rv);
@@ -106,7 +122,6 @@ public class MortgagePopWindow extends PopupWindow {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
-
 
     }
 
