@@ -13,7 +13,13 @@ import android.view.WindowManager;
 
 import com.gyf.barlibrary.OSUtils;
 
-
+/**
+ *
+ * Description 获取虚拟按键高度
+ * Author puyantao
+ * Email 1067899750@qq.com
+ * Date 2019/7/25 11:09
+ */
 public class BarConfig {
     /**
      * 导航栏竖屏高度标识位
