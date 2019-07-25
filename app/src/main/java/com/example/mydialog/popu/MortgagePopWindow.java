@@ -77,6 +77,7 @@ public class MortgagePopWindow extends PopupWindow {
 //        int navigatorHeight = NavigationBarUtil.getNavigationBarHeight(mContext);//获得导航栏高度
 
 
+        //大于API 24 的特性
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {//24
             showAsDropDown(mPresentView, 0, 0);
         } else {
