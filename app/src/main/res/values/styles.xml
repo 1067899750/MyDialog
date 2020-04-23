@@ -41,29 +41,16 @@
     </style>
 
 
-
-    <attr name="position">
-        <enum name="left_top" value="0" />
-        <enum name="left_bottom" value="1" />
-        <enum name="right_top" value="2" />
-        <enum name="right_bottom" value="3" />
-        <enum name="center_bottom" value="4" />
-    </attr>
-
-    <attr name="radius" format="dimension" />
-
-    <declare-styleable name="ArcMenu">
-        <attr name="position" />
-        <attr name="radius" />
-    </declare-styleable>
-
-
-
-
-
-
-
-
+    <style name="MyDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <!--是否除去边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--是否浮现在activity上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
 
 
 

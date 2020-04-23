@@ -7,9 +7,17 @@
     tools:context=".assistive.AssistiveTouchActivity">
 
 
-    <com.example.mydialog.assistive.BottomArcView
+    <View
+        android:id="@+id/base_bg_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/c20000000"
+        android:visibility="gone" />
+
+    <com.example.mydialog.assistive.MenuBottomArcView
+        android:id="@+id/menu_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:radius="120dp">
 
         <ImageView
@@ -18,8 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:src="@drawable/acc_add_details" />
-
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,7 +54,7 @@
             android:text="家庭"
             android:textSize="@dimen/sp_14" />
 
-    </com.example.mydialog.assistive.BottomArcView>
+    </com.example.mydialog.assistive.MenuBottomArcView>
 
 </RelativeLayout>
 

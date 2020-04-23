@@ -36,6 +36,29 @@
             android:textAllCaps="false"
             android:textSize="18sp"/>
 
+        <Button
+            android:id="@+id/btn_satellite_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="星级菜单" />
+
+        <Button
+            android:id="@+id/btn_bottom_satellite_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="底部星级菜单" />
+
+        <Button
+            android:id="@+id/btnLuck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="图案解锁" />
+        <Button
+            android:id="@+id/btnPayPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="支付密码框"/>
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
