@@ -28,7 +28,13 @@
             android:textAllCaps="false"
             android:textSize="18sp"/>
 
-
+        <Button
+            android:id="@+id/btn3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="点击按钮出弹框（AssistiveTouch）"
+            android:textAllCaps="false"
+            android:textSize="18sp"/>
 
     </LinearLayout>
 

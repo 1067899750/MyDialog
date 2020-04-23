@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.mydialog.assistive.AssistiveTouchActivity;
 import com.example.mydialog.popu.PopuActivity;
 import com.example.mydialog.spiner.SpinerActivity;
 
@@ -14,10 +15,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        PopuActivity.startPopuActivity(this);
+        AssistiveTouchActivity.startAssistiveTouchActivity(this);
 
         findViewById(R.id.btn1).setOnClickListener(this);
         findViewById(R.id.btn2).setOnClickListener(this);
+        findViewById(R.id.btn3).setOnClickListener(this);
     }
 
     @Override
@@ -29,6 +31,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn2:
                 PopuActivity.startPopuActivity(this);
+                break;
+
+            case R.id.btn3:
+                AssistiveTouchActivity.startAssistiveTouchActivity(this);
                 break;
             default:
                 break;
