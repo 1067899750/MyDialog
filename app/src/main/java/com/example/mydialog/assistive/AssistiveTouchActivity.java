@@ -39,7 +39,7 @@ public class AssistiveTouchActivity extends AppCompatActivity {
 
             @Override
             public void onItemMenuItemClick(int position) {
-                Toast.makeText(AssistiveTouchActivity.this, position , Toast.LENGTH_LONG).show();
+                Toast.makeText(AssistiveTouchActivity.this, "当前位置" + position , Toast.LENGTH_LONG).show();
             }
         });
     }
