@@ -34,11 +34,16 @@ public class AssistiveTouchActivity extends AppCompatActivity {
         mMenuBottomArcView.setMenuItemClickLister(new MenuBottomArcView.OnMenuItemClickLister() {
             @Override
             public void onMenuClick(View v) {
-                bgView.setVisibility(View.VISIBLE);
+                if (mMenuBottomArcView.isOpen()){
+                    bgView.setVisibility(View.GONE);
+                } else {
+                    bgView.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void onItemMenuItemClick(int position) {
+                bgView.setVisibility(View.GONE);
                 Toast.makeText(AssistiveTouchActivity.this, "当前位置" + position , Toast.LENGTH_LONG).show();
             }
         });
