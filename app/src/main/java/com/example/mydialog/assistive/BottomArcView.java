@@ -204,7 +204,7 @@ public class BottomArcView extends ViewGroup implements View.OnClickListener {
                     if (onMenuItemClick != null) {
                         onMenuItemClick.onItemMenuItemClick(pos);
                     }
-//                    onMenuItemAnimate(pos - 1);
+                    onMenuItemAnimate(pos - 1);
                     changeMenuStatus();
                 }
             });
@@ -222,9 +222,9 @@ public class BottomArcView extends ViewGroup implements View.OnClickListener {
         for (int i = 0; i < getChildCount() - 1; i++) {
             View childView = getChildAt(i + 1);
             if (pos == i) {
-                childView.startAnimation(menuBigAnimate(200));
+                childView.startAnimation(menuBigAnimate(150));
             } else {
-                childView.startAnimation(menuSmallAnimate(200));
+                childView.startAnimation(menuSmallAnimate(150));
             }
         }
     }
