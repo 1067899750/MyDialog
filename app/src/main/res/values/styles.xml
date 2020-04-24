@@ -24,7 +24,6 @@
     </declare-styleable>
 
 
-
     <style name="Area_Picker_Dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <!--边框-->
@@ -53,11 +52,11 @@
     </style>
 
 
-
-
-
-
-
+    <style name="RbClearRipple">
+        <item name="android:selectableItemBackground">@null</item>
+        <item name="android:colorControlHighlight">@android:color/transparent</item>
+        <item name="android:selectableItemBackgroundBorderless">@null</item>
+    </style>
 
 
 </resources>
