@@ -35,12 +35,14 @@ public class MenuBottomArcView extends ViewGroup implements View.OnClickListener
     public interface OnMenuItemClickLister {
         /**
          * 主按键的点击事件
+         *
          * @param v
          */
         void onMenuClick(View v);
 
         /**
          * 子view的点击事件
+         *
          * @param position
          */
         void onItemMenuItemClick(int position);
@@ -87,6 +89,20 @@ public class MenuBottomArcView extends ViewGroup implements View.OnClickListener
     }
 
     /**
+     * 测量cButton的位置
+     */
+    private void layoutCenter() {
+        mCButton = getChildAt(0);
+        mCButton.setOnClickListener(this);
+        int width = mCButton.getMeasuredWidth();
+        int height = mCButton.getMeasuredHeight();
+
+        int l = getMeasuredWidth() / 2 - width / 2;
+        int t = getMeasuredHeight() - height;
+        mCButton.layout(l, t, l + width, getMeasuredHeight());
+    }
+
+    /**
      * 设置itemMenu的位置
      */
     private void layoutIButton() {
@@ -105,20 +121,6 @@ public class MenuBottomArcView extends ViewGroup implements View.OnClickListener
 
             childView.setVisibility(GONE);
         }
-    }
-
-    /**
-     * 测量cButton的位置
-     */
-    private void layoutCenter() {
-        mCButton = getChildAt(0);
-        mCButton.setOnClickListener(this);
-        int width = mCButton.getMeasuredWidth();
-        int height = mCButton.getMeasuredHeight();
-
-        int l = getMeasuredWidth() / 2 - width / 2;
-        int t = getMeasuredHeight() - height;
-        mCButton.layout(l, t, l + width, getMeasuredHeight());
     }
 
     @Override
@@ -149,27 +151,42 @@ public class MenuBottomArcView extends ViewGroup implements View.OnClickListener
             int rly = (int) (mRadius * Math.sin(Math.PI / count * (i + 1)));
 
             AnimationSet animationSet = new AnimationSet(true);
+
             //位移动画
             TranslateAnimation translateAnimation = null;
-            //打开
             if (mCurrentStatus == State.CLOSE) {
+                //打开
                 translateAnimation = new TranslateAnimation(-rlx, 0f, rly, 0f);
                 childView.setEnabled(true);
                 childView.setFocusable(true);
-            } else {//关闭
+            } else {
+                //关闭
                 translateAnimation = new TranslateAnimation(0f, -rlx, 0f, rly);
             }
-
             translateAnimation.setDuration(duration);
             translateAnimation.setFillAfter(true);
+            animationSet.addAnimation(translateAnimation);
+
+            //透明图
+            AlphaAnimation alphaAnimation = null;
+            if (mCurrentStatus == State.CLOSE) {
+                alphaAnimation = new AlphaAnimation(0f, 1f);
+                childView.setEnabled(true);
+                childView.setFocusable(true);
+            } else {
+                alphaAnimation = new AlphaAnimation(1f, 0f);
+            }
+            alphaAnimation.setDuration(duration);
+            alphaAnimation.setFillAfter(true);
+            animationSet.addAnimation(alphaAnimation);
+
             //旋转动画
 //            RotateAnimation rotateAnimation = new RotateAnimation(0, 720, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 //            rotateAnimation.setDuration(duration);
 //            rotateAnimation.setFillAfter(true);
 //            animationSet.addAnimation(rotateAnimation);
-            animationSet.addAnimation(translateAnimation);
-            childView.startAnimation(animationSet);
 
+            childView.startAnimation(animationSet);
             animationSet.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
@@ -283,9 +300,9 @@ public class MenuBottomArcView extends ViewGroup implements View.OnClickListener
     }
 
     /**
-     *  关闭菜单
+     * 关闭菜单
      */
-    public void closeMenu(){
+    public void closeMenu() {
         if (isOpen()) {
             toggleItemMenu(300);
         }
