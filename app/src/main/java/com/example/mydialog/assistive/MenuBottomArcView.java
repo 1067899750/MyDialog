@@ -163,8 +163,6 @@ public class MenuBottomArcView extends ViewGroup implements View.OnClickListener
                 //关闭
                 translateAnimation = new TranslateAnimation(0f, -rlx, 0f, rly);
             }
-            translateAnimation.setDuration(duration);
-            translateAnimation.setFillAfter(true);
             animationSet.addAnimation(translateAnimation);
 
             //透明图
@@ -176,16 +174,14 @@ public class MenuBottomArcView extends ViewGroup implements View.OnClickListener
             } else {
                 alphaAnimation = new AlphaAnimation(1f, 0f);
             }
-            alphaAnimation.setDuration(duration);
-            alphaAnimation.setFillAfter(true);
             animationSet.addAnimation(alphaAnimation);
 
             //旋转动画
 //            RotateAnimation rotateAnimation = new RotateAnimation(0, 720, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 //            rotateAnimation.setDuration(duration);
-//            rotateAnimation.setFillAfter(true);
-//            animationSet.addAnimation(rotateAnimation);
 
+            animationSet.setDuration(duration);
+            animationSet.setFillAfter(true);
             childView.startAnimation(animationSet);
             animationSet.setAnimationListener(new Animation.AnimationListener() {
                 @Override
