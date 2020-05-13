@@ -230,6 +230,7 @@ public class MenuBottomArcView extends ViewGroup implements View.OnClickListener
     private void onMenuItemAnimate(int pos) {
         for (int i = 0; i < getChildCount() - 1; i++) {
             View childView = getChildAt(i + 1);
+            childView.setEnabled(false);
             if (pos == i) {
                 childView.startAnimation(menuBigAnimate(150));
             } else {
