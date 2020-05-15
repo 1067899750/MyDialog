@@ -127,7 +127,7 @@ public class MenuBottomArcView extends ViewGroup implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnCenter:
-//                centerButtonAnimator(mCButton, 0, 360, 300);
+                centerButtonAnimator(mCButton, 0, 360, 300);
                 mMenuItemClickLister.onMenuClick(v);
                 toggleItemMenu(300);
                 break;
@@ -162,6 +162,8 @@ public class MenuBottomArcView extends ViewGroup implements View.OnClickListener
             } else {
                 //关闭
                 translateAnimation = new TranslateAnimation(0f, -rlx, 0f, rly);
+                childView.setEnabled(false);
+                childView.setFocusable(false);
             }
             animationSet.addAnimation(translateAnimation);
 
@@ -173,6 +175,8 @@ public class MenuBottomArcView extends ViewGroup implements View.OnClickListener
                 childView.setFocusable(true);
             } else {
                 alphaAnimation = new AlphaAnimation(1f, 0f);
+                childView.setEnabled(false);
+                childView.setFocusable(false);
             }
             animationSet.addAnimation(alphaAnimation);
 
@@ -231,6 +235,8 @@ public class MenuBottomArcView extends ViewGroup implements View.OnClickListener
             } else {
                 childView.startAnimation(menuSmallAnimate(150));
             }
+            childView.setEnabled(false);
+            childView.setFocusable(false);
         }
     }
 
