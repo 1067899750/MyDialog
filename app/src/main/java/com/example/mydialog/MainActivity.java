@@ -11,7 +11,7 @@ import com.example.mydialog.lockPattern.LockPatternActivity;
 import com.example.mydialog.password.PayDialog;
 import com.example.mydialog.popu.PopuActivity;
 import com.example.mydialog.satellite.SatelliteMenuActivity;
-import com.example.mydialog.spiner.SpinerActivity;
+import com.example.mydialog.spiner.SpinnerActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private PayDialog payDialog;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn1:
-                SpinerActivity.startSpinerActivity(this);
+                SpinnerActivity.startSpinnerActivity(this);
                 break;
 
             case R.id.btn2:

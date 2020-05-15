@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rootView"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#ffe3e3e3"
     android:orientation="vertical">
 
@@ -23,39 +23,34 @@
             android:textSize="20.0sp" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_2"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@+id/rl_1"
+        android:background="#ffffff"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
         android:layout_marginTop="10dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_100"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="21dp"
-            android:gravity="left"
-            android:text="类别"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="类别："
             android:textColor="#333333"
             android:textSize="15sp" />
 
 
-        <com.example.mydialog.spiner.widget.MySpinner
+        <com.example.mydialog.spiner.widget.DropBoxSpinner
             android:id="@+id/input_sort_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="98dp"
-            android:layout_marginRight="40dp"
             android:background="#F3F3F3"
-            android:drawableRight="@drawable/selector_time_sort"
             android:gravity="left|center"
-            android:paddingLeft="10dp"
-            android:paddingRight="15dp"
             android:textColor="#40663A"
             android:textSize="15sp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

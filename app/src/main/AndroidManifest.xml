@@ -20,7 +20,7 @@
 
         <activity android:name=".assistive.AssistiveTouchActivity" />
         <activity android:name=".popu.PopuActivity" />
-        <activity android:name=".spiner.SpinerActivity" />
+        <activity android:name=".spiner.SpinnerActivity" />
         <activity android:name=".satellite.SatelliteMenuActivity" />
         <activity android:name=".bottonSatellite.BottomStatelliteMenuActivity" />
         <activity android:name=".lockPattern.LockPatternActivity" />

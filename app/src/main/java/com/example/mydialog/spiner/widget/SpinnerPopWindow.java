@@ -10,47 +10,44 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
-
 import com.example.mydialog.R;
 
 import java.util.List;
 
 /**
- * 
  * Description
  * Author puyantao
- * Email 1067899750@qq.com
  * Date 2019/5/15 9:18
  */
 public class SpinnerPopWindow extends PopupWindow implements OnItemClickListener {
 
     private Context mContext;
     private ListView mListView;
-    private SpinnerAdapter mAdapter;
-    private MySpinner.OnItemSelectedListener mItemSelectListener;
+    private CleckTypeSpinnerAdapter mAdapter;
+    private DropBoxSpinner.OnItemSelectedListener mItemSelectListener;
 
 
     public SpinnerPopWindow(Context context) {
         super(context);
-		
+
         mContext = context;
         init();
     }
 
 
-    public void setItemListener(MySpinner.OnItemSelectedListener listener) {
+    public void setItemListener(DropBoxSpinner.OnItemSelectedListener listener) {
         mItemSelectListener = listener;
     }
 
-    public void setAdatper(SpinnerAdapter adapter) {
+    public void setAdapter(CleckTypeSpinnerAdapter adapter) {
         mAdapter = adapter;
         mListView.setAdapter(mAdapter);
     }
 
 
     private void init() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.spiner_window_layout, null);
-        setContentView(view);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.base_spiner_window_layout, null);
+        setContentView(v);
         setWidth(LayoutParams.MATCH_PARENT);
         setHeight(LayoutParams.WRAP_CONTENT);
 
@@ -59,7 +56,7 @@ public class SpinnerPopWindow extends PopupWindow implements OnItemClickListener
         setBackgroundDrawable(dw);
 
 
-        mListView = (ListView) view.findViewById(R.id.listview);
+        mListView = v.findViewById(R.id.list_view);
         mListView.setOnItemClickListener(this);
     }
 
