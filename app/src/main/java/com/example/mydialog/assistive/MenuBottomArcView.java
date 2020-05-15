@@ -157,13 +157,9 @@ public class MenuBottomArcView extends ViewGroup implements View.OnClickListener
             if (mCurrentStatus == State.CLOSE) {
                 //打开
                 translateAnimation = new TranslateAnimation(-rlx, 0f, rly, 0f);
-                childView.setEnabled(true);
-                childView.setFocusable(true);
             } else {
                 //关闭
                 translateAnimation = new TranslateAnimation(0f, -rlx, 0f, rly);
-                childView.setEnabled(false);
-                childView.setFocusable(false);
             }
             animationSet.addAnimation(translateAnimation);
 
