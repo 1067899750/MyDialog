@@ -15,7 +15,12 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 
 import com.example.mydialog.R;
-
+/**
+ *
+ * @description 扇形菜单
+ * @author puyantao
+ * @date 2020/5/15 17:13
+ */
 public class MenuBottomArcView extends ViewGroup implements View.OnClickListener {
 
     /**
