@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_checked="true"
-        android:drawable="@drawable/ic_sort_asc"/>
+        android:drawable="@drawable/acc_borrow_apply_btn"/>
 
-    <item android:drawable="@drawable/ic_sort_desc"/>
+    <item android:drawable="@drawable/ic_yuan_unselected"/>
 </selector>
