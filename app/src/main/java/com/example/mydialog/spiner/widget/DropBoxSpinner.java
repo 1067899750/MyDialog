@@ -3,6 +3,7 @@ package com.example.mydialog.spiner.widget;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.mydialog.R;
 import com.example.mydialog.spiner.model.DropBoxBean;
+import com.example.mydialog.untils.EmojiRegexUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -173,6 +175,7 @@ public class DropBoxSpinner extends LinearLayout {
             et_value.setText(name);
             et_value.setHint(hindName);
             et_value.setMaxLines(20);
+            et_value.setFilters(new InputFilter[]{EmojiRegexUtil.getInputFilter(true)});
             et_value.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
