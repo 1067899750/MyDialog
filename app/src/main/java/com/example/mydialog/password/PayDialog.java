@@ -10,7 +10,12 @@ import android.widget.Toast;
 
 import com.example.mydialog.R;
 
-
+/**
+ *
+ * @description 支付弹框
+ * @author puyantao
+ * @date 2020/6/12 17:28
+ */
 public class PayDialog extends Dialog implements PasswordEditText.PasswordOnFullListener, CustomKeyBordView.CustomerKeyboardClickListener, View.OnClickListener {
 
     private final Context context;

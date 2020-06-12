@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.example.mydialog.assistive.AssistiveTouchActivity;
 import com.example.mydialog.bottonSatellite.BottomStatelliteMenuActivity;
+import com.example.mydialog.groupdialog.ViewGroupDialogActivity;
 import com.example.mydialog.lockPattern.LockPatternActivity;
 import com.example.mydialog.password.PayDialog;
 import com.example.mydialog.popu.PopuActivity;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn1).setOnClickListener(this);
         findViewById(R.id.btn2).setOnClickListener(this);
         findViewById(R.id.btn3).setOnClickListener(this);
+        findViewById(R.id.btn4).setOnClickListener(this);
         findViewById(R.id.btn_satellite_menu).setOnClickListener(this);
         findViewById(R.id.btn_bottom_satellite_menu).setOnClickListener(this);
         findViewById(R.id.btnLuck).setOnClickListener(this);
@@ -46,14 +48,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn3:
                 AssistiveTouchActivity.startAssistiveTouchActivity(this);
                 break;
+            case R.id.btn4:
+                ViewGroupDialogActivity.startViewGroupDialogActivity(this);
+                break;
             case R.id.btn_satellite_menu:
-                startActivity(new Intent(this, SatelliteMenuActivity.class));
+                SatelliteMenuActivity.startSatelliteMenuActivity(this);
                 break;
             case R.id.btn_bottom_satellite_menu:
-                startActivity(new Intent(this, BottomStatelliteMenuActivity.class));
+                BottomStatelliteMenuActivity.startBottomStatelliteMenuActivity(this);
                 break;
             case R.id.btnLuck:
-                startActivity(new Intent(this, LockPatternActivity.class));
+                LockPatternActivity.startLockPatternActivity(this);
                 break;
             case R.id.btnPayPassword:
                 payDialog.show();
