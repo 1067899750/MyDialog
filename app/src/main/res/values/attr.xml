@@ -34,7 +34,7 @@
         <attr name="bgCorner" format="dimension"/>
     </declare-styleable>
 
-    <declare-styleable name="ShowMessageDetailDialog">
+    <declare-styleable name="TitleMessageLayout">
         <attr name="selectWidgetColor" format="color"/>
         <attr name="widgetColor" format="color"/>
         <attr name="widgetSize" format="dimension"/>

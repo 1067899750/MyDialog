@@ -4,15 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
+import android.view.View;
 
 import com.example.mydialog.R;
-import com.example.mydialog.groupdialog.view.ShowMessageDetailDialog;
+import com.example.mydialog.groupdialog.view.BaseMessageView;
+import com.example.mydialog.groupdialog.view.DetailMessageLayout;
+import com.example.mydialog.groupdialog.view.MessageView;
 
 import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import java.util.List;
 
 /**
  * @author puyantao
@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
  * @date 2020/6/12 17:21
  */
 public class ViewGroupDialogActivity extends AppCompatActivity {
-    private ShowMessageDetailDialog showDialog;
+    private DetailMessageLayout showDialog;
 
     public static void startViewGroupDialogActivity(Activity activity) {
         Intent intent = new Intent(activity, ViewGroupDialogActivity.class);
@@ -32,19 +32,21 @@ public class ViewGroupDialogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_group_dialo);
         showDialog = findViewById(R.id.show_dialog);
-        ArrayList<String> data = new ArrayList<>();
+        List<String> data = new ArrayList<>();
         data.add("懒觉");
         data.add("加大家");
         data.add("大啊");
         data.add("哈哈哈");
-        showDialog.setData(data);
-        showDialog.setOnChildSelectClickListener(new ShowMessageDetailDialog.OnChildSelectClickListener() {
-            @Override
-            public void onSelectClickListener(int position) {
-                int i = position;
-                Toast.makeText(ViewGroupDialogActivity.this, position + "", Toast.LENGTH_LONG).show();
-            }
-        });
+        List<View> views = new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i ++) {
+            BaseMessageView baseMessageView = new MessageView(this);
+            views.add(baseMessageView);
+        }
+
+        showDialog.setData(data, views);
+
+
     }
 
 
