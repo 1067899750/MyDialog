@@ -1,17 +1,11 @@
 package com.example.mydialog.groupdialog.view;
 
-import android.animation.Animator;
-import android.animation.LayoutTransition;
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.example.mydialog.R;
 
@@ -27,7 +21,7 @@ public class DetailMessageLayout extends FrameLayout {
     /**
      * 试图个数
      */
-    private List<View> mViews;
+    private List<BaseMessageView> mViews;
     /**
      * 内容
      */
@@ -35,6 +29,7 @@ public class DetailMessageLayout extends FrameLayout {
     private FrameLayout mDetailView;
     private View mBgView;
     private TitleMessageLayout mTitleMessageLayout;
+    private int mSelectPosition = -1;
 
     public DetailMessageLayout(Context context) {
         this(context, null);
@@ -52,6 +47,7 @@ public class DetailMessageLayout extends FrameLayout {
 
 
     private void initView() {
+        setBackgroundColor(Color.TRANSPARENT);
         View view = LayoutInflater.from(mContext).inflate(R.layout.detail_message_layout, this, true);
         mTitleMessageLayout = view.findViewById(R.id.title_message);
         mDetailView = view.findViewById(R.id.detail_message);
@@ -59,57 +55,74 @@ public class DetailMessageLayout extends FrameLayout {
         mTitleMessageLayout.setOnChildSelectClickListener(new TitleMessageLayout.OnChildSelectClickListener() {
             @Override
             public void onSelectClickListener(int position) {
-                mDetailView.setVisibility(VISIBLE);
-                mBgView.setVisibility(VISIBLE);
-                mDetailView.removeAllViews();
-                mDetailView.addView(mViews.get(position));
+                mTitleMessageLayout.setSelectWidgetText(position);
+                setSelectView(position);
             }
         });
+        mBgView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+    }
+
+    /**
+     * 展示选中的 view
+     *
+     * @param position
+     */
+    public void setSelectView(int position) {
+        if (mSelectPosition == position) {
+            if (mBgView.getVisibility() == GONE) {
+                mBgView.setVisibility(VISIBLE);
+                for (int i = 0; i < mViews.size(); i++) {
+                    if (i == position) {
+                        mViews.get(i).setVisibility(VISIBLE);
+                    } else {
+                        mViews.get(i).setVisibility(GONE);
+                    }
+                }
+            } else {
+                dismiss();
+            }
+        } else {
+            mBgView.setVisibility(VISIBLE);
+            for (int i = 0; i < mViews.size(); i++) {
+                if (i == position) {
+                    mViews.get(i).setVisibility(VISIBLE);
+                } else {
+                    mViews.get(i).setVisibility(GONE);
+                }
+            }
+        }
+        mSelectPosition = position;
     }
 
 
     /**
      * @param data 按键内容
      */
-    public void setData(List<String> data, List<View> views) {
+    public void setData(List<String> data, List<BaseMessageView> views) {
         this.mTextContents = data;
         this.mViews = views;
-        for (int i = 0; i < views.size(); i++){
-            if (mViews.get(i) instanceof  BaseMessageView) {
-                ((BaseMessageView) mViews.get(i)).setOnDismissListener(new BaseMessageView.OnDismissListener() {
-                    @Override
-                    public void onDismiss() {
-                        dismiss();
-                    }
-                });
-            }
+        for (int i = 0; i < views.size(); i++) {
+            mDetailView.addView(views.get(i), i);
         }
         mTitleMessageLayout.setData(data);
+        dismiss();
     }
 
-
-    public void startAnimation() {
-        LayoutTransition transition = new LayoutTransition();
-        transition.getDuration(2000);
-        mDetailView.setLayoutTransition(transition);
-    }
-
-
-    public void stopAnimation() {
-        LayoutTransition transition = new LayoutTransition();
-        transition.getDuration(2000);
-        ObjectAnimator addAnimator = ObjectAnimator.ofFloat(null, "translationY", 0, 50, 0).
-                setDuration(1500);
-        transition.setAnimator(LayoutTransition.DISAPPEARING, addAnimator);
-        mDetailView.setLayoutTransition(transition);
-    }
 
     /**
      * 隐藏试图
      */
     public void dismiss() {
+        mSelectPosition = -1;
         mTitleMessageLayout.setDefaultSelectColor();
-        mDetailView.setVisibility(GONE);
+        for (int i = 0; i < mViews.size(); i++) {
+            mViews.get(i).setVisibility(GONE);
+        }
         mBgView.setVisibility(GONE);
     }
 

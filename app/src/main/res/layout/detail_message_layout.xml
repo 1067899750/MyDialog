@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
 
     <View
         android:id="@+id/bg_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        android:background="#30DCD9D9"/>
+        android:background="#30000000"/>
 
     <com.example.mydialog.groupdialog.view.TitleMessageLayout
         android:id="@+id/title_message"
@@ -20,8 +22,7 @@
         android:id="@+id/detail_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title_message"
-        android:visibility="gone"/>
+        android:layout_below="@id/title_message" />
 
 
 

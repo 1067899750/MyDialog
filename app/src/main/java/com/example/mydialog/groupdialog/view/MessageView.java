@@ -30,22 +30,13 @@ public class MessageView extends BaseMessageView{
 
     @Override
     protected int getLayoutId() {
-        return R.layout.seleect_view_btn;
+        return R.layout.content_view;
     }
 
     @Override
     protected void setInitData() {
         mTextView = getParentView().findViewById(R.id.widget_tv);
-        mTextView.setText("str");
-        mTextView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), mTextView.getText().toString(), Toast.LENGTH_LONG).show();
-                if (null != mOnDismissListener){
-                    mOnDismissListener.onDismiss();
-                }
-            }
-        });
+
     }
 
 

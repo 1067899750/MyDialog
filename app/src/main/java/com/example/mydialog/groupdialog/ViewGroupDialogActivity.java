@@ -28,7 +28,7 @@ public class ViewGroupDialogActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_group_dialo);
         showDialog = findViewById(R.id.show_dialog);
@@ -37,10 +37,16 @@ public class ViewGroupDialogActivity extends AppCompatActivity {
         data.add("加大家");
         data.add("大啊");
         data.add("哈哈哈");
-        List<View> views = new ArrayList<>();
 
+        List<BaseMessageView> views = new ArrayList<>();
         for (int i = 0; i < data.size(); i ++) {
             BaseMessageView baseMessageView = new MessageView(this);
+            baseMessageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDialog.dismiss();
+                }
+            });
             views.add(baseMessageView);
         }
 

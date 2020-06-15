@@ -108,7 +108,6 @@ public class TitleMessageLayout extends LinearLayout {
                 public void onClick(View v) {
                     if (null != mOnChildSelectClickListener) {
                         mOnChildSelectClickListener.onSelectClickListener(finalI);
-                        setSelectWidgetText(finalI);
                     }
                 }
             });
@@ -121,7 +120,7 @@ public class TitleMessageLayout extends LinearLayout {
      *
      * @param position
      */
-    private void setSelectWidgetText(int position) {
+    public void setSelectWidgetText(int position) {
         for (int i = 0; i < mTextContents.size(); i++) {
             if (i == position) {
                 ((BaseSelectButton) getChildAt(i)).isWidgetSelect(true);
