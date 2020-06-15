@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 
 import com.example.mydialog.R;
@@ -30,6 +32,7 @@ public class DetailMessageLayout extends FrameLayout {
     private View mBgView;
     private TitleMessageLayout mTitleMessageLayout;
     private int mSelectPosition = -1;
+    private boolean isStartAnim = true;
 
     public DetailMessageLayout(Context context) {
         this(context, null);
@@ -73,6 +76,10 @@ public class DetailMessageLayout extends FrameLayout {
      * @param position
      */
     public void setSelectView(int position) {
+        if (isStartAnim) {
+            startAnimation(mViews.get(position));
+            isStartAnim = false;
+        }
         if (mSelectPosition == position) {
             if (mBgView.getVisibility() == GONE) {
                 mBgView.setVisibility(VISIBLE);
@@ -118,13 +125,56 @@ public class DetailMessageLayout extends FrameLayout {
      * 隐藏试图
      */
     public void dismiss() {
-        mSelectPosition = -1;
+        isStartAnim = true;
+        if (mSelectPosition != -1) {
+            stopAnimation(mViews.get(mSelectPosition));
+        }
         mTitleMessageLayout.setDefaultSelectColor();
         for (int i = 0; i < mViews.size(); i++) {
-            mViews.get(i).setVisibility(GONE);
+            if (i != mSelectPosition) {
+                mViews.get(i).setVisibility(GONE);
+            }
         }
         mBgView.setVisibility(GONE);
     }
+
+
+    /**
+     * 开始动画
+     * @param view
+     */
+    public void startAnimation(View view){
+        Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.dialog_show_anim);
+        view.startAnimation(animation);
+    }
+
+    /**
+     * 结束动画
+     * @param view
+     */
+    public void stopAnimation(View view){
+        Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.dialog_dismiss_anim);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (mSelectPosition != -1) {
+                    mViews.get(mSelectPosition).setVisibility(GONE);
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        view.startAnimation(animation);
+    }
+
 
 }
 
