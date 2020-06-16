@@ -24,10 +24,6 @@ public class DetailMessageLayout extends FrameLayout {
      * 试图个数
      */
     private List<BaseMessageView> mViews;
-    /**
-     * 内容
-     */
-    private List<String> mTextContents;
     private FrameLayout mDetailView;
     private View mBgView;
     private TitleMessageLayout mTitleMessageLayout;
@@ -112,7 +108,6 @@ public class DetailMessageLayout extends FrameLayout {
      * @param views 内容试图
      */
     public void setData(List<String> data, List<BaseMessageView> views) {
-        this.mTextContents = data;
         this.mViews = views;
         for (int i = 0; i < views.size(); i++) {
             mDetailView.addView(views.get(i), i);
@@ -128,7 +123,6 @@ public class DetailMessageLayout extends FrameLayout {
      * @param views  内容试图
      */
     public void setData(List<String> data, List<BaseSelectButton> titles, List<BaseMessageView> views) {
-        this.mTextContents = data;
         this.mViews = views;
         for (int i = 0; i < views.size(); i++) {
             mDetailView.addView(views.get(i), i);

@@ -62,8 +62,8 @@ public class TitleMessageLayout extends LinearLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         removeAllViews();
-        if (mBaseSelectButtons.size() == 0){
-            for (int i =0; i<mTextContents.size(); i++){
+        if (mBaseSelectButtons.size() == 0) {
+            for (int i = 0; i < mTextContents.size(); i++) {
                 mBaseSelectButtons.add(new WidgetBtn(mContext));
             }
         }
@@ -92,10 +92,10 @@ public class TitleMessageLayout extends LinearLayout {
             View childView = getChildAt(i);
             // 每一个子控件进行布局
             childView.layout(mWidgetWidth * i, 0, mWidgetWidth * (i + 1), mWidgetHeight);
-            if (i == childCount -1){
-                ((BaseSelectButton)getChildAt(i)).setHideView(true);
+            if (i == childCount - 1) {
+                ((BaseSelectButton) getChildAt(i)).setHideView(true);
             } else {
-                ((BaseSelectButton)getChildAt(i)).setHideView(false);
+                ((BaseSelectButton) getChildAt(i)).setHideView(false);
             }
         }
     }
@@ -156,9 +156,10 @@ public class TitleMessageLayout extends LinearLayout {
 
     /**
      * 自定义 btn
+     *
      * @param buttonList
      */
-    public void setTitleView(List<BaseSelectButton> buttonList){
+    public void setTitleView(List<BaseSelectButton> buttonList) {
         this.mBaseSelectButtons.clear();
         this.mBaseSelectButtons = buttonList;
         invalidate();
