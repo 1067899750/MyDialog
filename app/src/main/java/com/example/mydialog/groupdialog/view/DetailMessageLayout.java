@@ -108,8 +108,7 @@ public class DetailMessageLayout extends FrameLayout {
 
 
     /**
-     *
-     * @param data 按键标题内容
+     * @param data  按键标题内容
      * @param views 内容试图
      */
     public void setData(List<String> data, List<BaseMessageView> views) {
@@ -124,12 +123,11 @@ public class DetailMessageLayout extends FrameLayout {
 
 
     /**
-     *
-     * @param data 按键标题内容
+     * @param data   按键标题内容
      * @param titles 标题样式
-     * @param views 内容试图
+     * @param views  内容试图
      */
-    public void setData(List<String> data, List<BaseSelectButton> titles,List<BaseMessageView> views) {
+    public void setData(List<String> data, List<BaseSelectButton> titles, List<BaseMessageView> views) {
         this.mTextContents = data;
         this.mViews = views;
         for (int i = 0; i < views.size(); i++) {
@@ -160,18 +158,20 @@ public class DetailMessageLayout extends FrameLayout {
 
     /**
      * 开始动画
+     *
      * @param view
      */
-    public void startAnimation(View view){
+    public void startAnimation(View view) {
         Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.dialog_show_anim);
         view.startAnimation(animation);
     }
 
     /**
      * 结束动画
+     *
      * @param view
      */
-    public void stopAnimation(View view){
+    public void stopAnimation(View view) {
         Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.dialog_dismiss_anim);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
