@@ -62,6 +62,7 @@ public class TitleMessageLayout extends LinearLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         removeAllViews();
+        //当没有设置时， 初始化默认 btn
         if (mBaseSelectButtons.size() == 0) {
             for (int i = 0; i < mTextContents.size(); i++) {
                 mBaseSelectButtons.add(new WidgetBtn(mContext));

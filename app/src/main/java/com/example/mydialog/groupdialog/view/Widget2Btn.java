@@ -8,7 +8,7 @@ import com.example.mydialog.R;
 
 /**
  * @author puyantao
- * @describe
+ * @describe 自定义样式
  * @create 2020/6/16 14:03
  */
 public class Widget2Btn extends BaseSelectButton {

@@ -10,7 +10,7 @@ import com.example.mydialog.R;
 
 /**
  * @author puyantao
- * @description :
+ * @description : 默认样式
  * @date 2020/6/13
  */
 public class WidgetBtn extends BaseSelectButton {
