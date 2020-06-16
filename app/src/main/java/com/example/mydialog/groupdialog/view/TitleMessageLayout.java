@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.example.mydialog.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +35,7 @@ public class TitleMessageLayout extends LinearLayout {
      */
     private List<String> mTextContents;
     private OnChildSelectClickListener mOnChildSelectClickListener;
+    private List<BaseSelectButton> mBaseSelectButtons;
 
     public TitleMessageLayout(Context context) {
         this(context, null);
@@ -53,11 +55,22 @@ public class TitleMessageLayout extends LinearLayout {
 
     private void initView() {
         setOrientation(HORIZONTAL);
+        mBaseSelectButtons = new ArrayList<>();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        removeAllViews();
+        if (mBaseSelectButtons.size() == 0){
+            for (int i =0; i<mTextContents.size(); i++){
+                mBaseSelectButtons.add(new WidgetBtn(mContext));
+            }
+        }
+        for (int i = 0; i < mTextContents.size(); i++) {
+            mBaseSelectButtons.get(i).setWidgetText(mTextContents.get(i));
+            addView(mBaseSelectButtons.get(i), i);
+        }
         mBaseWidth = MeasureSpec.getSize(widthMeasureSpec);
         mBaseHeight = MeasureSpec.getSize(heightMeasureSpec);
         mWidgetWidth = mBaseWidth / mTextContents.size();
@@ -78,10 +91,11 @@ public class TitleMessageLayout extends LinearLayout {
         for (int i = 0; i < childCount; i++) {
             View childView = getChildAt(i);
             // 每一个子控件进行布局
-            if (i > 0) {
-                childView.layout(mWidgetWidth * i + 10, 0, mWidgetWidth * (i + 1), mWidgetHeight);
+            childView.layout(mWidgetWidth * i, 0, mWidgetWidth * (i + 1), mWidgetHeight);
+            if (i == childCount -1){
+                ((BaseSelectButton)getChildAt(i)).setHideView(true);
             } else {
-                childView.layout(mWidgetWidth * i, 0, mWidgetWidth * (i + 1), mWidgetHeight);
+                ((BaseSelectButton)getChildAt(i)).setHideView(false);
             }
         }
     }
@@ -121,11 +135,13 @@ public class TitleMessageLayout extends LinearLayout {
      * @param position
      */
     public void setSelectWidgetText(int position) {
-        for (int i = 0; i < mTextContents.size(); i++) {
-            if (i == position) {
-                ((BaseSelectButton) getChildAt(i)).isWidgetSelect(true);
-            } else {
-                ((BaseSelectButton) getChildAt(i)).isWidgetSelect(false);
+        if (getChildCount() == mTextContents.size()) {
+            for (int i = 0; i < mTextContents.size(); i++) {
+                if (i == position) {
+                    ((BaseSelectButton) getChildAt(i)).isWidgetSelect(true);
+                } else {
+                    ((BaseSelectButton) getChildAt(i)).isWidgetSelect(false);
+                }
             }
         }
     }
@@ -135,21 +151,27 @@ public class TitleMessageLayout extends LinearLayout {
      */
     public void setData(List<String> data) {
         this.mTextContents = data;
-        for (int i = 0; i < mTextContents.size(); i++) {
-            BaseSelectButton baseSelectButton = new WidgetBtn(mContext);
-            baseSelectButton.setWidgetText(mTextContents.get(i));
-            addView(baseSelectButton, i);
-        }
         invalidate();
     }
 
+    /**
+     * 自定义 btn
+     * @param buttonList
+     */
+    public void setTitleView(List<BaseSelectButton> buttonList){
+        this.mBaseSelectButtons.clear();
+        this.mBaseSelectButtons = buttonList;
+        invalidate();
+    }
 
     /**
      * 还原默认颜色
      */
     public void setDefaultSelectColor() {
-        for (int i = 0; i < mTextContents.size(); i++) {
-            ((BaseSelectButton) getChildAt(i)).isWidgetSelect(false);
+        if (getChildCount() == mTextContents.size()) {
+            for (int i = 0; i < mTextContents.size(); i++) {
+                ((BaseSelectButton) getChildAt(i)).isWidgetSelect(false);
+            }
         }
     }
 

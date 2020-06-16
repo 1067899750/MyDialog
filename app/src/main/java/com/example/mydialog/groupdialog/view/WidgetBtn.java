@@ -41,17 +41,18 @@ public class WidgetBtn extends BaseSelectButton {
 
     @Override
     protected void isWidgetSelect(boolean isSelect) {
-        if (isSelect) {
-            mWidgetTv.setTextColor(Color.RED);
-        } else {
-            mWidgetTv.setTextColor(Color.BLACK);
-        }
+        mWidgetTv.setTextColor(isSelect ? Color.RED : Color.parseColor("#40663A"));
     }
 
 
     @Override
     protected void setWidgetText(String str) {
         mWidgetTv.setText(str);
+    }
+
+    @Override
+    protected void setHideView(boolean b) {
+        getChildView(R.id.line_view).setVisibility(b ? GONE : VISIBLE);
     }
 
 

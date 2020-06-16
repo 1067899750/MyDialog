@@ -108,7 +108,9 @@ public class DetailMessageLayout extends FrameLayout {
 
 
     /**
-     * @param data 按键内容
+     *
+     * @param data 按键标题内容
+     * @param views 内容试图
      */
     public void setData(List<String> data, List<BaseMessageView> views) {
         this.mTextContents = data;
@@ -120,6 +122,23 @@ public class DetailMessageLayout extends FrameLayout {
         dismiss();
     }
 
+
+    /**
+     *
+     * @param data 按键标题内容
+     * @param titles 标题样式
+     * @param views 内容试图
+     */
+    public void setData(List<String> data, List<BaseSelectButton> titles,List<BaseMessageView> views) {
+        this.mTextContents = data;
+        this.mViews = views;
+        for (int i = 0; i < views.size(); i++) {
+            mDetailView.addView(views.get(i), i);
+        }
+        mTitleMessageLayout.setData(data);
+        mTitleMessageLayout.setTitleView(titles);
+        dismiss();
+    }
 
     /**
      * 隐藏试图

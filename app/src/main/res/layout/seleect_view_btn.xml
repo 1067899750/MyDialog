@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="@dimen/dp_40">
 
     <TextView
         android:id="@+id/widget_tv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:drawableRight="@mipmap/common_down_green_icon"
+        android:drawablePadding="5dp"
         android:gravity="center"
-        android:background="#AFA5A5"
-        android:textColor="#111111"
-        android:text="one"
-        android:textAllCaps="false"
-        android:textSize="18sp"/>
+        android:text="区域"
+        android:textColor="#40663A"
+        android:textSize="@dimen/sp_15" />
+
+    <View
+        android:id="@+id/line_view"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="#DBDBDB"/>
 </RelativeLayout>
 
 

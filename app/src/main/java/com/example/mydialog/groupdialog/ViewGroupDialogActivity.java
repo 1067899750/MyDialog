@@ -8,8 +8,11 @@ import android.view.View;
 
 import com.example.mydialog.R;
 import com.example.mydialog.groupdialog.view.BaseMessageView;
+import com.example.mydialog.groupdialog.view.BaseSelectButton;
 import com.example.mydialog.groupdialog.view.DetailMessageLayout;
 import com.example.mydialog.groupdialog.view.MessageView;
+import com.example.mydialog.groupdialog.view.Widget2Btn;
+import com.example.mydialog.groupdialog.view.WidgetBtn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +42,7 @@ public class ViewGroupDialogActivity extends AppCompatActivity {
         data.add("哈哈哈");
 
         List<BaseMessageView> views = new ArrayList<>();
-        for (int i = 0; i < data.size(); i ++) {
+        for (int i = 0; i < data.size(); i++) {
             BaseMessageView baseMessageView = new MessageView(this);
             baseMessageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -50,7 +53,11 @@ public class ViewGroupDialogActivity extends AppCompatActivity {
             views.add(baseMessageView);
         }
 
-        showDialog.setData(data, views);
+        List<BaseSelectButton> titles = new ArrayList<>();
+        for (int i = 0; i < data.size(); i++) {
+            titles.add(new Widget2Btn(this));
+        }
+        showDialog.setData(data, titles, views);
 
 
     }

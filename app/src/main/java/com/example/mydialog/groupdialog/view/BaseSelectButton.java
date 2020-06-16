@@ -69,6 +69,13 @@ public abstract class BaseSelectButton extends FrameLayout {
      */
     protected abstract void setWidgetText(String str);
 
+    /**
+     * 隐藏试图
+     * @param b
+     */
+    protected abstract void setHideView(boolean b);
+
+
     public static int px2sp(Context context,float pxValue) {
         float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale +0.5f);
