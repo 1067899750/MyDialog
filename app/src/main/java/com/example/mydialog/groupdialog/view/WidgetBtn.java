@@ -35,7 +35,7 @@ public class WidgetBtn extends BaseSelectButton {
 
     @Override
     protected void initChildView() {
-        mWidgetTv = getParentView().findViewById(R.id.widget_tv);
+        mWidgetTv = getChildView(R.id.widget_tv);
 
     }
 

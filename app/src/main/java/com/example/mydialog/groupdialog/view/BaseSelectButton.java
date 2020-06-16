@@ -1,6 +1,7 @@
 package com.example.mydialog.groupdialog.view;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -46,6 +47,11 @@ public abstract class BaseSelectButton extends FrameLayout {
      */
     protected View getParentView(){
         return childView;
+    }
+
+
+    public <T extends View> T getChildView(@IdRes int id){
+        return childView.findViewById(id);
     }
 
     /**

@@ -35,7 +35,7 @@ public class MessageView extends BaseMessageView{
 
     @Override
     protected void setInitData() {
-        mTextView = getParentView().findViewById(R.id.widget_tv);
+        mTextView = getChildView(R.id.widget_tv);
 
     }
 

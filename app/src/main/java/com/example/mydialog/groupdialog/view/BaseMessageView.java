@@ -1,6 +1,7 @@
 package com.example.mydialog.groupdialog.view;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -40,6 +41,11 @@ public abstract class BaseMessageView extends FrameLayout {
 
     public View getParentView() {
         return parentView;
+    }
+
+
+    public <T extends View> T getChildView(@IdRes int id){
+        return parentView.findViewById(id);
     }
 
     /**
