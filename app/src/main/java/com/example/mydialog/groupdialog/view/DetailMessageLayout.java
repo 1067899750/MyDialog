@@ -107,14 +107,10 @@ public class DetailMessageLayout extends FrameLayout {
      * @param data  按键标题内容
      * @param views 内容试图
      */
-    public void setData(List<String> data, List<BaseMessageView> views) {
-        this.mViews = views;
-        for (int i = 0; i < views.size(); i++) {
-            mDetailView.addView(views.get(i), i);
-        }
-        mTitleMessageLayout.setData(data);
-        dismiss();
+    public void setData1(List<String> data, List<BaseMessageView> views) {
+        setData(data, null, views);
     }
+
 
 
     /**
@@ -127,10 +123,25 @@ public class DetailMessageLayout extends FrameLayout {
         for (int i = 0; i < views.size(); i++) {
             mDetailView.addView(views.get(i), i);
         }
-        mTitleMessageLayout.setData(data);
-        mTitleMessageLayout.setTitleView(titles);
+        mTitleMessageLayout.setData(data, data.size());
+        if (null != titles) {
+            mTitleMessageLayout.setTitleView(titles);
+        }
         dismiss();
     }
+
+    public void setData(List<BaseSelectButton> titles, List<BaseMessageView> views) {
+        this.mViews = views;
+        for (int i = 0; i < views.size(); i++) {
+            mDetailView.addView(views.get(i), i);
+        }
+        if (null != titles) {
+            mTitleMessageLayout.setTitleView(titles);
+        }
+        dismiss();
+    }
+
+
 
     /**
      * 隐藏试图

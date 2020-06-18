@@ -34,6 +34,7 @@ public class TitleMessageLayout extends LinearLayout {
      * 内容
      */
     private List<String> mTextContents;
+    private int mContentSize;
     private OnChildSelectClickListener mOnChildSelectClickListener;
     private List<BaseSelectButton> mBaseSelectButtons;
 
@@ -64,17 +65,19 @@ public class TitleMessageLayout extends LinearLayout {
         removeAllViews();
         //当没有设置时， 初始化默认 btn
         if (mBaseSelectButtons.size() == 0) {
-            for (int i = 0; i < mTextContents.size(); i++) {
+            for (int i = 0; i < mContentSize; i++) {
                 mBaseSelectButtons.add(new WidgetBtn(mContext));
             }
         }
-        for (int i = 0; i < mTextContents.size(); i++) {
-            mBaseSelectButtons.get(i).setWidgetText(mTextContents.get(i));
+        for (int i = 0; i < mContentSize; i++) {
+            if (mTextContents.size() == mContentSize) {
+                mBaseSelectButtons.get(i).setWidgetText(mTextContents.get(i));
+            }
             addView(mBaseSelectButtons.get(i), i);
         }
         mBaseWidth = MeasureSpec.getSize(widthMeasureSpec);
         mBaseHeight = MeasureSpec.getSize(heightMeasureSpec);
-        mWidgetWidth = mBaseWidth / mTextContents.size();
+        mWidgetWidth = mBaseWidth / mContentSize;
         mWidgetHeight = mBaseHeight;
         initRect(mWidgetWidth, mWidgetHeight);
     }
@@ -136,8 +139,8 @@ public class TitleMessageLayout extends LinearLayout {
      * @param position
      */
     public void setSelectWidgetText(int position) {
-        if (getChildCount() == mTextContents.size()) {
-            for (int i = 0; i < mTextContents.size(); i++) {
+        if (getChildCount() == mContentSize) {
+            for (int i = 0; i < mContentSize; i++) {
                 if (i == position) {
                     ((BaseSelectButton) getChildAt(i)).isWidgetSelect(true);
                 } else {
@@ -150,8 +153,9 @@ public class TitleMessageLayout extends LinearLayout {
     /**
      * @param data 按键内容
      */
-    public void setData(List<String> data) {
+    public void setData(List<String> data, int size) {
         this.mTextContents = data;
+        this.mContentSize = size;
         invalidate();
     }
 
@@ -162,6 +166,7 @@ public class TitleMessageLayout extends LinearLayout {
      */
     public void setTitleView(List<BaseSelectButton> buttonList) {
         this.mBaseSelectButtons.clear();
+        this.mContentSize = buttonList.size();
         this.mBaseSelectButtons = buttonList;
         invalidate();
     }
@@ -170,8 +175,8 @@ public class TitleMessageLayout extends LinearLayout {
      * 还原默认颜色
      */
     public void setDefaultSelectColor() {
-        if (getChildCount() == mTextContents.size()) {
-            for (int i = 0; i < mTextContents.size(); i++) {
+        if (getChildCount() == mContentSize) {
+            for (int i = 0; i < mContentSize; i++) {
                 ((BaseSelectButton) getChildAt(i)).isWidgetSelect(false);
             }
         }
