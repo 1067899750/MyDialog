@@ -67,6 +67,12 @@
             android:layout_height="wrap_content"
             android:text="支付密码框"/>
 
+        <Button
+            android:id="@+id/calenderBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="日历弹框"/>
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

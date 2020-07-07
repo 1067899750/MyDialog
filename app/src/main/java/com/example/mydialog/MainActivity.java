@@ -7,13 +7,19 @@ import android.view.View;
 
 import com.example.mydialog.assistive.AssistiveTouchActivity;
 import com.example.mydialog.bottonSatellite.BottomStatelliteMenuActivity;
+import com.example.mydialog.calender.CalenderActivity;
 import com.example.mydialog.groupdialog.ViewGroupDialogActivity;
 import com.example.mydialog.lockPattern.LockPatternActivity;
 import com.example.mydialog.password.PayDialog;
 import com.example.mydialog.popu.PopuActivity;
 import com.example.mydialog.satellite.SatelliteMenuActivity;
 import com.example.mydialog.spiner.SpinnerActivity;
-
+/**
+ *
+ * @description
+ * @author puyantao
+ * @date 2020/7/7 15:53
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private PayDialog payDialog;
 
@@ -22,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         payDialog = new PayDialog(this);
-
+        CalenderActivity.startCalenderActivity(this);
         findViewById(R.id.btn1).setOnClickListener(this);
         findViewById(R.id.btn2).setOnClickListener(this);
         findViewById(R.id.btn3).setOnClickListener(this);
@@ -31,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_bottom_satellite_menu).setOnClickListener(this);
         findViewById(R.id.btnLuck).setOnClickListener(this);
         findViewById(R.id.btnPayPassword).setOnClickListener(this);
+        findViewById(R.id.calenderBtn).setOnClickListener(this);
     }
 
     @Override
@@ -61,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnPayPassword:
                 payDialog.show();
+                break;
+            case R.id.calenderBtn:
+                CalenderActivity.startCalenderActivity(this);
                 break;
             default:
                 break;

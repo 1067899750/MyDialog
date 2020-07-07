@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyDialog</string>
+    <string name="mall_sign_in_month" formatted="false">%d年%s月</string>
 </resources>

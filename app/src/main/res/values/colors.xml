@@ -10,6 +10,38 @@
     <color name="c333333">#333333</color>
     <color name="cFFFFFF">#FFFFFF</color>
     <color name="c20000000">#20000000</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="translucent_white_choose">#ee6a00</color>
+    <color name="translucent_white">#9e9e9e</color>
+    <color name="btn_color_aciton_start">#ff8500</color>
+    <color name="btn_color_aciton_end">#ffa800</color>
+    <color name="col_action_start">#65A73A</color>
+    <color name="col_action_end">#86DF4B</color>
+
+    <color name="col_light_bg">#fffaf0</color>
+    <color name="col_mall_reminder_start">#73f3a43e</color>
+    <color name="col_mall_reminder_end">#73ffa800</color>
+    <color name="col_text_gray_mid">#6a6969</color>
+    <color name="col_dv_orange_light">#ff8d00</color>
+    <color name="col_text_gray_dark">#585858</color>
+    <color name="col_text_gray_light">#929292</color>
+    <color name="col_text_orange_dark">#ff6000</color>
+    <color name="col_text_orange_light">#ff8b00</color>
+    <color name="col_dv_gray_light">#dbdbdb</color>
+
+    <color name="col_text_red">#fb4d11</color>
+    <color name="col_text_red_dark">#BB1D23</color>
+    <color name="col_text_bg_gray_light">#eeeeee</color>
+    <color name="col_list_head_bg">#f6f6f6</color>
+    <color name="col_text_hint">#969ca6</color>
+    <color name="col_text_bord_selected">#9a9fa9</color>
+    <color name="col_search_cursor">#fc9232</color>
+    <color name="col_text_black">#333333</color>
+    <color name="col_text_green">#44b99b</color>
+    <color name="col_text_yellow_light">#ffc600</color>
+    <color name="col_mall_dv_mine_integral_layout">#dddddd</color>
+
 </resources>
 
 
