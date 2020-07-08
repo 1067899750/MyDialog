@@ -38,7 +38,7 @@ public class FinanceCalendarView extends LinearLayout {
     private float mCornerRadius;
     private MonthAdapter mMonthAdapter;
     private CalenderTitleView mCalenderTitleView;
-    private FitHeightViewPager mFitHeightViewPager;
+    private ViewPager mFitHeightViewPager;
 
     public FinanceCalendarView(Context context) {
         super(context);
@@ -75,7 +75,10 @@ public class FinanceCalendarView extends LinearLayout {
 
             @Override
             public void onRightClick(View view) {
-
+                int currentItem = mFitHeightViewPager.getCurrentItem();
+                if (currentItem < mMonthAdapter.getCount() - 1) {
+                    mFitHeightViewPager.setCurrentItem(currentItem + 1);
+                }
             }
         });
 
