@@ -16,7 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/select_day" />
+        android:src="@drawable/select_day"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/day_tv"

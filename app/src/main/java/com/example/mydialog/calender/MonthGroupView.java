@@ -139,8 +139,8 @@ class MonthGroupView extends RelativeLayout {
         int heightSize = (int) (lines * mDayItemHeight) + getPaddingTop() + getPaddingBottom();
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        addBackground();
-        addChildView();
+//        addBackground();
+//        addChildView();
     }
 
     /**
@@ -154,6 +154,7 @@ class MonthGroupView extends RelativeLayout {
             View mView = new View(getContext());
             mView.setLayoutParams(new LayoutParams((int) mDayItemWidth, 100));
             addView(mView);
+            mView.setTag(i + "");
             LayoutParams vLp = (LayoutParams) mView.getLayoutParams();
             vLp.leftMargin = (int) (row * mDayItemWidth);
             vLp.topMargin = (int) (line * mDayItemHeight + 16);
@@ -183,13 +184,15 @@ class MonthGroupView extends RelativeLayout {
 
             mothItemView.setDate(i + 1 + "");
             Calendar calendar = Calendar.getInstance();
-            mothItemView.setShowClickView(false);
+
             if (isShowFirstPosition) {
                 if (mYear == calendar.get(Calendar.YEAR) &&
                         mMonth == calendar.get(Calendar.MONTH) &&
                         i == calendar.get(Calendar.DATE) - 1) {
                     mothItemView.setShowClickView(true);
                     mClickPosition = i;
+                } else {
+                    mothItemView.setShowClickView(false);
                 }
             }
             mothItemView.setShowBackground(false);
@@ -208,7 +211,7 @@ class MonthGroupView extends RelativeLayout {
                     if (mClickPosition != finalI) {
                         mClickPosition = finalI;
                         removeAllViews();
-                        requestLayout();
+                        invalidate();
                     }
                 }
             });
@@ -219,19 +222,22 @@ class MonthGroupView extends RelativeLayout {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
+        addBackground();
+        addChildView();
         if (isClick) {
             int childCount = getChildCount();
             for (int i = 0; i < childCount; i++) {
                 View childView = getChildAt(i);
                 if (childView instanceof MothItemView) {
-                    ((MothItemView) childView).setShowClickView(false);
                     if (childView.getTag().equals("MothItemView" + mClickPosition)) {
                         ((MothItemView) childView).setShowClickView(true);
                         isClick = false;
+                    } else {
+                        ((MothItemView) childView).setShowClickView(false);
                     }
                 }
-
             }
+
         }
     }
 

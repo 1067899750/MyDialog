@@ -19,7 +19,7 @@ import com.example.mydialog.R;
 public class MothItemView extends RelativeLayout {
     private Context mContext;
     private boolean isHaveBackground = false;
-    private boolean isClick = false;
+    private boolean isClick;
     private View mBackground;
     private ImageView mImageView;
     private TextView mTextView;
