@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,13 +36,9 @@ public class FinanceCalendarView extends LinearLayout {
     private float mFlipGearWidth;
     private float mFlipGearHeight;
     private float mCornerRadius;
-
-    private ImageView btnPrevMonth;
-    private TextView tvMonth;
-    private ImageView btnNextMonth;
-    private ViewPager vpMonth;
     private MonthAdapter mMonthAdapter;
-    private int mPadding;
+    private CalenderTitleView mCalenderTitleView;
+    private FitHeightViewPager mFitHeightViewPager;
 
     public FinanceCalendarView(Context context) {
         super(context);
@@ -64,121 +61,48 @@ public class FinanceCalendarView extends LinearLayout {
         mBgPaint.setColor(Color.WHITE);
         mBgRectF = new RectF();
 
-        addDayView();
-        addWeekView();
-        addLineView();
-        addMonthViewPager();
-    }
-
-
-    /**
-     * 绘制年份和月份选着
-     */
-    private void addDayView() {
-        int layoutSize = getResources().getDimensionPixelSize(R.dimen.dp_48);
-        mPadding = getResources().getDimensionPixelSize(R.dimen.dp_15);
-        LinearLayout dayLayout = new LinearLayout(getContext());
-        dayLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        dayLayout.setGravity(Gravity.CENTER);
-        dayLayout.setOrientation(HORIZONTAL);
-        addView(dayLayout, LayoutParams.MATCH_PARENT, layoutSize);
-        //左边按钮
-        btnPrevMonth = new ImageView(getContext());
-        btnPrevMonth.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        btnPrevMonth.setImageResource(R.drawable.ic_mall_orange_back);
-        btnPrevMonth.setOnClickListener(new OnClickListener() {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.finnace_calender_view_layout, this, true);
+        mCalenderTitleView = view.findViewById(R.id.title_tv);
+        mFitHeightViewPager = view.findViewById(R.id.vp);
+        mCalenderTitleView.setOnClickListener(new CalenderTitleView.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                int currentItem = vpMonth.getCurrentItem();
+            public void onLeftClick(View view) {
+                int currentItem = mFitHeightViewPager.getCurrentItem();
                 if (currentItem > 0) {
-                    vpMonth.setCurrentItem(currentItem - 1);
+                    mFitHeightViewPager.setCurrentItem(currentItem - 1);
                 }
             }
-        });
-        dayLayout.addView(btnPrevMonth, layoutSize, layoutSize);
 
-        tvMonth = new TextView(getContext());
-        tvMonth.setTextColor(Color.parseColor("#596689"));
-        tvMonth.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.sp_16));
-        tvMonth.setTypeface(Typeface.DEFAULT_BOLD);
-        tvMonth.setGravity(Gravity.CENTER);
-        Calendar calendar = Calendar.getInstance();
-        tvMonth.setText(getContext().getString(R.string.mall_sign_in_month,
-                calendar.get(Calendar.YEAR),
-                String.valueOf(calendar.get(Calendar.MONTH) + 1)));
-        dayLayout.addView(tvMonth, getResources().getDimensionPixelSize(R.dimen.dp_150), LayoutParams.WRAP_CONTENT);
-
-        //右边按钮
-        btnNextMonth = new ImageView(getContext());
-        btnNextMonth.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        btnNextMonth.setImageResource(R.drawable.ic_mall_orange_back);
-        btnNextMonth.setRotation(180);
-        btnNextMonth.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-                int currentItem = vpMonth.getCurrentItem();
-                if (currentItem < mMonthAdapter.getCount() - 1) {
-                    vpMonth.setCurrentItem(currentItem + 1);
-                }
+            public void onRightClick(View view) {
+
             }
         });
-        dayLayout.addView(btnNextMonth, layoutSize, layoutSize);
-    }
-
-    /**
-     * 绘制星期天
-     */
-    private void addWeekView() {
-        WeekView weekView = new WeekView(getContext());
-        addView(weekView, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-    }
-
-    /**
-     * 绘制分割线
-     */
-    private void addLineView() {
-        View line = new View(getContext());
-        line.setBackgroundColor(Color.parseColor("#E6E9F0"));
-        int padding = getResources().getDimensionPixelSize(R.dimen.dp_17);
-        line.setLayoutDirection(padding);
-        addView(line, LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.dp_1));
-    }
-
-    /**
-     * 绘制 day
-     */
-    private void addMonthViewPager() {
-        vpMonth = new FitHeightViewPager(getContext());
-        vpMonth.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        vpMonth.setPadding(getResources().getDimensionPixelSize(R.dimen.dp_12),
-                getResources().getDimensionPixelSize(R.dimen.dp_4),
-                getResources().getDimensionPixelSize(R.dimen.dp_12),
-                getResources().getDimensionPixelSize(R.dimen.dp_26));
-        addView(vpMonth, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
         mMonthAdapter = new MonthAdapter(getContext());
         mMonthAdapter.setOnMonthDayClickListener(new MonthAdapter.OnMonthDayClickListener() {
             @Override
             public void onClickListener(String day) {
-                if (mOnMonthDayClickListener != null){
+                if (mOnMonthDayClickListener != null) {
                     mOnMonthDayClickListener.onClickListener(day);
                 }
             }
         });
-        vpMonth.setAdapter(mMonthAdapter);
-        vpMonth.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        mFitHeightViewPager.setAdapter(mMonthAdapter);
+        mFitHeightViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 Calendar calendar = mMonthAdapter.getItem(position);
-                tvMonth.setText(getContext().getString(R.string.mall_sign_in_month,
+                mCalenderTitleView.setTitle(getContext().getString(R.string.mall_sign_in_month,
                         calendar.get(Calendar.YEAR),
                         String.valueOf(calendar.get(Calendar.MONTH) + 1)));
             }
         });
         //设置当前月份
         Calendar calendar = Calendar.getInstance();
-        vpMonth.setCurrentItem(calendar.get(Calendar.MONTH));
+        mFitHeightViewPager.setCurrentItem(calendar.get(Calendar.MONTH));
     }
+
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -186,7 +110,6 @@ public class FinanceCalendarView extends LinearLayout {
         mFlipGearWidth = MeasureSpec.getSize(widthMeasureSpec);
         mFlipGearHeight = MeasureSpec.getSize(heightMeasureSpec);
         mFlipGearHeight = mFlipGearWidth * 0.9f;
-        setPadding(0,mPadding, 0, 0);
     }
 
     @Override
