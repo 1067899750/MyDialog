@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.SparseBooleanArray;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -33,6 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.zip.Inflater;
 
 /**
  * @author puyantao
@@ -129,27 +131,43 @@ class MonthGroupView extends RelativeLayout {
         int heightSize = (int) (lines * mDayItemHeight) + getPaddingTop() + getPaddingBottom();
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        addDay();
+//        addDay();
+        setChildView();
+    }
+
+    private void setChildView() {
+        removeAllViews();
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.month_view_layout, null);
+        for (int i = 0; i < dayCount; i++) {
+            int row = (i + firstDayOfWeek - 1) % 7;
+            int line = (i + firstDayOfWeek - 1) / 7;
+            view.setLayoutParams(new LayoutParams((int) mDayItemWidth, (int) mDayItemHeight));
+            LayoutParams lp = (LayoutParams) view.getLayoutParams();
+            lp.leftMargin = (int) (row * mDayItemWidth);
+            lp.topMargin = (int) (line * mDayItemHeight);
+            view.setLayoutParams(lp);
+            addView(view);
+        }
     }
 
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        if (isClick) {
-            int childCount = getChildCount();
-            for (int i = 0; i < childCount; i++) {
-                View childView = getChildAt(i);
-                if (childView instanceof ImageView) {
-                    childView.setVisibility(GONE);
-                    if (childView.getTag().equals("iv" + mClickPosition)) {
-                        childView.setVisibility(VISIBLE);
-                        isClick = false;
-                    }
-                }
-
-            }
-        }
+//        if (isClick) {
+//            int childCount = getChildCount();
+//            for (int i = 0; i < childCount; i++) {
+//                View childView = getChildAt(i);
+//                if (childView instanceof ImageView) {
+//                    childView.setVisibility(GONE);
+//                    if (childView.getTag().equals("iv" + mClickPosition)) {
+//                        childView.setVisibility(VISIBLE);
+//                        isClick = false;
+//                    }
+//                }
+//
+//            }
+//        }
     }
 
     /**
