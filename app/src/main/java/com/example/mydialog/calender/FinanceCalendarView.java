@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mydialog.R;
 
@@ -28,6 +29,7 @@ import java.util.List;
  * @date 2020/7/7 15:55
  */
 public class FinanceCalendarView extends LinearLayout {
+    private OnMonthDayClickListener mOnMonthDayClickListener;
     private Paint mBgPaint;
     private RectF mBgRectF;
     private float mFlipGearWidth;
@@ -155,6 +157,14 @@ public class FinanceCalendarView extends LinearLayout {
         addView(vpMonth, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
         mMonthAdapter = new MonthAdapter(getContext());
+        mMonthAdapter.setOnMonthDayClickListener(new MonthAdapter.OnMonthDayClickListener() {
+            @Override
+            public void onClickListener(String day) {
+                if (mOnMonthDayClickListener != null){
+                    mOnMonthDayClickListener.onClickListener(day);
+                }
+            }
+        });
         vpMonth.setAdapter(mMonthAdapter);
         vpMonth.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -198,16 +208,25 @@ public class FinanceCalendarView extends LinearLayout {
         mMonthAdapter.replaceData(startTime, endTime);
     }
 
-    public void addOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
-        vpMonth.addOnPageChangeListener(listener);
-        vpMonth.setCurrentItem(mMonthAdapter.getCount() - 1, false);
+    /**
+     * 日期回调
+     *
+     * @param listener
+     */
+    public void setOnMonthDayClickListener(OnMonthDayClickListener listener) {
+        this.mOnMonthDayClickListener = listener;
     }
 
-    public Calendar getItemMonth(int position) {
-        return mMonthAdapter.getItem(position);
+    /**
+     * 日期监听器
+     */
+    public interface OnMonthDayClickListener {
+        /**
+         * 返回日期
+         *
+         * @param day
+         */
+        void onClickListener(String day);
     }
 
-    public int getCurrentItem() {
-        return vpMonth.getCurrentItem();
-    }
 }

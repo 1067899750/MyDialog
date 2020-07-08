@@ -4,17 +4,22 @@
     android:layout_height="match_parent">
 
     <View
+        android:id="@+id/day_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E6F8FF" />
+        android:background="#E6F8FF"
+        android:layout_marginBottom="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_5"/>
 
     <ImageView
+        android:id="@+id/day_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:src="@drawable/select_day" />
 
     <TextView
+        android:id="@+id/day_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

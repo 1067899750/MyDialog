@@ -112,7 +112,15 @@ class MonthGroupView extends RelativeLayout {
             int endMonth = endCalendar.get(Calendar.MARCH);
             int endDay = endCalendar.get(Calendar.DATE);
             if (mMonth == startMonth && startMonth == endMonth) {
-                for (int i = startDay; i <= endDay; i++) {
+                for (int i = startDay; i < endDay; i++) {
+                    array.add(i);
+                }
+            } else if (startMonth == mMonth) {
+                for (int i = startDay; i <= 32; i++) {
+                    array.add(i);
+                }
+            } else if (endMonth == mMonth) {
+                for (int i = 0; i < endDay; i++) {
                     array.add(i);
                 }
             }
@@ -131,49 +139,14 @@ class MonthGroupView extends RelativeLayout {
         int heightSize = (int) (lines * mDayItemHeight) + getPaddingTop() + getPaddingBottom();
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-//        addDay();
-        setChildView();
-    }
-
-    private void setChildView() {
-        removeAllViews();
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.month_view_layout, null);
-        for (int i = 0; i < dayCount; i++) {
-            int row = (i + firstDayOfWeek - 1) % 7;
-            int line = (i + firstDayOfWeek - 1) / 7;
-            view.setLayoutParams(new LayoutParams((int) mDayItemWidth, (int) mDayItemHeight));
-            LayoutParams lp = (LayoutParams) view.getLayoutParams();
-            lp.leftMargin = (int) (row * mDayItemWidth);
-            lp.topMargin = (int) (line * mDayItemHeight);
-            view.setLayoutParams(lp);
-            addView(view);
-        }
-    }
-
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-//        if (isClick) {
-//            int childCount = getChildCount();
-//            for (int i = 0; i < childCount; i++) {
-//                View childView = getChildAt(i);
-//                if (childView instanceof ImageView) {
-//                    childView.setVisibility(GONE);
-//                    if (childView.getTag().equals("iv" + mClickPosition)) {
-//                        childView.setVisibility(VISIBLE);
-//                        isClick = false;
-//                    }
-//                }
-//
-//            }
-//        }
+        addBackground();
+        addChildView();
     }
 
     /**
-     * 添加日期
+     * 绘制背景
      */
-    private void addDay() {
+    private void addBackground() {
         for (int i = 0; i < dayCount; i++) {
             int row = (i + firstDayOfWeek - 1) % 7;
             int line = (i + firstDayOfWeek - 1) / 7;
@@ -187,52 +160,52 @@ class MonthGroupView extends RelativeLayout {
             mView.setLayoutParams(vLp);
             if (array.contains(i)) {
                 mView.setBackgroundColor(Color.parseColor("#E6F8FF"));
-            } else {
-                mView.setBackgroundColor(Color.parseColor("#00000000"));
             }
-            //绘制选着圆圈
-            ImageView imageView = new ImageView(getContext());
-            imageView.setLayoutParams(new LayoutParams(96, 96));
-            addView(imageView);
-            imageView.setTag("iv" + i);
-            LayoutParams ivLp = (LayoutParams) imageView.getLayoutParams();
-            ivLp.leftMargin = (int) (row * mDayItemWidth + 20);
-            ivLp.topMargin = (int) (line * mDayItemHeight + 20);
-            imageView.setLayoutParams(ivLp);
-            imageView.setVisibility(GONE);
-            imageView.setImageResource(R.drawable.select_day);
+        }
+
+    }
+
+    /**
+     * 添加日期
+     */
+    private void addChildView() {
+        for (int i = 0; i < dayCount; i++) {
+            int row = (i + firstDayOfWeek - 1) % 7;
+            int line = (i + firstDayOfWeek - 1) / 7;
+            MothItemView mothItemView = new MothItemView(getContext());
+            mothItemView.setLayoutParams(new LayoutParams((int) mDayItemWidth, (int) mDayItemHeight));
+            addView(mothItemView);
+            mothItemView.setTag("MothItemView" + i);
+
+            LayoutParams tvLp = (LayoutParams) mothItemView.getLayoutParams();
+            tvLp.leftMargin = (int) (row * mDayItemWidth);
+            tvLp.topMargin = (int) (line * mDayItemHeight);
+
+            mothItemView.setDate(i + 1 + "");
             Calendar calendar = Calendar.getInstance();
+            mothItemView.setShowClickView(false);
             if (isShowFirstPosition) {
                 if (mYear == calendar.get(Calendar.YEAR) &&
                         mMonth == calendar.get(Calendar.MONTH) &&
                         i == calendar.get(Calendar.DATE) - 1) {
-                    imageView.setVisibility(VISIBLE);
+                    mothItemView.setShowClickView(true);
                     mClickPosition = i;
                 }
             }
-            //绘制文字
-            TextView textDay = new TextView(getContext());
-            textDay.setLayoutParams(new LayoutParams((int) mDayItemWidth, (int) mDayItemHeight));
-            addView(textDay);
-            textDay.setText(i + 1 + "");
-            textDay.setTextColor(Color.parseColor("#596689"));
-            textDay.setTextSize(14);
-            textDay.setGravity(Gravity.CENTER);
-            LayoutParams tvLp = (LayoutParams) textDay.getLayoutParams();
-            tvLp.leftMargin = (int) (row * mDayItemWidth);
-            tvLp.topMargin = (int) (line * mDayItemHeight);
-            textDay.setLayoutParams(tvLp);
+            mothItemView.setShowBackground(false);
             final int finalI = i;
-            textDay.setOnClickListener(new OnClickListener() {
+            mothItemView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mOnMonthDayClickListener != null) {
-                        mOnMonthDayClickListener.onClickListener(mYear + "-" + mMonth + "-" + finalI + 1);
+                        int month = mMonth + 1;
+                        int day = finalI + 1;
+                        mOnMonthDayClickListener.onClickListener(mYear + "-" + month + "-" + day);
                     }
                     isClick = true;
                     isShowFirstPosition = false;
                     int count = getChildCount();
-                    if (mClickPosition != finalI){
+                    if (mClickPosition != finalI) {
                         mClickPosition = finalI;
                         removeAllViews();
                         requestLayout();
@@ -240,9 +213,27 @@ class MonthGroupView extends RelativeLayout {
                 }
             });
         }
-
     }
 
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        if (isClick) {
+            int childCount = getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                View childView = getChildAt(i);
+                if (childView instanceof MothItemView) {
+                    ((MothItemView) childView).setShowClickView(false);
+                    if (childView.getTag().equals("MothItemView" + mClickPosition)) {
+                        ((MothItemView) childView).setShowClickView(true);
+                        isClick = false;
+                    }
+                }
+
+            }
+        }
+    }
 
     /**
      * 日期回调
