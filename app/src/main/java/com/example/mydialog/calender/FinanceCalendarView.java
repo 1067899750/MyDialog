@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.example.mydialog.R;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
@@ -29,11 +28,6 @@ import java.util.List;
  * @date 2020/7/7 15:55
  */
 public class FinanceCalendarView extends LinearLayout {
-    /**
-     * 锯齿
-     */
-    private final static int mFlipGearCount = 12;
-
     private Paint mBgPaint;
     private RectF mBgRectF;
     private float mFlipGearWidth;
@@ -45,8 +39,7 @@ public class FinanceCalendarView extends LinearLayout {
     private ImageView btnNextMonth;
     private ViewPager vpMonth;
     private MonthAdapter mMonthAdapter;
-
-    private String[] mMonths;
+    private int mPadding;
 
     public FinanceCalendarView(Context context) {
         super(context);
@@ -65,8 +58,6 @@ public class FinanceCalendarView extends LinearLayout {
 
     private void init() {
         mCornerRadius = getResources().getDimension(R.dimen.dp_7);
-        mMonths = getResources().getStringArray(R.array.mall_sign_in_month);
-
         mBgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mBgPaint.setColor(Color.WHITE);
         mBgRectF = new RectF();
@@ -83,7 +74,9 @@ public class FinanceCalendarView extends LinearLayout {
      */
     private void addDayView() {
         int layoutSize = getResources().getDimensionPixelSize(R.dimen.dp_48);
+        mPadding = getResources().getDimensionPixelSize(R.dimen.dp_15);
         LinearLayout dayLayout = new LinearLayout(getContext());
+        dayLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
         dayLayout.setGravity(Gravity.CENTER);
         dayLayout.setOrientation(HORIZONTAL);
         addView(dayLayout, LayoutParams.MATCH_PARENT, layoutSize);
@@ -146,8 +139,6 @@ public class FinanceCalendarView extends LinearLayout {
         line.setBackgroundColor(Color.parseColor("#E6E9F0"));
         int padding = getResources().getDimensionPixelSize(R.dimen.dp_17);
         line.setLayoutDirection(padding);
-        line.setRight(padding);
-        setPadding(padding, 0, padding, 0);
         addView(line, LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.dp_1));
     }
 
@@ -156,6 +147,7 @@ public class FinanceCalendarView extends LinearLayout {
      */
     private void addMonthViewPager() {
         vpMonth = new FitHeightViewPager(getContext());
+        vpMonth.setBackgroundColor(Color.parseColor("#FFFFFF"));
         vpMonth.setPadding(getResources().getDimensionPixelSize(R.dimen.dp_12),
                 getResources().getDimensionPixelSize(R.dimen.dp_4),
                 getResources().getDimensionPixelSize(R.dimen.dp_12),
@@ -173,41 +165,37 @@ public class FinanceCalendarView extends LinearLayout {
                         String.valueOf(calendar.get(Calendar.MONTH) + 1)));
             }
         });
-        //设置几个月
-        setMonthCount(12);
+        //设置当前月份
+        Calendar calendar = Calendar.getInstance();
+        vpMonth.setCurrentItem(calendar.get(Calendar.MONTH));
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        mFlipGearWidth = MeasureSpec.getSize(widthMeasureSpec);
+        mFlipGearHeight = MeasureSpec.getSize(heightMeasureSpec);
+        mFlipGearHeight = mFlipGearWidth * 0.9f;
+        setPadding(0,mPadding, 0, 0);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         if (changed) {
-            mFlipGearWidth = (r - l - 2 * mCornerRadius) / (float) (mFlipGearCount * 2 + 1);
-            mFlipGearHeight = mFlipGearWidth * 0.9f;
-            setPadding(0, (int) mFlipGearHeight, 0, 0);
             mBgRectF.set(0, mFlipGearHeight, r - l, b - t);
         }
     }
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
-        canvas.save();
-        canvas.translate(mCornerRadius, 0);
-        for (int i = 0; i < mFlipGearCount; i++) {
-            canvas.drawRect(mFlipGearWidth * (1 + 2 * i), 0, mFlipGearWidth * (1 + 2 * i + 1),
-                    mFlipGearHeight + 1, mBgPaint);
-        }
-        canvas.restore();
         canvas.drawRoundRect(mBgRectF, mCornerRadius, mCornerRadius, mBgPaint);
         super.dispatchDraw(canvas);
     }
 
 
-    public void setMonthCount(int count) {
-        mMonthAdapter.replaceCount(count);
-    }
-
-    public void setSignList(List<SignInBean> signList) {
-        mMonthAdapter.replaceData(signList);
+    public void setSignList(String startTime, String endTime) {
+        mMonthAdapter.replaceData(startTime, endTime);
     }
 
     public void addOnPageChangeListener(ViewPager.OnPageChangeListener listener) {

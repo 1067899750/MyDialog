@@ -1,6 +1,7 @@
 package com.example.mydialog.calender;
 
 import android.content.Context;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.util.SparseArray;
 import android.view.View;
@@ -16,7 +17,7 @@ import java.util.List;
  * @description 日期 adapter
  * @date 2020/7/7 16:53
  */
-class MonthAdapter extends PagerAdapter {
+public class MonthAdapter extends PagerAdapter {
 
     private final Context mContext;
     private int mCount;
@@ -24,11 +25,13 @@ class MonthAdapter extends PagerAdapter {
      * 日历数组
      */
     private List<Calendar> mData = new ArrayList<>();
-    private SparseArray<MonthView> views = new SparseArray<>();
-    private List<SignInBean> mDayData = new ArrayList<>();
+    private SparseArray<MonthGroupView> views = new SparseArray<>();
+    private String startTime;
+    private String endTime;
 
     MonthAdapter(Context context) {
         this.mContext = context;
+        setMonth(12);
     }
 
     @Override
@@ -43,9 +46,9 @@ class MonthAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        MonthView view = new MonthView(mContext);
+        MonthGroupView view = new MonthGroupView(mContext);
         Calendar calendar = getItem(position);
-        view.setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), mDayData);
+        view.setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), startTime, endTime);
         views.put(position, view);
         container.addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         return view;
@@ -71,19 +74,24 @@ class MonthAdapter extends PagerAdapter {
      *
      * @param count
      */
-    public void replaceCount(int count) {
+    public void setMonth(int count) {
         mCount = count;
         for (int i = 0; i < mCount; i++) {
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.MONTH, i + count / 2 - mCount);
             mData.add(calendar);
         }
-        notifyDataSetChanged();
     }
 
-    public void replaceData(List<SignInBean> data) {
-        mDayData.clear();
-        mDayData.addAll(data);
+    /**
+     * 设置配置数据
+     *
+     * @param startTime
+     * @param endTime
+     */
+    public void replaceData(String startTime, String endTime) {
+        this.startTime = startTime;
+        this.endTime = endTime;
         notifyDataSetChanged();
     }
 

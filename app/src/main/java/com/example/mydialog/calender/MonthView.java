@@ -3,6 +3,8 @@ package com.example.mydialog.calender;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -11,9 +13,14 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewConfigurationCompat;
 import android.util.AttributeSet;
+import android.util.EventLog;
+import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 
 
 import com.example.mydialog.R;
@@ -32,6 +39,7 @@ import java.util.Locale;
  * @date 2020/7/7 16:06
  */
 class MonthView extends View {
+    private Bitmap mDayBitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.select_day);
     /**
      * 文字
      */
@@ -41,10 +49,22 @@ class MonthView extends View {
 
     private int mYear = 2018;
     private int mMonth = Calendar.JANUARY;
+    /**
+     * 天数
+     */
     private int dayCount;
+    /**
+     *
+     */
     private int firstDayOfWeek;
 
+    /**
+     * 单元格的宽
+     */
     private float mDayItemWidth;
+    /**
+     * 单元格的高
+     */
     private float mDayItemHeight;
     private float mTextY;
     /**
@@ -52,7 +72,9 @@ class MonthView extends View {
      */
     private int mTextSize;
     private int unSignedCellColor;
-    private int unSignedTextColor;
+    /**
+     * 阴影颜色
+     */
     private int signedCellStartColor;
     private int signedCellEndColor;
     private int signedTextColor;
@@ -61,8 +83,20 @@ class MonthView extends View {
     private int mCellHeight;
     private float mCellCornerRadius;
 
+    /**
+     * 手机按下时的屏幕坐标
+     */
+    private float mXDown;
+    private float mYDown;
+
+    private boolean isClick = false;
+    /**
+     * 判定为拖动的最小移动像素数
+     */
+    private int mTouchSlop;
     private boolean isPrevDaySigned = false;
     private SparseBooleanArray array;
+    private OnMonthDayClickListener mOnMonthDayClickListener;
 
     public MonthView(Context context) {
         super(context);
@@ -80,13 +114,16 @@ class MonthView extends View {
     }
 
     private void init() {
+        ViewConfiguration configuration = ViewConfiguration.get(getContext());
+        // 获取TouchSlop值
+        mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(configuration);
         Resources res = getResources();
         mTextSize = res.getDimensionPixelSize(R.dimen.sp_14);
-        unSignedCellColor = res.getColor(R.color.col_text_bg_gray_light);
-        unSignedTextColor = Color.parseColor("#596689");
-        signedCellStartColor = res.getColor(R.color.col_action_end);
-        signedCellEndColor = res.getColor(R.color.col_action_start);
-        signedTextColor = res.getColor(R.color.cFFFFFF);
+        unSignedCellColor = Color.parseColor("#FFFFFF");
+        signedCellStartColor = Color.parseColor("#E6F8FF");
+        signedCellEndColor = Color.parseColor("#E6F8FF");
+        //字体颜色
+        signedTextColor = Color.parseColor("#596689");
 
         mCellWidth = res.getDimensionPixelSize(R.dimen.dp_32);
         mCellHeight = res.getDimensionPixelSize(R.dimen.dp_24);
@@ -110,13 +147,20 @@ class MonthView extends View {
         this.mMonth = month;
         dayCount = DateUtil.getDayCountOfMonth(mYear, mMonth);
         firstDayOfWeek = DateUtil.getDayOfWeek(mYear, mMonth);
+
+        //构建范围
         array = new SparseBooleanArray();
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
+
+
         for (SignInBean bean : mData) {
             try {
                 Date date = format.parse(bean.getCreateTime());
                 Calendar calendar = Calendar.getInstance();
+                int m = calendar.get(Calendar.MONTH);
+                int d = calendar.get(Calendar.DATE);
                 calendar.setTime(date);
+
                 array.put(calendar.get(Calendar.DAY_OF_MONTH) - 1, true);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -135,88 +179,101 @@ class MonthView extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mXDown = event.getX();
+                mYDown = event.getY();
+                isClick = true;
+                invalidate();
+                break;
+        }
+        return super.onTouchEvent(event);
+    }
+
     @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
+        canvas.drawColor(Color.parseColor("#FFFFFF"));
         canvas.save();
         canvas.translate(getPaddingLeft(), getPaddingTop());
 
+        //绘制阴影
         for (int i = 0; i < dayCount; i++) {
             int row = (i + firstDayOfWeek - 1) % 7;
             int line = (i + firstDayOfWeek - 1) / 7;
-
-            long timeStamp = getTimeStamp(i);
-            if (timeStamp <= 0) {
-                boolean isSigned = array.get(i);
-                if (isSigned) {
-                    if (!isPrevDaySigned) {
-                        mCellRectF.setEmpty();
-                    }
-                    mCellRectF.union((row + 0.5f) * mDayItemWidth - mCellWidth / 2f,
-                            (line + 0.5f) * mDayItemHeight - mCellHeight / 2f,
-                            (row + 0.5f) * mDayItemWidth + mCellWidth / 2f,
-                            (line + 0.5f) * mDayItemHeight + mCellHeight / 2f);
-                } else {
-                    if (isPrevDaySigned) {
-                        drawSignedCell(canvas);
-                    }
-                    if (timeStamp != 0) {
-                        mCellRectF.set((row + 0.5f) * mDayItemWidth - mCellWidth / 2f,
-                                (line + 0.5f) * mDayItemHeight - mCellHeight / 2f,
-                                (row + 0.5f) * mDayItemWidth + mCellWidth / 2f,
-                                (line + 0.5f) * mDayItemHeight + mCellHeight / 2f);
-                        mCellPaint.setShader(null);
-                        canvas.drawRoundRect(mCellRectF, 15, 15, mCellPaint);
-                    }
+            boolean isSigned = array.get(i);
+            if (isSigned) {
+                if (!isPrevDaySigned) {
                     mCellRectF.setEmpty();
                 }
-                isPrevDaySigned = isSigned;
-                if (row == 6 || i == dayCount - 1) {
-                    drawSignedCell(canvas);
-                    isPrevDaySigned = false;
-                }
+                mCellRectF.union((row + 0.5f) * mDayItemWidth - mCellWidth / 2f,
+                        (line + 0.5f) * mDayItemHeight - mCellHeight / 2f,
+                        (row + 0.5f) * mDayItemWidth + mCellWidth / 2f,
+                        (line + 0.5f) * mDayItemHeight + mCellHeight / 2f);
             } else {
-                if (!mCellRectF.isEmpty()) {
+                if (isPrevDaySigned) {
                     drawSignedCell(canvas);
                 }
+                mCellRectF.set((row + 0.5f) * mDayItemWidth - mCellWidth / 2f,
+                        (line + 0.5f) * mDayItemHeight - mCellHeight / 2f,
+                        (row + 0.5f) * mDayItemWidth + mCellWidth / 2f,
+                        (line + 0.5f) * mDayItemHeight + mCellHeight / 2f);
+                mCellPaint.setShader(null);
+                canvas.drawRoundRect(mCellRectF, 15, 15, mCellPaint);
+                mCellRectF.setEmpty();
+            }
+            isPrevDaySigned = isSigned;
+            if (row == 6 || i == dayCount - 1) {
+                drawSignedCell(canvas);
+                isPrevDaySigned = false;
             }
         }
 
+
+        //绘制日期
         for (int i = 0; i < dayCount; i++) {
             int row = (i + firstDayOfWeek - 1) % 7;
             int line = (i + firstDayOfWeek - 1) / 7;
-
-            long timeStamp = getTimeStamp(i);
-            if (timeStamp <= 0) {
-                boolean isSigned = array.get(i);
-                if (isSigned) {
-                    mTextPaint.setColor(signedTextColor);
-                } else {
-                    mTextPaint.setColor(unSignedTextColor);
+            mTextPaint.setColor(signedTextColor);
+            //绘制选着圆圈
+            if (!isClick) {
+                Calendar calendar = Calendar.getInstance();
+                if (mYear == calendar.get(Calendar.YEAR) &&
+                        mMonth == calendar.get(Calendar.MONTH) &&
+                        i == calendar.get(Calendar.DATE) - 1) {
+                    canvas.drawBitmap(mDayBitmap,
+                            row * mDayItemWidth + mDayItemWidth / 2 - mDayBitmap.getWidth() / 2,
+                            line * mDayItemHeight + mDayItemHeight / 2 - mDayBitmap.getHeight() / 2, null);
+                    if (mOnMonthDayClickListener != null) {
+                        mOnMonthDayClickListener.onClickListener(mYear + "-" + mMonth + "-" + i + 1);
+                    }
                 }
             } else {
-                mTextPaint.setColor(unSignedTextColor);
+                if (mXDown - mDayItemWidth < row * mDayItemWidth &&
+                        mXDown - mDayItemWidth > row * mDayItemWidth - mDayItemWidth / 2 &&
+                        mYDown - mDayItemHeight < line * mDayItemHeight &&
+                        mYDown - mDayItemHeight > line * mDayItemHeight - mDayItemHeight / 2) {
+                    canvas.drawBitmap(mDayBitmap,
+                            row * mDayItemWidth + mDayItemWidth / 2 - mDayBitmap.getWidth() / 2,
+                            line * mDayItemHeight + mDayItemHeight / 2 - mDayBitmap.getHeight() / 2, null);
+                    if (mOnMonthDayClickListener != null) {
+                        mOnMonthDayClickListener.onClickListener(mYear + "-" + mMonth + "-" + i + 1);
+                    }
+                }
             }
+            //绘制文字
             canvas.drawText(String.valueOf(i + 1),
                     row * mDayItemWidth + mDayItemWidth / 2,
                     line * mDayItemHeight + mDayItemHeight / 2 + mTextY,
                     mTextPaint);
         }
+
+
         canvas.restore();
     }
 
-    /**
-     * @param dayOfMonth start with 0
-     */
-    private long getTimeStamp(int dayOfMonth) {
-        Calendar calendar = Calendar.getInstance();
-        long today = calendar.getTimeInMillis();
-        calendar.set(Calendar.YEAR, mYear);
-        calendar.set(Calendar.MONTH, mMonth);
-        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth + 1);
-        long future = calendar.getTimeInMillis();
-        return future - today;
-    }
 
     private void drawSignedCell(Canvas canvas) {
         mCellPaint.setShader(new LinearGradient(mCellRectF.left, 0,
@@ -224,4 +281,45 @@ class MonthView extends View {
         canvas.drawRoundRect(mCellRectF, mCellCornerRadius, mCellCornerRadius, mCellPaint);
         mCellRectF.setEmpty();
     }
+
+
+    /**
+     * 日期回调
+     *
+     * @param listener
+     */
+    public void setOnMonthDayClickListener(OnMonthDayClickListener listener) {
+        this.mOnMonthDayClickListener = listener;
+    }
+
+    /**
+     * 日期监听器
+     */
+    public interface OnMonthDayClickListener {
+        /**
+         * 返回日期
+         *
+         * @param day
+         */
+        void onClickListener(String day);
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
