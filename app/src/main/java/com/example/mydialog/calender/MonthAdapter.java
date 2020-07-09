@@ -58,9 +58,6 @@ public class MonthAdapter extends PagerAdapter {
         return POSITION_NONE;
     }
 
-    public View getViewByPosition(int position) {
-        return mMonthGroupViews.get(position);
-    }
 
     /**
      * 设置配置数据

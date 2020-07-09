@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.mydialog.R;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class CalenderActivity extends AppCompatActivity {
     private FinanceCalendarView mFinanceCalendarView;
-    private List<SignInBean> signList = new ArrayList<>();
+    private CalenderDialog mCalenderDialog;
 
     public static void startCalenderActivity(Activity activity) {
         Intent intent = new Intent(activity, CalenderActivity.class);
@@ -31,12 +32,26 @@ public class CalenderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calender);
         mFinanceCalendarView = findViewById(R.id.v_sign_in);
 
-        SignInBean signInBean1 = new SignInBean("20200701152252");
-        signList.add(signInBean1);
-        SignInBean signInBean3 = new SignInBean("20200709152252");
-        signList.add(signInBean3);
         mFinanceCalendarView.setSignList("20200702152252", "20200709152252");
         mFinanceCalendarView.setOnMonthDayClickListener(new FinanceCalendarView.OnMonthDayClickListener() {
+            @Override
+            public void onClickListener(String day) {
+                Toast.makeText(CalenderActivity.this, day, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        initCalenderDialog();
+        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCalenderDialog.show();
+            }
+        });
+    }
+
+    private void initCalenderDialog() {
+        mCalenderDialog = new CalenderDialog(this, "20200702152252", "20200709152252");
+        mCalenderDialog.setOnMonthDayClickListener(new CalenderDialog.OnMonthDayClickListener() {
             @Override
             public void onClickListener(String day) {
                 Toast.makeText(CalenderActivity.this, day, Toast.LENGTH_LONG).show();

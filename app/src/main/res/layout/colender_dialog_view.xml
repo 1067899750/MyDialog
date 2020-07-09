@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="450dp"
+    android:background="#00000000">
+
+
+    <com.example.mydialog.calender.FinanceCalendarView
+        android:id="@+id/v_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_above="@id/calender_save"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:orientation="vertical" />
+
+
+    <Button
+        android:id="@+id/calender_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_marginLeft="@dimen/dp_23"
+        android:layout_marginRight="@dimen/dp_23"
+        android:layout_marginBottom="@dimen/dp_23"
+        android:background="@drawable/shape_finance_save_bg"
+        android:layout_alignParentBottom="true"
+        android:text="保存"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_14" />
+
+</RelativeLayout>
+
+
+
+
+
+
+
+

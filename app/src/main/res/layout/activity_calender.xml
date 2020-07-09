@@ -14,8 +14,16 @@
         android:layout_marginLeft="@dimen/dp_5"
         android:layout_marginRight="@dimen/dp_5"
         android:layout_marginTop="@dimen/dp_32"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        android:visibility="gone"/>
 
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_50"
+        android:text="Dialog"
+        android:background="@color/btn_color_aciton_end"/>
 
 </RelativeLayout>
 

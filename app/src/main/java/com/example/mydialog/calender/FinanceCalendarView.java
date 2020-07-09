@@ -32,9 +32,6 @@ import java.util.List;
  */
 public class FinanceCalendarView extends LinearLayout {
     private OnMonthDayClickListener mOnMonthDayClickListener;
-    private Paint mBgPaint;
-    private RectF mBgRectF;
-    private float mCornerRadius;
     private MonthAdapter mMonthAdapter;
     private CalenderTitleView mCalenderTitleView;
     private ViewPager mFitHeightViewPager;
@@ -60,11 +57,6 @@ public class FinanceCalendarView extends LinearLayout {
     }
 
     private void init() {
-        mCornerRadius = getResources().getDimension(R.dimen.dp_7);
-        mBgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mBgPaint.setColor(Color.WHITE);
-        mBgRectF = new RectF();
-
         View view = LayoutInflater.from(getContext()).inflate(R.layout.finnace_calender_view_layout, this, true);
         mCalenderTitleView = view.findViewById(R.id.title_tv);
         mFitHeightViewPager = view.findViewById(R.id.vp);
@@ -98,12 +90,6 @@ public class FinanceCalendarView extends LinearLayout {
         });
     }
 
-
-    @Override
-    protected void dispatchDraw(Canvas canvas) {
-        canvas.drawRoundRect(mBgRectF, mCornerRadius, mCornerRadius, mBgPaint);
-        super.dispatchDraw(canvas);
-    }
 
     /**
      * 设置数据
