@@ -18,7 +18,7 @@ import com.example.mydialog.R;
  * @description 星期天
  * @date 2020/7/7 15:59
  */
-class WeekView extends View {
+public class WeekView extends View {
 
     private Paint mTextPaint;
     private float mTextY;

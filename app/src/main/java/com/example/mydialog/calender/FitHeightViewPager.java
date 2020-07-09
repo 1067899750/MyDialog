@@ -10,14 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-
 /**
- *
- * @description
  * @author puyantao
+ * @description
  * @date 2020/7/7 16:51
  */
-class FitHeightViewPager extends ViewPager {
+public class FitHeightViewPager extends ViewPager {
 
     private SparseIntArray heightArray = new SparseIntArray();
 

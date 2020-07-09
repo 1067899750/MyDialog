@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.mydialog.R;
 
@@ -35,6 +36,12 @@ public class CalenderActivity extends AppCompatActivity {
         SignInBean signInBean3 = new SignInBean("20200709152252");
         signList.add(signInBean3);
         mFinanceCalendarView.setSignList("20200701152252", "20200709152252");
+        mFinanceCalendarView.setOnMonthDayClickListener(new FinanceCalendarView.OnMonthDayClickListener() {
+            @Override
+            public void onClickListener(String day) {
+                Toast.makeText(CalenderActivity.this, day, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }

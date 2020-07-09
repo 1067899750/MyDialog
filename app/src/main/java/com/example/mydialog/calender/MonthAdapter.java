@@ -18,7 +18,7 @@ import java.util.List;
  * @date 2020/7/7 16:53
  */
 public class MonthAdapter extends PagerAdapter {
-
+    private OnMonthDayClickListener mOnMonthDayClickListener;
     private final Context mContext;
     private int mCount;
     /**
@@ -47,6 +47,14 @@ public class MonthAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         MonthGroupView view = new MonthGroupView(mContext);
+        view.setOnMonthDayClickListener(new MonthGroupView.OnMonthDayClickListener() {
+            @Override
+            public void onClickListener(String day) {
+                if (mOnMonthDayClickListener != null){
+                    mOnMonthDayClickListener.onClickListener(day);
+                }
+            }
+        });
         Calendar calendar = getItem(position);
         view.setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), startTime, endTime);
         views.put(position, view);
@@ -98,6 +106,30 @@ public class MonthAdapter extends PagerAdapter {
     public Calendar getItem(int position) {
         return mData.get(position);
     }
+
+
+    /**
+     * 日期回调
+     *
+     * @param listener
+     */
+    public void setOnMonthDayClickListener(OnMonthDayClickListener listener) {
+        this.mOnMonthDayClickListener = listener;
+    }
+
+    /**
+     * 日期监听器
+     */
+    public interface OnMonthDayClickListener {
+        /**
+         * 返回日期
+         *
+         * @param day
+         */
+        void onClickListener(String day);
+    }
+
+
 }
 
 
