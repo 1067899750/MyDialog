@@ -329,7 +329,6 @@ public class DateUtil {
         return calendar.get(Calendar.DAY_OF_WEEK);
     }
 
-
     /**
      * 获得周五日期
      * <p/>
