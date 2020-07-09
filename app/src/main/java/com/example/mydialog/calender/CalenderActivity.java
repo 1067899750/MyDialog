@@ -32,7 +32,7 @@ public class CalenderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calender);
         mFinanceCalendarView = findViewById(R.id.v_sign_in);
 
-        mFinanceCalendarView.setSignList("20200702152252", "20200709152252");
+        mFinanceCalendarView.setSignList("20200709152252", "20200720152252");
         mFinanceCalendarView.setOnMonthDayClickListener(new FinanceCalendarView.OnMonthDayClickListener() {
             @Override
             public void onClickListener(String day) {
@@ -50,7 +50,7 @@ public class CalenderActivity extends AppCompatActivity {
     }
 
     private void initCalenderDialog() {
-        mCalenderDialog = new CalenderDialog(this, "20200702152252", "20200709152252");
+        mCalenderDialog = new CalenderDialog(this, R.style.ActionDialogStyle, "20200701152252", "20200720152252");
         mCalenderDialog.setOnMonthDayClickListener(new CalenderDialog.OnMonthDayClickListener() {
             @Override
             public void onClickListener(String day) {

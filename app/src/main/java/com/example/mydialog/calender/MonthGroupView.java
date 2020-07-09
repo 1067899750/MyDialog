@@ -142,16 +142,20 @@ class MonthGroupView extends RelativeLayout {
                 vLp.leftMargin = (int) (row * mDayItemWidth);
                 vLp.topMargin = (int) (line * mDayItemHeight + 16);
                 mView.setLayoutParams(vLp);
-                if (array.get(0) == i) {
-                    mView.setBackground(getResources().getDrawable(R.drawable.shape_month_left_view));
-                } else if (array.get(array.size() - 1) == i) {
-                    mView.setBackground(getResources().getDrawable(R.drawable.shape_month_right_view));
-                } else if (row == 0) {
-                    mView.setBackground(getResources().getDrawable(R.drawable.shape_month_left_view));
-                } else if (row == 6) {
-                    mView.setBackground(getResources().getDrawable(R.drawable.shape_month_right_view));
+                if (array.size() == 1) {
+                    mView.setBackground(getResources().getDrawable(R.drawable.shape_month_view));
                 } else {
-                    mView.setBackgroundColor(Color.parseColor("#E6F8FF"));
+                    if (array.get(0) == i) {
+                        mView.setBackground(getResources().getDrawable(R.drawable.shape_month_left_view));
+                    } else if (array.get(array.size() - 1) == i) {
+                        mView.setBackground(getResources().getDrawable(R.drawable.shape_month_right_view));
+                    } else if (row == 0) {
+                        mView.setBackground(getResources().getDrawable(R.drawable.shape_month_left_view));
+                    } else if (row == 6) {
+                        mView.setBackground(getResources().getDrawable(R.drawable.shape_month_right_view));
+                    } else {
+                        mView.setBackgroundColor(Color.parseColor("#E6F8FF"));
+                    }
                 }
             }
         }

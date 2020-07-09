@@ -12,7 +12,9 @@ import android.widget.Button;
 
 import com.example.mydialog.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author puyantao
@@ -28,10 +30,11 @@ public class CalenderDialog extends Dialog {
     private String startTime;
     private String endTime;
 
-    public CalenderDialog(@NonNull Context context, String startTime, String endTime) {
-        super(context);
+
+    public CalenderDialog(@NonNull Context context, int themeResId, String startTime, String endTime) {
+        super(context, themeResId);
         this.mContext = context;
-        this.startTime = startTime;
+        this.startTime = getTime();
         this.endTime = endTime;
     }
 
@@ -47,7 +50,9 @@ public class CalenderDialog extends Dialog {
         window.setGravity(Gravity.BOTTOM);
         WindowManager.LayoutParams params = window.getAttributes();
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(params);
+
 
         /**
          * 设置弹出动画
@@ -102,6 +107,18 @@ public class CalenderDialog extends Dialog {
          * @param day
          */
         void onClickListener(String day);
+    }
+
+    /**
+     * 获取当前时间
+     *
+     * @return
+     */
+    public static String getTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date(System.currentTimeMillis());
+        String time = sdf.format(date);
+        return time;
     }
 
 
