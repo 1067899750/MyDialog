@@ -50,7 +50,7 @@ public class CalenderTitleView extends LinearLayout {
         //左边按钮
         btnPrevMonth = new ImageView(getContext());
         btnPrevMonth.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        btnPrevMonth.setImageResource(R.drawable.ic_mall_orange_back);
+        btnPrevMonth.setImageResource(R.drawable.ic_black_view_44dp);
         btnPrevMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +75,7 @@ public class CalenderTitleView extends LinearLayout {
         //右边按钮
         btnNextMonth = new ImageView(getContext());
         btnNextMonth.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        btnNextMonth.setImageResource(R.drawable.ic_mall_orange_back);
+        btnNextMonth.setImageResource(R.drawable.ic_black_view_44dp);
         btnNextMonth.setRotation(180);
         btnNextMonth.setOnClickListener(new View.OnClickListener() {
             @Override

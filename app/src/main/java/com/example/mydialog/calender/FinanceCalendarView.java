@@ -1,28 +1,16 @@
 package com.example.mydialog.calender;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mydialog.R;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 
 /**
@@ -32,14 +20,9 @@ import java.util.List;
  */
 public class FinanceCalendarView extends LinearLayout {
     private OnMonthDayClickListener mOnMonthDayClickListener;
-    private MonthAdapter mMonthAdapter;
+    private FinanceMonthAdapter mMonthAdapter;
     private CalenderTitleView mCalenderTitleView;
     private ViewPager mFitHeightViewPager;
-    /**
-     * 日历数组
-     */
-    private List<Calendar> mData = new ArrayList<>();
-    private List<MonthGroupView> mMonthGroupViews = new ArrayList<>();
 
     public FinanceCalendarView(Context context) {
         super(context);
@@ -78,11 +61,20 @@ public class FinanceCalendarView extends LinearLayout {
             }
         });
 
-        mMonthAdapter = new MonthAdapter(getContext(), mMonthGroupViews);
+        mMonthAdapter = new FinanceMonthAdapter(getContext());
+        mMonthAdapter.setOnMonthDayClickListener(new FinanceMonthAdapter.OnMonthDayClickListener() {
+            @Override
+            public void onClickListener(String day) {
+                if (mOnMonthDayClickListener != null){
+                    mOnMonthDayClickListener.onClickListener(day);
+                }
+            }
+        });
+        mFitHeightViewPager.setAdapter(mMonthAdapter);
         mFitHeightViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                Calendar calendar = mData.get(position);
+                Calendar calendar = mMonthAdapter.getItem(position);
                 mCalenderTitleView.setTitle(getContext().getString(R.string.mall_sign_in_month,
                         calendar.get(Calendar.YEAR),
                         String.valueOf(calendar.get(Calendar.MONTH) + 1)));
@@ -97,40 +89,8 @@ public class FinanceCalendarView extends LinearLayout {
      * @param endTime
      */
     public void setSignList(String startTime, String endTime) {
-        setMonth(6);
-        for (int i = 0; i < mData.size(); i++) {
-            MonthGroupView view = new MonthGroupView(getContext());
-            view.setOnMonthDayClickListener(new MonthGroupView.OnMonthDayClickListener() {
-                @Override
-                public void onClickListener(String day) {
-                    if (mOnMonthDayClickListener != null) {
-                        mOnMonthDayClickListener.onClickListener(day);
-                    }
-                }
-            });
-            Calendar calendar = getItem(i);
-            view.setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), startTime, endTime);
-            mMonthGroupViews.add(view);
-        }
-        mFitHeightViewPager.setAdapter(mMonthAdapter);
-    }
+        mMonthAdapter.replaceData(startTime, endTime);
 
-    /**
-     * 设置月份
-     *
-     * @param count
-     */
-    public void setMonth(int count) {
-        for (int i = 0; i < count; i++) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.MONTH, i);
-            mData.add(calendar);
-        }
-    }
-
-
-    public Calendar getItem(int position) {
-        return mData.get(position);
     }
 
 
