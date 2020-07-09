@@ -18,7 +18,7 @@ import com.example.mydialog.R;
  * @description 星期天
  * @date 2020/7/7 15:59
  */
-public class WeekView extends View {
+public class WeekMonthView extends View {
 
     private Paint mTextPaint;
     private float mTextY;
@@ -37,17 +37,17 @@ public class WeekView extends View {
      */
     private String[] mWeeks;
 
-    public WeekView(Context context) {
+    public WeekMonthView(Context context) {
         super(context);
         init();
     }
 
-    public WeekView(Context context, @Nullable AttributeSet attrs) {
+    public WeekMonthView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public WeekView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public WeekMonthView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
