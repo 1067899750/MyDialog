@@ -1,30 +1,13 @@
 package com.example.mydialog.calender;
 
-import android.annotation.SuppressLint;
+
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.LinearGradient;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.Shader;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.SparseBooleanArray;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.example.mydialog.R;
-import com.example.mydialog.calender.SignInBean;
-import com.example.mydialog.groupdialog.view.BaseSelectButton;
 import com.example.mydialog.spiner.DateUtil;
 
 import java.text.ParseException;
@@ -34,7 +17,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.zip.Inflater;
 
 /**
  * @author puyantao
@@ -210,7 +192,13 @@ class MonthGroupView extends RelativeLayout {
                     int count = getChildCount();
                     if (mClickPosition != finalI) {
                         mClickPosition = finalI;
-                        removeAllViews();
+                        int childCount = getChildCount();
+                        for (int i = 0; i < childCount; i++) {
+                            View childView = getChildAt(i);
+                            if (childView instanceof MothItemView) {
+                                removeView(childView);
+                            }
+                        }
                         invalidate();
                     }
                 }
@@ -222,7 +210,9 @@ class MonthGroupView extends RelativeLayout {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        addBackground();
+        if (isShowFirstPosition) {
+            addBackground();
+        }
         addChildView();
         if (isClick) {
             int childCount = getChildCount();

@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.mydialog.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -33,12 +34,15 @@ public class FinanceCalendarView extends LinearLayout {
     private OnMonthDayClickListener mOnMonthDayClickListener;
     private Paint mBgPaint;
     private RectF mBgRectF;
-    private float mFlipGearWidth;
-    private float mFlipGearHeight;
     private float mCornerRadius;
     private MonthAdapter mMonthAdapter;
     private CalenderTitleView mCalenderTitleView;
     private ViewPager mFitHeightViewPager;
+    /**
+     * 日历数组
+     */
+    private List<Calendar> mData = new ArrayList<>();
+    private List<MonthGroupView> mMonthGroupViews = new ArrayList<>();
 
     public FinanceCalendarView(Context context) {
         super(context);
@@ -82,46 +86,18 @@ public class FinanceCalendarView extends LinearLayout {
             }
         });
 
-        mMonthAdapter = new MonthAdapter(getContext());
-        mMonthAdapter.setOnMonthDayClickListener(new MonthAdapter.OnMonthDayClickListener() {
-            @Override
-            public void onClickListener(String day) {
-                if (mOnMonthDayClickListener != null) {
-                    mOnMonthDayClickListener.onClickListener(day);
-                }
-            }
-        });
-        mFitHeightViewPager.setAdapter(mMonthAdapter);
+        mMonthAdapter = new MonthAdapter(getContext(), mMonthGroupViews);
         mFitHeightViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                Calendar calendar = mMonthAdapter.getItem(position);
+                Calendar calendar = mData.get(position);
                 mCalenderTitleView.setTitle(getContext().getString(R.string.mall_sign_in_month,
                         calendar.get(Calendar.YEAR),
                         String.valueOf(calendar.get(Calendar.MONTH) + 1)));
             }
         });
-        //设置当前月份
-        Calendar calendar = Calendar.getInstance();
-        mFitHeightViewPager.setCurrentItem(calendar.get(Calendar.MONTH));
     }
 
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        mFlipGearWidth = MeasureSpec.getSize(widthMeasureSpec);
-        mFlipGearHeight = MeasureSpec.getSize(heightMeasureSpec);
-        mFlipGearHeight = mFlipGearWidth * 0.9f;
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        super.onLayout(changed, l, t, r, b);
-        if (changed) {
-            mBgRectF.set(0, mFlipGearHeight, r - l, b - t);
-        }
-    }
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
@@ -129,10 +105,48 @@ public class FinanceCalendarView extends LinearLayout {
         super.dispatchDraw(canvas);
     }
 
-
+    /**
+     * 设置数据
+     * @param startTime
+     * @param endTime
+     */
     public void setSignList(String startTime, String endTime) {
-        mMonthAdapter.replaceData(startTime, endTime);
+        setMonth(6);
+        for (int i = 0; i < mData.size(); i++) {
+            MonthGroupView view = new MonthGroupView(getContext());
+            view.setOnMonthDayClickListener(new MonthGroupView.OnMonthDayClickListener() {
+                @Override
+                public void onClickListener(String day) {
+                    if (mOnMonthDayClickListener != null) {
+                        mOnMonthDayClickListener.onClickListener(day);
+                    }
+                }
+            });
+            Calendar calendar = getItem(i);
+            view.setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), startTime, endTime);
+            mMonthGroupViews.add(view);
+        }
+        mFitHeightViewPager.setAdapter(mMonthAdapter);
     }
+
+    /**
+     * 设置月份
+     *
+     * @param count
+     */
+    public void setMonth(int count) {
+        for (int i = 0; i < count; i++) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.MONTH, i);
+            mData.add(calendar);
+        }
+    }
+
+
+    public Calendar getItem(int position) {
+        return mData.get(position);
+    }
+
 
     /**
      * 日期回调
