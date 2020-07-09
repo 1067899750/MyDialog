@@ -16,6 +16,11 @@ import java.util.List;
 public class MonthAdapter extends PagerAdapter {
     private final Context mContext;
     private List<MonthGroupView> mMonthGroupViews;
+    private MonthGroupView resetView;
+    /**
+     * 第一次进入
+     */
+    private boolean isFirst = true;
 
     MonthAdapter(Context context, List<MonthGroupView> views) {
         this.mContext = context;
@@ -34,7 +39,11 @@ public class MonthAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+        if (isFirst) {
+            isFirst = false;
+        }
         MonthGroupView monthGroupView = mMonthGroupViews.get(position);
+        resetView = monthGroupView;
         container.addView(monthGroupView);
         return monthGroupView;
     }

@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.example.mydialog.R;
 import com.example.mydialog.spiner.DateUtil;
 
 import java.text.ParseException;
@@ -49,6 +50,7 @@ class MonthGroupView extends RelativeLayout {
     private int mClickPosition;
     private boolean isClick = false;
     private boolean isShowFirstPosition = true;
+    private boolean resetView = false;
 
     private List<Integer> array;
     private OnMonthDayClickListener mOnMonthDayClickListener;
@@ -86,7 +88,7 @@ class MonthGroupView extends RelativeLayout {
             Calendar startCalendar = Calendar.getInstance();
             startCalendar.setTime(startDate);
             int startMonth = startCalendar.get(Calendar.MARCH);
-            int startDay = startCalendar.get(Calendar.DATE);
+            int startDay = startCalendar.get(Calendar.DATE) - 1;
 
             Date endDate = format.parse(endTime);
             Calendar endCalendar = Calendar.getInstance();
@@ -114,15 +116,14 @@ class MonthGroupView extends RelativeLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         mDayItemWidth = (widthSize - getPaddingLeft() - getPaddingRight()) / 7f;
         mDayItemHeight = mDayItemWidth * 0.9f;
-        double lines = Math.ceil((firstDayOfWeek - 1 + dayCount) / 7f);
-        int heightSize = (int) (lines * mDayItemHeight) + getPaddingTop() + getPaddingBottom();
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.EXACTLY);
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-//        addBackground();
-//        addChildView();
+        if (isShowFirstPosition) {
+            addBackground();
+        }
+        addChildView();
     }
 
     /**
@@ -132,20 +133,28 @@ class MonthGroupView extends RelativeLayout {
         for (int i = 0; i < dayCount; i++) {
             int row = (i + firstDayOfWeek - 1) % 7;
             int line = (i + firstDayOfWeek - 1) / 7;
-            //绘制背景
-            View mView = new View(getContext());
-            mView.setLayoutParams(new LayoutParams((int) mDayItemWidth, 100));
-            addView(mView);
-            mView.setTag(i + "");
-            LayoutParams vLp = (LayoutParams) mView.getLayoutParams();
-            vLp.leftMargin = (int) (row * mDayItemWidth);
-            vLp.topMargin = (int) (line * mDayItemHeight + 16);
-            mView.setLayoutParams(vLp);
             if (array.contains(i)) {
-                mView.setBackgroundColor(Color.parseColor("#E6F8FF"));
+                //绘制背景
+                View mView = new View(getContext());
+                mView.setLayoutParams(new LayoutParams((int) mDayItemWidth, 100));
+                addView(mView);
+                LayoutParams vLp = (LayoutParams) mView.getLayoutParams();
+                vLp.leftMargin = (int) (row * mDayItemWidth);
+                vLp.topMargin = (int) (line * mDayItemHeight + 16);
+                mView.setLayoutParams(vLp);
+                if (array.get(0) == i) {
+                    mView.setBackground(getResources().getDrawable(R.drawable.shape_month_left_view));
+                } else if (array.get(array.size() - 1) == i) {
+                    mView.setBackground(getResources().getDrawable(R.drawable.shape_month_right_view));
+                } else if (row == 0) {
+                    mView.setBackground(getResources().getDrawable(R.drawable.shape_month_left_view));
+                } else if (row == 6) {
+                    mView.setBackground(getResources().getDrawable(R.drawable.shape_month_right_view));
+                } else {
+                    mView.setBackgroundColor(Color.parseColor("#E6F8FF"));
+                }
             }
         }
-
     }
 
     /**
@@ -210,10 +219,16 @@ class MonthGroupView extends RelativeLayout {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        if (isShowFirstPosition) {
-            addBackground();
+        if (resetView) {
+            resetView = false;
+            int childCount = getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                View childView = getChildAt(i);
+                if (childView instanceof MothItemView) {
+                    ((MothItemView) childView).setShowClickView(false);
+                }
+            }
         }
-        addChildView();
         if (isClick) {
             int childCount = getChildCount();
             for (int i = 0; i < childCount; i++) {
@@ -229,6 +244,14 @@ class MonthGroupView extends RelativeLayout {
             }
 
         }
+    }
+
+    /**
+     * 重置试图
+     */
+    public void resetClickView() {
+        resetView = true;
+        requestLayout();
     }
 
     /**
