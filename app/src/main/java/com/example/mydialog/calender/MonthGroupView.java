@@ -109,7 +109,7 @@ class MonthGroupView extends RelativeLayout {
                 for (int i = 0; i < endDay; i++) {
                     array.add(i);
                 }
-            } else if (mMonth > startMonth && mMonth < endDay) {
+            } else if (mMonth > startMonth && mMonth < endMonth) {
                 for (int i = 0; i <= 32; i++) {
                     array.add(i);
                 }
