@@ -34,7 +34,7 @@ public class CalenderDialog extends Dialog {
     public CalenderDialog(@NonNull Context context, int themeResId, String startTime, String endTime) {
         super(context, themeResId);
         this.mContext = context;
-        this.startTime = getTime();
+        this.startTime = startTime;
         this.endTime = endTime;
     }
 

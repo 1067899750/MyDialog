@@ -50,7 +50,7 @@ public class CalenderActivity extends AppCompatActivity {
     }
 
     private void initCalenderDialog() {
-        mCalenderDialog = new CalenderDialog(this, R.style.ActionDialogStyle, "20200701152252", "20200720152252");
+        mCalenderDialog = new CalenderDialog(this, R.style.ActionDialogStyle, "20200711152252", "20200920152252");
         mCalenderDialog.setOnMonthDayClickListener(new CalenderDialog.OnMonthDayClickListener() {
             @Override
             public void onClickListener(String day) {

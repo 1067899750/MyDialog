@@ -54,6 +54,8 @@ class MonthGroupView extends RelativeLayout {
 
     private List<Integer> array;
     private OnMonthDayClickListener mOnMonthDayClickListener;
+    private int startMonth;
+    private int endMonth;
 
     public MonthGroupView(Context context) {
         super(context);
@@ -87,13 +89,13 @@ class MonthGroupView extends RelativeLayout {
             Date startDate = format.parse(startTime);
             Calendar startCalendar = Calendar.getInstance();
             startCalendar.setTime(startDate);
-            int startMonth = startCalendar.get(Calendar.MARCH);
+            startMonth = startCalendar.get(Calendar.MARCH);
             int startDay = startCalendar.get(Calendar.DATE) - 1;
 
             Date endDate = format.parse(endTime);
             Calendar endCalendar = Calendar.getInstance();
             endCalendar.setTime(endDate);
-            int endMonth = endCalendar.get(Calendar.MARCH);
+            endMonth = endCalendar.get(Calendar.MARCH);
             int endDay = endCalendar.get(Calendar.DATE);
             if (mMonth == startMonth && startMonth == endMonth) {
                 for (int i = startDay; i < endDay; i++) {
@@ -105,6 +107,10 @@ class MonthGroupView extends RelativeLayout {
                 }
             } else if (endMonth == mMonth) {
                 for (int i = 0; i < endDay; i++) {
+                    array.add(i);
+                }
+            } else if (mMonth > startMonth && mMonth < endDay) {
+                for (int i = 0; i <= 32; i++) {
                     array.add(i);
                 }
             }
@@ -144,10 +150,14 @@ class MonthGroupView extends RelativeLayout {
                 mView.setLayoutParams(vLp);
                 if (array.size() == 1) {
                     mView.setBackground(getResources().getDrawable(R.drawable.shape_month_view));
+                } else if (array.get(0) == i && row == 6) {
+                    mView.setBackground(getResources().getDrawable(R.drawable.shape_month_view));
+                } else if (array.get(array.size() - 1) == i && row == 0) {
+                    mView.setBackground(getResources().getDrawable(R.drawable.shape_month_view));
                 } else {
                     if (array.get(0) == i) {
                         mView.setBackground(getResources().getDrawable(R.drawable.shape_month_left_view));
-                    } else if (array.get(array.size() - 1) == i) {
+                    } else if (array.get(array.size() - 1) == i || i == dayCount - 1) {
                         mView.setBackground(getResources().getDrawable(R.drawable.shape_month_right_view));
                     } else if (row == 0) {
                         mView.setBackground(getResources().getDrawable(R.drawable.shape_month_left_view));
@@ -179,43 +189,45 @@ class MonthGroupView extends RelativeLayout {
 
             mothItemView.setDate(i + 1 + "");
             Calendar calendar = Calendar.getInstance();
-
-            if (isShowFirstPosition) {
-                if (mYear == calendar.get(Calendar.YEAR) &&
-                        mMonth == calendar.get(Calendar.MONTH) &&
-                        i == calendar.get(Calendar.DATE) - 1) {
-                    mothItemView.setShowClickView(true);
-                    mClickPosition = i;
-                } else {
-                    mothItemView.setShowClickView(false);
-                }
-            }
+            mothItemView.setShowClickView(false);
+//            if (isShowFirstPosition) {
+//                if (mYear == calendar.get(Calendar.YEAR) &&
+//                        mMonth == calendar.get(Calendar.MONTH) &&
+//                        i == calendar.get(Calendar.DATE) - 1) {
+//                    mothItemView.setShowClickView(true);
+//                    mClickPosition = i;
+//                } else {
+//                    mothItemView.setShowClickView(false);
+//                }
+//            }
             mothItemView.setShowBackground(false);
             final int finalI = i;
-            mothItemView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mOnMonthDayClickListener != null) {
-                        int month = mMonth + 1;
-                        int day = finalI + 1;
-                        mOnMonthDayClickListener.onClickListener(mYear + "-" + month + "-" + day);
-                    }
-                    isClick = true;
-                    isShowFirstPosition = false;
-                    int count = getChildCount();
-                    if (mClickPosition != finalI) {
-                        mClickPosition = finalI;
-                        int childCount = getChildCount();
-                        for (int i = 0; i < childCount; i++) {
-                            View childView = getChildAt(i);
-                            if (childView instanceof MothItemView) {
-                                removeView(childView);
-                            }
+            if (array.contains(i)) {
+                mothItemView.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mOnMonthDayClickListener != null) {
+                            int month = mMonth + 1;
+                            int day = finalI + 1;
+                            mOnMonthDayClickListener.onClickListener(mYear + "-" + month + "-" + day);
                         }
-                        invalidate();
+                        isClick = true;
+                        isShowFirstPosition = false;
+                        int count = getChildCount();
+                        if (mClickPosition != finalI) {
+                            mClickPosition = finalI;
+                            int childCount = getChildCount();
+                            for (int i = 0; i < childCount; i++) {
+                                View childView = getChildAt(i);
+                                if (childView instanceof MothItemView) {
+                                    removeView(childView);
+                                }
+                            }
+                            invalidate();
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
