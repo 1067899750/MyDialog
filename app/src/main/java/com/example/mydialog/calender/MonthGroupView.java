@@ -209,7 +209,7 @@ class MonthGroupView extends RelativeLayout {
                         if (mOnMonthDayClickListener != null) {
                             int month = mMonth + 1;
                             int day = finalI + 1;
-                            mOnMonthDayClickListener.onClickListener(mYear + "-" + month + "-" + day);
+                            mOnMonthDayClickListener.onClickListener(getContext().getString(R.string.mall_sign_str, mYear, month, day));
                         }
                         isClick = true;
                         isShowFirstPosition = false;
