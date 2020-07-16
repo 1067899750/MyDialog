@@ -128,6 +128,7 @@ class MonthGroupView extends RelativeLayout {
      */
     public static int getDayOfWeek(int year, int month) {
         Calendar calendar = Calendar.getInstance();
+        //参数 date 用来控制起始日期
         calendar.set(year, month, 0);
         return calendar.get(Calendar.DAY_OF_WEEK);
     }
