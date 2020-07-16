@@ -54,6 +54,15 @@ public class MothItemView extends RelativeLayout {
         mImageView.setVisibility(isClick ? VISIBLE : GONE);
     }
 
+
+    /**
+     * 设置字体颜色
+     * @param color
+     */
+    public void setTextColor(int color){
+        mTextView.setTextColor(color);
+    }
+
     /**
      * 设置日期
      *

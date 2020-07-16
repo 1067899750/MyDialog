@@ -81,7 +81,7 @@ class MonthGroupView extends RelativeLayout {
         this.mYear = year;
         this.mMonth = month;
         dayCount = DateUtil.getDayCountOfMonth(mYear, mMonth);
-        firstDayOfWeek = DateUtil.getDayOfWeek(mYear, mMonth);
+        firstDayOfWeek = getDayOfWeek(mYear, mMonth);
 
         //构建范围
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
@@ -102,7 +102,7 @@ class MonthGroupView extends RelativeLayout {
                     array.add(i);
                 }
             } else if (startMonth == mMonth) {
-                for (int i = startDay; i <= 32; i++) {
+                for (int i = startDay; i <= dayCount; i++) {
                     array.add(i);
                 }
             } else if (endMonth == mMonth) {
@@ -110,7 +110,7 @@ class MonthGroupView extends RelativeLayout {
                     array.add(i);
                 }
             } else if (mMonth > startMonth && mMonth < endMonth) {
-                for (int i = 0; i <= 32; i++) {
+                for (int i = 0; i <= dayCount; i++) {
                     array.add(i);
                 }
             }
@@ -118,6 +118,18 @@ class MonthGroupView extends RelativeLayout {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * 获取开始周几
+     * @param year
+     * @param month
+     * @return
+     */
+    public static int getDayOfWeek(int year, int month) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, 0);
+        return calendar.get(Calendar.DAY_OF_WEEK);
     }
 
     @Override
@@ -129,7 +141,56 @@ class MonthGroupView extends RelativeLayout {
         if (isShowFirstPosition) {
             addBackground();
         }
+        addOtherChildView();
         addChildView();
+    }
+
+    /**
+     * 设置不在本月的字体颜色
+     */
+    private void addOtherChildView() {
+        try {
+            int row1 = (firstDayOfWeek - 1) % 7;
+            int line1 = (firstDayOfWeek - 1) / 7;
+            String date = DateUtil.addOrSubMonth(mYear + "年" + (mMonth + 1) + "月", -1);
+            int dayOtherCount = DateUtil.getDayCountOfMonth(Integer.valueOf(date.substring(0, date.indexOf("年"))),
+                    Integer.valueOf(date.substring(date.indexOf("年") + 1, date.indexOf("月"))) - 1);
+            for (int j = 0; j < row1; j++) {
+                MothItemView mothItemView = new MothItemView(getContext());
+                mothItemView.setLayoutParams(new LayoutParams((int) mDayItemWidth, (int) mDayItemHeight));
+                mothItemView.setTag("MothItemOtherView" + j);
+                addView(mothItemView);
+                LayoutParams tvLp = (LayoutParams) mothItemView.getLayoutParams();
+                tvLp.leftMargin = (int) (j * mDayItemWidth);
+                tvLp.topMargin = (int) (line1 * mDayItemHeight);
+
+                mothItemView.setDate(dayOtherCount - row1 + j + 1 + "");
+                mothItemView.setTextColor(Color.parseColor("#DBDEE4"));
+                mothItemView.setShowClickView(false);
+                mothItemView.setShowBackground(false);
+            }
+
+
+            int row2 = (dayCount + firstDayOfWeek - 2) % 7;
+            int line2 = (dayCount + firstDayOfWeek - 2) / 7;
+            int day = 1;
+            for (int j = row2 + 1; j < 7; j++) {
+                MothItemView mothItemView = new MothItemView(getContext());
+                mothItemView.setLayoutParams(new LayoutParams((int) mDayItemWidth, (int) mDayItemHeight));
+                mothItemView.setTag("MothItemOtherView" + j);
+                addView(mothItemView);
+                LayoutParams tvLp = (LayoutParams) mothItemView.getLayoutParams();
+                tvLp.leftMargin = (int) (j * mDayItemWidth);
+                tvLp.topMargin = (int) (line2 * mDayItemHeight);
+                mothItemView.setDate(day++ + "");
+                mothItemView.setTextColor(Color.parseColor("#DBDEE4"));
+                mothItemView.setShowClickView(false);
+                mothItemView.setShowBackground(false);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -153,6 +214,8 @@ class MonthGroupView extends RelativeLayout {
                 } else if (array.get(0) == i && row == 6) {
                     mView.setBackground(getResources().getDrawable(R.drawable.shape_month_view));
                 } else if (array.get(array.size() - 1) == i && row == 0) {
+                    mView.setBackground(getResources().getDrawable(R.drawable.shape_month_view));
+                } else if (i == dayCount - 1 && row == 0) {
                     mView.setBackground(getResources().getDrawable(R.drawable.shape_month_view));
                 } else {
                     if (array.get(0) == i) {
@@ -188,6 +251,7 @@ class MonthGroupView extends RelativeLayout {
             tvLp.topMargin = (int) (line * mDayItemHeight);
 
             mothItemView.setDate(i + 1 + "");
+            mothItemView.setTextColor(Color.parseColor("#596689"));
             Calendar calendar = Calendar.getInstance();
             mothItemView.setShowClickView(false);
 //            if (isShowFirstPosition) {

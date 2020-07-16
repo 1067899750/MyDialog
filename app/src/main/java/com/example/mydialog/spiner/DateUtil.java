@@ -956,6 +956,22 @@ public class DateUtil {
     }
 
 
+
+    /**
+     *
+     * @param date 天数
+     * @param day 1 表示加一个天， -1 表示减少一个天
+     * @return
+     */
+    public static String addOrSubDay(String date, int day) throws ParseException{
+        SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+        Calendar c = Calendar.getInstance();
+        Date endDate = sf.parse(date);
+        c.setTime(endDate);
+        c.add(Calendar.DAY_OF_MONTH, day);
+        return sf.format(c.getTime());
+    }
+
     //---------------------------时间选择弹框 -------------------------------------------
 
     public static DatePickerDialog initDatePickerDialog(Context context, final TextView textView, Calendar calendar, int year, int month, int day, final OnDateSelectInterface onDateSelectInterface) {
