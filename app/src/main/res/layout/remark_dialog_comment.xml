@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_100"
+    android:background="#ffffff">
+
+    <com.example.mydialog.remark.BackEditText
+        android:id="@+id/dialog_comment_et"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textCursorDrawable="@drawable/my_cursor"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:padding="@dimen/dp_5"
+        android:background="@drawable/news_remark_detail_shape"
+        android:layout_toLeftOf="@+id/dialog_comment_send"/>
+
+
+    <TextView
+        android:id="@+id/dialog_comment_send"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="match_parent"
+        android:text="发表"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_25"/>
+
+</RelativeLayout>
