@@ -6,63 +6,98 @@
     android:layout_height="match_parent"
     tools:context=".remark.RemarkActivity">
 
+
     <RelativeLayout
         android:id="@+id/web_rl"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
-        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_height="@dimen/dp_50"
+        android:paddingTop="@dimen/dp_9"
+        android:paddingBottom="@dimen/dp_8"
         app:layout_constraintBottom_toBottomOf="parent">
+
         <LinearLayout
             android:id="@+id/web_remark_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_marginRight="@dimen/dp_20"
-            android:layout_toLeftOf="@id/remark_iv"
+            android:layout_toLeftOf="@id/remark_rl"
             android:background="@drawable/news_remark_detail_shape">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:src="@drawable/give_praise" />
+                android:layout_marginLeft="@dimen/dp_16"
+                android:src="@drawable/news_add_remark" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_11"
                 android:gravity="center_vertical"
                 android:text="写评论..."
-                android:textSize="@dimen/sp_18" />
+                android:textColor="#666666"
+                android:textSize="@dimen/sp_12" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/remark_iv"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/collect_iv"
-            android:src="@drawable/give_praise" />
+        <RelativeLayout
+            android:id="@+id/remark_rl"
+            android:layout_width="@dimen/dp_43"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_toLeftOf="@id/point_rl">
 
-        <ImageView
-            android:id="@+id/collect_iv"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/point_iv"
-            android:src="@drawable/give_praise" />
+            <ImageView
+                android:id="@+id/remark_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/news_remark" />
 
-        <ImageView
-            android:id="@+id/point_iv"
+            <TextView
+                android:id="@+id/remark_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dp_1"
+                android:layout_marginRight="@dimen/dp_3"
+                android:background="@drawable/shape_news_remark"
+                android:gravity="center"
+                android:text="999+"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/sp_10" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/point_rl"
             android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dp_40"
+            android:layout_toLeftOf="@id/collect_rl">
+
+            <ImageView
+                android:id="@+id/point_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/news_point" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/collect_rl"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_20"
-            android:src="@drawable/give_praise" />
+            android:layout_marginRight="@dimen/dp_35">
+
+            <ImageView
+                android:id="@+id/collect_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/news_collect" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

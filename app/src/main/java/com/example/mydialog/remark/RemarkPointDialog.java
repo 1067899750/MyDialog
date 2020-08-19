@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Selection;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mydialog.R;
+import com.example.mydialog.untils.EmojiRegexUtil;
 import com.example.mydialog.untils.KeyBoardManagerUtils;
 import com.example.mydialog.untils.ValueUtil;
 
@@ -31,6 +34,7 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
     private TextView sendTv;
     private String hintText;
     private BackEditText contentEt;
+    private int maxLen = 200;
 
     public RemarkPointDialog(Context context, String hintText, SendListener sendBackListener) {
         super(context, R.style.RemarkDialogFragment);
@@ -61,7 +65,8 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
         contentEt = findViewById(R.id.dialog_comment_et);
         contentEt.setHint(hintText);
         sendTv = findViewById(R.id.dialog_comment_send);
-
+        //即限定最大输入字符数为20
+        contentEt.setFilters(new InputFilter[]{EmojiRegexUtil.getInputFilter(true)});
         contentEt.addTextChangedListener(this);
         sendTv.setOnClickListener(this);
         contentEt.setFocusable(true);
@@ -95,12 +100,24 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
 
     @Override
     public void afterTextChanged(Editable s) {
-        if (s.length() > 0) {
-            sendTv.setEnabled(true);
-            sendTv.setTextColor(Color.BLACK);
-        } else {
-            sendTv.setEnabled(false);
-            sendTv.setTextColor(Color.GRAY);
+        Editable editable = contentEt.getText();
+        int len = editable.length();
+        if(len > maxLen) {
+            int selEndIndex = Selection.getSelectionEnd(editable);
+            String str = editable.toString();
+            //截取新字符串
+            String newStr = str.substring(0,maxLen);
+            contentEt.setText(newStr);
+            editable = contentEt.getText();
+
+            //新字符串的长度
+            int newLen = editable.length();
+            //旧光标位置超过字符串长度
+            if(selEndIndex > newLen) {
+                selEndIndex = editable.length();
+            }
+            //设置新光标所在的位置
+            Selection.setSelection(editable, selEndIndex);
         }
     }
 
