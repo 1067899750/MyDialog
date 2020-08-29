@@ -36,5 +36,20 @@
       <option name="name" value="D:\Users\puyantao\AppData\Local\Android\Sdk\extras\m2repository" />
       <option name="url" value="file:/D:/Users/puyantao/AppData/Local/Android/Sdk/extras/m2repository/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="E:\Users\10678\AppData\Local\Android\Sdk\extras\android\m2repository" />
+      <option name="name" value="E:\Users\10678\AppData\Local\Android\Sdk\extras\android\m2repository" />
+      <option name="url" value="file:/E:/Users/10678/AppData/Local/Android/Sdk/extras/android/m2repository" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="E:\Users\10678\AppData\Local\Android\Sdk\extras\google\m2repository" />
+      <option name="name" value="E:\Users\10678\AppData\Local\Android\Sdk\extras\google\m2repository" />
+      <option name="url" value="file:/E:/Users/10678/AppData/Local/Android/Sdk/extras/google/m2repository" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="E:\Users\10678\AppData\Local\Android\Sdk\extras\m2repository" />
+      <option name="name" value="E:\Users\10678\AppData\Local\Android\Sdk\extras\m2repository" />
+      <option name="url" value="file:/E:/Users/10678/AppData/Local/Android/Sdk/extras/m2repository" />
+    </remote-repository>
   </component>
 </project>

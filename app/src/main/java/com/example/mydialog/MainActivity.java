@@ -10,6 +10,7 @@ import com.example.mydialog.bottonSatellite.BottomStatelliteMenuActivity;
 import com.example.mydialog.calender.CalenderActivity;
 import com.example.mydialog.groupdialog.ViewGroupDialogActivity;
 import com.example.mydialog.lockPattern.LockPatternActivity;
+import com.example.mydialog.music.MusicActivity;
 import com.example.mydialog.password.PayDialog;
 import com.example.mydialog.popu.PopuActivity;
 import com.example.mydialog.satellite.SatelliteMenuActivity;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btnLuck).setOnClickListener(this);
         findViewById(R.id.btnPayPassword).setOnClickListener(this);
         findViewById(R.id.calenderBtn).setOnClickListener(this);
+        findViewById(R.id.musicBtn).setOnClickListener(this);
     }
 
     @Override
@@ -70,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.calenderBtn:
                 CalenderActivity.startCalenderActivity(this);
+                break;
+            case R.id.musicBtn:
+                MusicActivity.startMusicActivity(this);
                 break;
             default:
                 break;
