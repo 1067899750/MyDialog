@@ -39,4 +39,11 @@
         <attr name="widgetColor" format="color"/>
         <attr name="widgetSize" format="dimension"/>
     </declare-styleable>
+
+
+    <declare-styleable name="rounded_image_view">
+        <attr name="border_thickness" format="dimension" />
+        <attr name="border_inside_color" format="color" />
+        <attr name="border_outside_color" format="color"/>
+    </declare-styleable>
 </resources>

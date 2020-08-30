@@ -80,11 +80,7 @@
         <!--模糊-->
     </style>
 
-    <declare-styleable name="rounded_image_view">
-        <attr name="border_thickness" format="dimension" />
-        <attr name="border_inside_color" format="color" />
-        <attr name="border_outside_color" format="color"/>
-    </declare-styleable>
+
     <style name="RemarkDialogFragment" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsTranslucent">false</item>
