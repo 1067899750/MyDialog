@@ -50,7 +50,7 @@ public class CalenderActivity extends AppCompatActivity {
     }
 
     private void initCalenderDialog() {
-        mCalenderDialog = new CalenderDialog(this, R.style.ActionDialogStyle, "20200711152252", "20200920152252");
+        mCalenderDialog = new CalenderDialog(this, R.style.ActionDialogStyle, "20201111152252", "20201120152252");
         mCalenderDialog.setOnMonthDayClickListener(new CalenderDialog.OnMonthDayClickListener() {
             @Override
             public void onClickListener(String day) {
@@ -59,6 +59,31 @@ public class CalenderActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
 
 

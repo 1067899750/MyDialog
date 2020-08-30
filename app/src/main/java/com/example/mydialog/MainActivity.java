@@ -13,6 +13,7 @@ import com.example.mydialog.lockPattern.LockPatternActivity;
 import com.example.mydialog.music.MusicActivity;
 import com.example.mydialog.password.PayDialog;
 import com.example.mydialog.popu.PopuActivity;
+import com.example.mydialog.remark.RemarkActivity;
 import com.example.mydialog.satellite.SatelliteMenuActivity;
 import com.example.mydialog.spiner.SpinnerActivity;
 /**
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btnLuck).setOnClickListener(this);
         findViewById(R.id.btnPayPassword).setOnClickListener(this);
         findViewById(R.id.calenderBtn).setOnClickListener(this);
+        findViewById(R.id.remarkBtn).setOnClickListener(this);
         findViewById(R.id.musicBtn).setOnClickListener(this);
     }
 
@@ -77,6 +79,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.musicBtn:
                 MusicActivity.startMusicActivity(this);
                 break;
+            case R.id.remarkBtn:
+                RemarkActivity.startRemarkActivity(this);
+                break;
             default:
                 break;
 
@@ -84,6 +89,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
 
 

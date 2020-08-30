@@ -85,6 +85,16 @@
         <attr name="border_inside_color" format="color" />
         <attr name="border_outside_color" format="color"/>
     </declare-styleable>
+    <style name="RemarkDialogFragment" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowSoftInputMode">stateAlwaysVisible</item>
+        <item name="android:backgroundDimAmount">0</item>
+    </style>
 </resources>
 
 
