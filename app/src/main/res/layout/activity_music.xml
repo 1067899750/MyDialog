@@ -15,6 +15,17 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
+    <Button
+        android:id="@+id/music_btn"
+        android:layout_width="@dimen/dp_200"
+        android:layout_height="@dimen/dp_50"
+        android:text="音乐播放器"
+        android:textSize="@dimen/sp_20"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
 
 </android.support.constraint.ConstraintLayout>
 

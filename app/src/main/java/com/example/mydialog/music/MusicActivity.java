@@ -2,22 +2,16 @@ package com.example.mydialog.music;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.mydialog.R;
 import com.example.mydialog.music.binner.BannerEntities;
 import com.example.mydialog.music.binner.HomeLineLayout;
 import com.example.mydialog.music.binner.ImageCycleViewListener;
-
-import org.json.JSONException;
+import com.example.mydialog.music.music.MusicPopupWindow;
 
 import java.util.ArrayList;
 
@@ -33,7 +27,7 @@ public class MusicActivity extends AppCompatActivity {
      */
     private ArrayList<BannerEntities> mInfoList = new ArrayList<BannerEntities>();
     private String[] mImageUrls = {
-            "" + R.drawable.ic_banner_frist,
+            "" + R.drawable.ic_banner_first,
             "" + R.drawable.ic_banner_second,
             "" + R.drawable.ic_banner_thrid,
             "" + R.drawable.ic_banner_fourth,
@@ -42,6 +36,7 @@ public class MusicActivity extends AppCompatActivity {
      * 轮播点击事件
      */
     private ImageCycleViewListener mAdCycleViewListener;
+    private MusicPopupWindow mMusicPopupWindow;
 
     public static void startMusicActivity(Activity activity) {
         Intent intent = new Intent(activity, MusicActivity.class);
@@ -68,6 +63,14 @@ public class MusicActivity extends AppCompatActivity {
             public void onImageClick(BannerEntities info, int position, View imageView) {
             }
         };
+
+        findViewById(R.id.music_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMusicPopupWindow = new MusicPopupWindow(MusicActivity.this);
+
+            }
+        });
 
     }
 
