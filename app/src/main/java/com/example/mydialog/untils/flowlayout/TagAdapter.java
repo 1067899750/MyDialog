@@ -6,7 +6,7 @@ import java.util.List;
 
 
 /**
- * 
+ *
  * @description
  * @author puyantao
  * @date 2020/9/9 9:13
@@ -40,8 +40,9 @@ public abstract class TagAdapter<T> {
     }
 
     public void notifyDataChanged() {
-        if (onDataChangeListener != null)
+        if (onDataChangeListener != null) {
             onDataChangeListener.onChanged();
+        }
     }
 
     interface OnDataChangeListener {
