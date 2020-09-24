@@ -83,7 +83,7 @@ public class SpinnerPopWindow extends PopupWindow implements OnItemClickListener
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             int navigatorHeight = BarConfig.getNavigationBarHeight(mContext);
             int offsetY = location[1] + view.getHeight();
-            setHeight(heightPixels - offsetY - navigatorHeight);
+            setHeight(heightPixels - offsetY);
             showAtLocation(view, Gravity.NO_GRAVITY, location[0], offsetY);
 //            showAsDropDown(view, 0, 0);
         } else {
