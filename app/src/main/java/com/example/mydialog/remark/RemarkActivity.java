@@ -86,7 +86,9 @@ public class RemarkActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            mRemarkPointDialog.dismiss();
+            if (null != mRemarkPointDialog) {
+                mRemarkPointDialog.dismiss();
+            }
         }
         return super.onKeyDown(keyCode, event);
     }

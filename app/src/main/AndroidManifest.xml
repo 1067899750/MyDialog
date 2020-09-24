@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".drop.DropActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,9 +23,9 @@
         <activity android:name=".satellite.SatelliteMenuActivity" />
         <activity android:name=".bottonSatellite.BottomStatelliteMenuActivity" />
         <activity android:name=".lockPattern.LockPatternActivity" />
-        <activity android:name=".remark.RemarkActivity"/>
+        <activity android:name=".remark.RemarkActivity" />
         <activity android:name=".calender.CalenderActivity" />
-        <activity android:name=".music.MusicActivity"/>
+        <activity android:name=".music.MusicActivity" />
         <activity android:name=".groupdialog.ViewGroupDialogActivity" />
     </application>
 

@@ -15,23 +15,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description
- * Author puyantao
- * Date 2019/5/15 9:17
+ *
+ * @description
+ * @author puyantao
+ * @date 2020/9/24 14:57
  */
-public class CleckTypeSpinnerAdapter<String> extends BaseAdapter {
-
-    public static interface IOnItemSelectListener {
-        public void onItemClick(int pos);
-    }
-
+public class DropTypeSpinnerAdapter<String> extends BaseAdapter {
     private Context mContext;
     private List<String> mObjects = new ArrayList<String>();
     private int mSelectItem = 0;
     private int mSelectPosition = 0;
     private LayoutInflater mInflater;
 
-    public CleckTypeSpinnerAdapter(Context context, int selectPosition) {
+    public DropTypeSpinnerAdapter(Context context, int selectPosition) {
         init(context);
         mSelectPosition = selectPosition;
     }
@@ -109,6 +105,11 @@ public class CleckTypeSpinnerAdapter<String> extends BaseAdapter {
         public ImageView mImageView;
         public View mView;
     }
+
+    public interface IOnItemSelectListener {
+        void onItemClick(int pos);
+    }
+
 
 
 }

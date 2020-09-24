@@ -45,7 +45,6 @@ public class SpinnerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_spiner);
         mBookEarnInputBeans = new ArrayList<>();
         mDropBoxBeans = new ArrayList<>();
-
         initData();
         setupViews();
 
@@ -69,7 +68,7 @@ public class SpinnerActivity extends AppCompatActivity {
 
         mySpinner.setTextGravity(Gravity.RIGHT);
         mySpinner.setTextColor(Color.parseColor("#333333"));
-        mySpinner.setBackground(Color.parseColor("#FFFFFF"));
+        mySpinner.setBackground(Color.parseColor("#D11818"));
         mySpinner.setData(mDropBoxBeans, "", "请选择出借人", true);
         mySpinner.setOnItemSelectedListener(new DropBoxSpinner.OnItemSelectedListener() {
 

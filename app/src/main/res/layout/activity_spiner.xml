@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rootView"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
@@ -26,10 +26,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#ffffff"
+        android:background="#EC2020"
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_20"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="@dimen/dp_100"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_100">
 
         <TextView
             android:layout_width="@dimen/dp_100"
@@ -45,7 +47,7 @@
             android:id="@+id/input_sort_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#F3F3F3"
+            android:background="#D11818"
             android:gravity="left|center"
             android:textColor="#40663A"
             android:textSize="15sp" />
@@ -53,4 +55,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

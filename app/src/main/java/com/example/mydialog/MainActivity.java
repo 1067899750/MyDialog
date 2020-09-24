@@ -7,6 +7,7 @@ import android.view.View;
 import com.example.mydialog.assistive.AssistiveTouchActivity;
 import com.example.mydialog.bottonSatellite.BottomStatelliteMenuActivity;
 import com.example.mydialog.calender.CalenderActivity;
+import com.example.mydialog.drop.DropActivity;
 import com.example.mydialog.groupdialog.ViewGroupDialogActivity;
 import com.example.mydialog.lockPattern.LockPatternActivity;
 import com.example.mydialog.music.MusicActivity;
@@ -28,7 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MusicActivity.startMusicActivity(this);
+        SpinnerActivity.startSpinnerActivity(this);
+
         payDialog = new PayDialog(this);
         findViewById(R.id.btn1).setOnClickListener(this);
         findViewById(R.id.btn2).setOnClickListener(this);
@@ -80,6 +82,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.remarkBtn:
                 RemarkActivity.startRemarkActivity(this);
+                break;
+            case R.id.drop_list:
+                DropActivity.startDropActivity(this);
                 break;
             default:
                 break;

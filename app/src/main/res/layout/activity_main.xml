@@ -86,6 +86,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="音乐播放器"/>
+
+
+        <Button
+            android:id="@+id/drop_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自定义下拉框"/>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

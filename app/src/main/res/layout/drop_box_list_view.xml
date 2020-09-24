@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_main_tab_top"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/input_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F3F3F3">
+
+        <EditText
+            android:id="@+id/input_sort_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_30"
+            android:paddingBottom="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_10"
+            android:textSize="@dimen/sp_16"
+            android:textColor="#40663A"
+            android:gravity="left|center"
+            android:background="#F3F3F3"/>
+
+        <TextView
+            android:id="@+id/input_sort_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_30"
+            android:paddingBottom="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_10"
+            android:textSize="@dimen/sp_16"
+            android:textColor="#40663A"
+            android:gravity="left|center"
+            android:visibility="gone"
+            android:background="#F3F3F3"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_dropdown"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+            <ImageView
+                android:id="@+id/bt_dropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_13"
+                android:background="@drawable/ic_sort_desc" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

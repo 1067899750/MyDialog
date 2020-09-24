@@ -41,7 +41,7 @@ public class DropBoxSpinner extends LinearLayout {
     private OnItemSelectedListener listener;
     private OnItemNameChangeListener mOnItemNameChangeListener;
     private SpinnerPopWindow mSpinnerPopWindow;
-    private CleckTypeSpinnerAdapter mAdapter;
+    private DropTypeSpinnerAdapter mAdapter;
     private int mSelectPosition = 0;
     private View myView;
     private boolean mIsEdit;
@@ -248,10 +248,10 @@ public class DropBoxSpinner extends LinearLayout {
         if (mItems.size() < 0 || mItems == null) {
             return;
         }
-        mAdapter = new CleckTypeSpinnerAdapter(mContext, mSelectPosition);
+        mAdapter = new DropTypeSpinnerAdapter(mContext, mSelectPosition);
         mAdapter.refreshData(mItems, 0);
 
-        mSpinnerPopWindow = new SpinnerPopWindow(mContext);
+        mSpinnerPopWindow = new SpinnerPopWindow(mContext, myView);
         mSpinnerPopWindow.setAdapter(mAdapter);
         mSpinnerPopWindow.setItemListener(new OnItemSelectedListener() {
             @Override
@@ -273,13 +273,8 @@ public class DropBoxSpinner extends LinearLayout {
                 bt_dropdown.setBackgroundResource(R.drawable.ic_sort_desc);
             }
         });
-        showSpinWindow();
     }
 
-    private void showSpinWindow() {
-        mSpinnerPopWindow.setWidth(myView.getWidth());
-        mSpinnerPopWindow.showAsDropDown(myView);
-    }
 
     public interface OnItemNameChangeListener {
         /**
