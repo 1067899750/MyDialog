@@ -15,6 +15,7 @@ import com.example.mydialog.password.PayDialog;
 import com.example.mydialog.popu.PopuActivity;
 import com.example.mydialog.remark.RemarkActivity;
 import com.example.mydialog.satellite.SatelliteMenuActivity;
+import com.example.mydialog.select.activity.SelectTextActivity;
 import com.example.mydialog.spiner.SpinnerActivity;
 /**
  *
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SpinnerActivity.startSpinnerActivity(this);
+        SelectTextActivity.StartSelectTextActivity(this);
 
         payDialog = new PayDialog(this);
         findViewById(R.id.btn1).setOnClickListener(this);
@@ -85,6 +86,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.drop_list:
                 DropActivity.startDropActivity(this);
+                break;
+            case R.id.select_text:
+                SelectTextActivity.StartSelectTextActivity(this);
                 break;
             default:
                 break;
