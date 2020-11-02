@@ -1,4 +1,4 @@
-package com.example.mydialog.select;
+package com.example.mydialog.select.one;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -21,7 +21,6 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 

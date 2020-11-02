@@ -88,7 +88,7 @@
         android:scrollbarSize="1dp"
         android:visibility="visible">
 
-        <com.example.mydialog.select.VerticalTextView
+        <com.example.mydialog.select.one.VerticalTextView
             android:id="@+id/vtv_text_ltr"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

@@ -42,6 +42,12 @@ public class SelectTextActivity extends AppCompatActivity {
                 VertActivity.start(SelectTextActivity.this);
             }
         });
+        findViewById(R.id.tv_select).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SelectActivity.start(SelectTextActivity.this);
+            }
+        });
     }
 
 

@@ -11,10 +11,10 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.mydialog.R;
-import com.example.mydialog.select.ActionMenu;
-import com.example.mydialog.select.CustomActionMenuCallBack;
-import com.example.mydialog.select.StringContentUtil;
-import com.example.mydialog.select.VerticalTextView;
+import com.example.mydialog.select.one.ActionMenu;
+import com.example.mydialog.select.one.CustomActionMenuCallBack;
+import com.example.mydialog.select.one.StringContentUtil;
+import com.example.mydialog.select.one.VerticalTextView;
 
 import java.util.ArrayList;
 import java.util.List;

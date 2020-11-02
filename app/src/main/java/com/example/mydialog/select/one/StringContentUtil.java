@@ -1,4 +1,4 @@
-package com.example.mydialog.select;
+package com.example.mydialog.select.one;
 
 /**
  *

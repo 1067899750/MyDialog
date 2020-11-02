@@ -94,7 +94,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="10dp">
 
-        <com.example.mydialog.select.SelectableTextView
+        <com.example.mydialog.select.one.SelectableTextView
             android:id="@+id/ctv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

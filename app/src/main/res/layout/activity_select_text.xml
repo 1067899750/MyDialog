@@ -28,5 +28,16 @@
         android:text="vertical textview"
         android:textSize="18sp" />
 
+    <TextView
+        android:id="@+id/tv_select"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:text="select textview"
+        android:textSize="18sp" />
+
+
 
 </LinearLayout>
