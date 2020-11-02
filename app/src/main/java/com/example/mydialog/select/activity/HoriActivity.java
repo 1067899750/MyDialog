@@ -103,7 +103,6 @@ public class HoriActivity extends AppCompatActivity implements
         List<String> titleList = new ArrayList<>();
         titleList.add("翻译");
         titleList.add("分享");
-        titleList.add("分享");
         // 添加菜单
         menu.addCustomMenuItem(titleList);
         // 返回false，保留默认菜单(全选/复制)；返回true，移除默认菜单
