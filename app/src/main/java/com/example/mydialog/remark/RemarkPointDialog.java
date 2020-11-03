@@ -1,5 +1,6 @@
 package com.example.mydialog.remark;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -19,6 +20,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,7 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
     private ImageView mDialogCommentIv;
     private LinearLayout mContentLl;
     private RelativeLayout mDialogContent;
+    private Space mLineSpace;
     private int maxLen = 200;
     //是否放大
     private boolean isBlow = false;
@@ -102,6 +105,7 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
         //图片
         mDialogCommentIv = findViewById(R.id.dialog_comment_iv);
         mDialogCommentIv.setImageResource(R.drawable.acc_family_btn);
+        mLineSpace = findViewById(R.id.line_space);
     }
 
 
@@ -151,13 +155,13 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
             checkContent();
         } else if (mId == R.id.dialog_blow_iv) {
             ViewGroup.LayoutParams contentLp = mContentLl.getLayoutParams();
-            ViewGroup.LayoutParams spaceEt = mContentEt.getLayoutParams();
+            ViewGroup.LayoutParams spaceLp = mLineSpace.getLayoutParams();
             //放大缩小
             if (isBlow) {
                 //缩小
                 mDialogBlowIv.setImageResource(R.drawable.ic_sort_asc);
                 contentLp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                spaceEt.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                spaceLp.height = 0;
             } else {
                 //放大
                 mDialogBlowIv.setImageResource(R.drawable.ic_sort_desc);
@@ -173,10 +177,11 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
                 //键盘的高度
                 int koyBoardHeight = KoyBoardUtil.getKoyBoardHeight(mContext);
                 contentLp.height = screenHeight - navigatorHeight - statusBarHeight - DisplayUtil.dip2px(mContext, 280);
-                spaceEt.height = contentLp.height - mDialogCommentIv.getHeight() - DisplayUtil.dip2px(mContext, 25);
+                spaceLp.height = contentLp.height - mDialogCommentIv.getHeight() - mContentEt.getHeight()
+                        - DisplayUtil.dip2px(mContext, 15);
             }
             mContentLl.setLayoutParams(contentLp);
-            mContentEt.setLayoutParams(spaceEt);
+            mLineSpace.setLayoutParams(spaceLp);
             isBlow = !isBlow;
         }
     }
@@ -198,26 +203,6 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
          * @param inputText
          */
         void sendComment(String inputText);
-    }
-
-    /**
-     * 开始动画
-     *
-     * @param view
-     */
-    public void startAnimation(View view) {
-        Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.remark_show_anim);
-        view.startAnimation(animation);
-    }
-
-    /**
-     * 结束动画
-     *
-     * @param view
-     */
-    public void stopAnimation(View view) {
-        Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.remark_dismiss_anim);
-        view.startAnimation(animation);
     }
 
 }

@@ -64,6 +64,12 @@
     </style>
 
 
+    <!--弹窗动画-->
+    <style name="RemarkStyle" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/remark_show_anim</item>
+        <item name="android:windowExitAnimation">@anim/remark_dismiss_anim</item>
+    </style>
+
     <!--消除边距和黑边框-->
     <style name="ActionDialogStyle" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
