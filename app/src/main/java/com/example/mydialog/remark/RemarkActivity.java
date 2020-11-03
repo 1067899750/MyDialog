@@ -96,7 +96,6 @@ public class RemarkActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mRemarkPointDialog.onDestroy();
     }
 }
 
