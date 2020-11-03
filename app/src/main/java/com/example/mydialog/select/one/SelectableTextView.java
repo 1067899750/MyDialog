@@ -41,38 +41,57 @@ import static android.content.Context.VIBRATOR_SERVICE;
  * @date 2020/11/2 11:33
  */
 public class SelectableTextView extends android.support.v7.widget.AppCompatEditText {
-
-    private final int TRIGGER_LONGPRESS_TIME_THRESHOLD = 300;    // 触发长按事件的时间阈值
-    private final int TRIGGER_LONGPRESS_DISTANCE_THRESHOLD = 10; // 触发长按事件的位移阈值
+    // 触发长按事件的时间阈值
+    private final int TRIGGER_LONG_PRESS_TIME_THRESHOLD = 300;
+    // 触发长按事件的位移阈值
+    private final int TRIGGER_LONG_PRESS_DISTANCE_THRESHOLD = 10;
 
     private Context mContext;
-    private int mScreenHeight;      // 屏幕高度
-    private int mStatusBarHeight;   // 状态栏高度
-    private int mActionMenuHeight;  // 弹出菜单高度
-    private int mTextHighlightColor;// 选中文字背景高亮颜色
+    // 屏幕高度
+    private int mScreenHeight;
+    // 状态栏高度
+    private int mStatusBarHeight;
+    // 弹出菜单高度
+    private int mActionMenuHeight;
+    // 选中文字背景高亮颜色
+    private int mTextHighlightColor;
 
     private float mTouchDownX = 0;
     private float mTouchDownY = 0;
     private float mTouchDownRawY = 0;
 
-    private boolean isLongPress = false;               // 是否发触了长按事件
-    private boolean isLongPressTouchActionUp = false;  // 长按事件结束后，标记该次事件
-    private boolean isVibrator = false;                // 是否触发过长按震动
+    // 是否发触了长按事件
+    private boolean isLongPress = false;
+    // 长按事件结束后，标记该次事件
+    private boolean isLongPressTouchActionUp = false;
+    // 是否触发过长按震动
+    private boolean isVibrator = false;
 
-    private boolean isTextJustify = true;              // 是否需要两端对齐 ，默认true
-    private boolean isForbiddenActionMenu = false;     // 是否需要两端对齐 ，默认false
+    // 是否需要两端对齐 ，默认true
+    private boolean isTextJustify = true;
+    // 是否需要两端对齐 ，默认false
+    private boolean isForbiddenActionMenu = false;
 
-    private boolean isActionSelectAll = false;         // 是否触发全选事件
+    // 是否触发全选事件
+    private boolean isActionSelectAll = false;
+    //划横线
+    private boolean isActionMarkLine = false;
 
-    private int mStartLine;             //action_down触摸事件 起始行
-    private int mStartTextOffset;       //action_down触摸事件 字符串开始位置的偏移值
-    private int mCurrentLine;           // action_move触摸事件 当前行
-    private int mCurrentTextOffset;     //action_move触摸事件 字符串当前位置的偏移值
+    //action_down触摸事件 起始行
+    private int mStartLine;
+    //action_down触摸事件 字符串开始位置的偏移值
+    private int mStartTextOffset;
+    // action_move触摸事件 当前行
+    private int mCurrentLine;
+    //action_move触摸事件 字符串当前位置的偏移值
+    private int mCurrentTextOffset;
 
-    private int mViewTextWidth;         // SelectableTextView内容的宽度(不包含padding)
+    // SelectableTextView内容的宽度(不包含padding)
+    private int mViewTextWidth;
 
     private Vibrator mVibrator;
-    private PopupWindow mActionMenuPopupWindow; // 长按弹出菜单
+    // 长按弹出菜单
+    private PopupWindow mActionMenuPopupWindow;
     private ActionMenu mActionMenu = null;
 
     private OnClickListener mOnClickListener;
@@ -178,9 +197,9 @@ public class SelectableTextView extends android.support.v7.widget.AppCompatEditT
                     currentLine = layout.getLineForVertical(getScrollY() + (int) event.getY());
                     int mWordOffset_move = layout.getOffsetForHorizontal(currentLine, (int) event.getX());
                     // 判断是否触发长按事件
-                    if (event.getEventTime() - event.getDownTime() >= TRIGGER_LONGPRESS_TIME_THRESHOLD
-                            && Math.abs(event.getX() - mTouchDownX) < TRIGGER_LONGPRESS_DISTANCE_THRESHOLD
-                            && Math.abs(event.getY() - mTouchDownY) < TRIGGER_LONGPRESS_DISTANCE_THRESHOLD) {
+                    if (event.getEventTime() - event.getDownTime() >= TRIGGER_LONG_PRESS_TIME_THRESHOLD
+                            && Math.abs(event.getX() - mTouchDownX) < TRIGGER_LONG_PRESS_DISTANCE_THRESHOLD
+                            && Math.abs(event.getY() - mTouchDownY) < TRIGGER_LONG_PRESS_DISTANCE_THRESHOLD) {
 
                         Log.d("SelectableTextView", "ACTION_MOVE 长按");
                         isLongPress = true;
@@ -243,7 +262,7 @@ public class SelectableTextView extends android.support.v7.widget.AppCompatEditT
                     isLongPressTouchActionUp = true;
                     isLongPress = false;
 
-                } else if (event.getEventTime() - event.getDownTime() < TRIGGER_LONGPRESS_TIME_THRESHOLD) {
+                } else if (event.getEventTime() - event.getDownTime() < TRIGGER_LONG_PRESS_TIME_THRESHOLD) {
                     // 由于onTouchEvent最终返回了true,onClick事件会被屏蔽掉，因此在这里处理onClick事件
                     if (null != mOnClickListener) {
                         mOnClickListener.onClick(this);
@@ -273,11 +292,13 @@ public class SelectableTextView extends android.support.v7.widget.AppCompatEditT
             isRemoveDefaultItem = mCustomActionMenuCallBack.onCreateCustomActionMenu(actionMenu);
         }
         if (!isRemoveDefaultItem) {
-            actionMenu.addDefaultMenuItem(); // 添加默认item
+            // 添加默认item
+            actionMenu.addDefaultMenuItem();
         }
-
-        actionMenu.addCustomItem();  // 添加自定义item
-        actionMenu.setFocusable(true); // 获取焦点
+        // 添加自定义item
+        actionMenu.addCustomItem();
+        // 获取焦点
+        actionMenu.setFocusable(true);
         actionMenu.setFocusableInTouchMode(true);
 
         if (actionMenu.getChildCount() != 0) {
@@ -365,6 +386,12 @@ public class SelectableTextView extends android.support.v7.widget.AppCompatEditT
                 Toast.makeText(mContext, "复制成功！", Toast.LENGTH_SHORT).show();
                 hideActionMenu();
 
+            } else if (menuItemTitle.equals(ActionMenu.DEFAULT_MENU_ITEM_MARK_LINE)) {
+                // 划线事件
+                isActionMarkLine = true;
+                postInvalidate();
+                hideActionMenu();
+
             } else {
                 // 自定义事件
                 if (null != mCustomActionMenuCallBack) {
@@ -427,6 +454,9 @@ public class SelectableTextView extends android.support.v7.widget.AppCompatEditT
                 drawSelectedTextBackground(canvas);
                 isActionSelectAll = false;
                 isLongPressTouchActionUp = false;
+            }
+            if (isActionMarkLine){
+                drawMarkTextBottomLine(canvas);
             }
         }
     }
@@ -551,6 +581,33 @@ public class SelectableTextView extends android.support.v7.widget.AppCompatEditT
     }
 
     /**
+     * 绘制选中的文字下划线
+     *
+     * @param canvas
+     */
+    private void drawMarkTextBottomLine(Canvas canvas){
+        if (mStartTextOffset == mCurrentTextOffset) {
+            return;
+        }
+        // 文字背景高亮画笔
+        Paint highlightPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        highlightPaint.setStyle(Paint.Style.FILL);
+        highlightPaint.setColor(mTextHighlightColor);
+        highlightPaint.setAlpha(60);
+
+        // 计算开始位置和结束位置的字符相对view最左侧的x偏移
+        float startToLeftPosition = calculatorCharPositionToLeft(mStartLine, mStartTextOffset);
+        float currentToLeftPosition = calculatorCharPositionToLeft(mCurrentLine, mCurrentTextOffset);
+
+        // 行高
+        int h = getLineHeight();
+        int paddingTop = getPaddingTop();
+        int paddingLeft = getPaddingLeft();
+
+//        canvas.drawLine(path_all, highlightPaint);
+    }
+
+    /**
      * 重绘此行,两端对齐
      *
      * @param canvas
@@ -595,8 +652,9 @@ public class SelectableTextView extends android.support.v7.widget.AppCompatEditT
                     // 单词按照汉字字符处理
                     // 计算单词中相邻字符间需要插入的空白
                     float insert_blank_word_i = insert_blank;
-                    if (word_i.length() > 1)
+                    if (word_i.length() > 1) {
                         insert_blank_word_i = insert_blank / (word_i.length() - 1);
+                    }
                     // 遍历单词中字符，依次绘画
                     for (int j = 0; j < word_i.length(); j++) {
                         String word_i_char_j = String.valueOf(word_i.charAt(j));

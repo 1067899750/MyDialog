@@ -5,8 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".select.activity.SelectActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp">
 
-    <com.example.mydialog.select.two.TextSlelectView
+    </ScrollView>
+    <com.example.mydialog.select.two.TextSelectView
+        android:id="@+id/select_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

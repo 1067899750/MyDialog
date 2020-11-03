@@ -24,12 +24,16 @@ public class ActionMenu extends LinearLayout {
 
     public static final String DEFAULT_MENU_ITEM_TITLE_SELECT_ALL = "全选";
     public static final String DEFAULT_MENU_ITEM_TITLE_COPY = "复制";
+    public static final String DEFAULT_MENU_ITEM_MARK_LINE = "划线";
 
     private Context mContext;
     private int mMenuItemMargin;
-    private int mActionMenuBgColor = 0xbb000000; // ActionMenu背景色
-    private int mMenuItemTextColor = 0xffffffff; // MenuItem字体颜色
-    private List<String> mItemTitleList;         // MenuItem 标题
+    // ActionMenu背景色
+    private int mActionMenuBgColor = 0xbb000000;
+    // MenuItem字体颜色
+    private int mMenuItemTextColor = 0xffffffff;
+    // MenuItem 标题
+    private List<String> mItemTitleList;
 
     public ActionMenu(Context context) {
         this(context, null);
@@ -69,10 +73,12 @@ public class ActionMenu extends LinearLayout {
      * 添加默认MenuItem（全选，复制）
      */
     void addDefaultMenuItem() {
-        View item_select_all = createMenuItem(DEFAULT_MENU_ITEM_TITLE_SELECT_ALL);
         View item_copy = createMenuItem(DEFAULT_MENU_ITEM_TITLE_COPY);
-        addView(item_select_all);
+        View item_select_all = createMenuItem(DEFAULT_MENU_ITEM_TITLE_SELECT_ALL);
+        View item_mark_line = createMenuItem(DEFAULT_MENU_ITEM_MARK_LINE);
         addView(item_copy);
+        addView(item_select_all);
+        addView(item_mark_line);
         invalidate();
     }
 
@@ -86,12 +92,15 @@ public class ActionMenu extends LinearLayout {
 
         View selAllItem = findViewWithTag(DEFAULT_MENU_ITEM_TITLE_SELECT_ALL);
         View copyItem = findViewWithTag(DEFAULT_MENU_ITEM_TITLE_COPY);
-
+        View markLine = createMenuItem(DEFAULT_MENU_ITEM_MARK_LINE);
         if (null != selAllItem) {
             removeView(selAllItem);
         }
         if (null != copyItem) {
             removeView(copyItem);
+        }
+        if (null != markLine){
+            removeView(markLine);
         }
         invalidate();
     }
