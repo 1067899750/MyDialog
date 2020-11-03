@@ -93,7 +93,11 @@ public class RemarkActivity extends AppCompatActivity implements View.OnClickLis
         return super.onKeyDown(keyCode, event);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRemarkPointDialog.onDestroy();
+    }
 }
 
 

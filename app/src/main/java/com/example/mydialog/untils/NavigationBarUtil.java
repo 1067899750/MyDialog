@@ -26,6 +26,18 @@ import java.lang.reflect.Method;
 public class NavigationBarUtil {
 
     /**
+     * 获取状态栏高度
+     * @param context
+     * @return
+     */
+    public static int getStatusBarHeight(Context context) {
+        Resources resources = context.getResources();
+        int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+        int height = resources.getDimensionPixelSize(resourceId);
+        return height;
+    }
+
+    /**
      * Desc: 获取虚拟按键高度 放到工具类里面直接调用即可
      */
     public static int getNavigationBarHeight(Context context) {
