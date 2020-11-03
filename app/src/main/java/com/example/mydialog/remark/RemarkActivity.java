@@ -2,12 +2,16 @@ package com.example.mydialog.remark;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.mydialog.R;
@@ -63,6 +67,7 @@ public class RemarkActivity extends AppCompatActivity implements View.OnClickLis
                 mPointDialog.setVisibility(View.GONE);
             }
         });
+
     }
 
 
@@ -99,8 +104,6 @@ public class RemarkActivity extends AppCompatActivity implements View.OnClickLis
         });
         mRemarkPointDialog.show();
     }
-
-
 
 
     /**

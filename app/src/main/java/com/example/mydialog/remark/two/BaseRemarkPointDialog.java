@@ -2,23 +2,28 @@ package com.example.mydialog.remark.two;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mydialog.MainActivity;
 import com.example.mydialog.R;
 import com.example.mydialog.remark.BackEditText;
 import com.example.mydialog.remark.KoyBoardUtil;
@@ -33,7 +38,7 @@ import com.example.mydialog.untils.ValueUtil;
  * @describe
  * @create 2020/11/3 16:16
  */
-public class BaseRemarkPointDialog extends FrameLayout implements TextWatcher, View.OnClickListener {
+public class BaseRemarkPointDialog extends LinearLayout implements TextWatcher, View.OnClickListener {
     private View mBgView;
     private TextView mSendTv;
     private BackEditText mContentEt;
@@ -91,6 +96,24 @@ public class BaseRemarkPointDialog extends FrameLayout implements TextWatcher, V
                 // TODO: 2020/11/3 隐藏试图
                 dismiss();
             }
+        });
+        mContentEt.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            //当键盘弹出隐藏的时候会 调用此方法。
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                //获取当前界面可视部分
+                ((Activity)getContext()).getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
+                //获取屏幕的高度
+                int screenHeight = ((Activity)getContext()).getWindow().getDecorView().getRootView().getHeight();
+                //此处就是用来获取键盘的高度的， 在键盘没有弹出的时候 此高度为0 键盘弹出的时候为一个正数
+                int heightDifference = screenHeight - r.bottom;
+
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mDialogContent.getLayoutParams();
+                layoutParams.bottomMargin = heightDifference;
+                mDialogContent.setLayoutParams(layoutParams);
+            }
+
         });
         mBgView.setOnClickListener(this);
         mDialogBlowIv.setImageResource(R.drawable.ic_sort_asc);
@@ -218,6 +241,11 @@ public class BaseRemarkPointDialog extends FrameLayout implements TextWatcher, V
 
     public void dismiss() {
         KeyBoardManagerUtils.closeSoftKeyboardWithHandler((Activity) getContext(), 200);
+
+        ViewGroup.LayoutParams spaceLp = mLineSpace.getLayoutParams();
+        mDialogBlowIv.setImageResource(R.drawable.ic_sort_asc);
+        spaceLp.height = 0;
+        mLineSpace.setLayoutParams(spaceLp);
     }
 
 }
