@@ -1,4 +1,4 @@
-package com.example.mydialog.remark;
+package com.example.mydialog.remark.one;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
@@ -25,6 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mydialog.R;
+import com.example.mydialog.remark.BackEditText;
+import com.example.mydialog.remark.KoyBoardUtil;
 import com.example.mydialog.untils.DisplayUtil;
 import com.example.mydialog.untils.EmojiRegexUtil;
 import com.example.mydialog.untils.KeyBoardManagerUtils;
