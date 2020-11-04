@@ -3,80 +3,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_content"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#ffffff">
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
 
-    <ImageView
-        android:id="@+id/dialog_blow_iv"
-        android:layout_width="@dimen/dp_20"
-        android:layout_height="@dimen/dp_20"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_20"
-        android:src="@drawable/ic_sort_asc" />
-
-    <LinearLayout
-        android:id="@+id/dialog_content_ll"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_12"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:layout_toLeftOf="@+id/dialog_comment_send"
-        android:background="@drawable/remark_detail_shape"
-        android:orientation="horizontal">
+        android:background="#ffffff"
+        android:layout_alignParentBottom="true">
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="86dp" />
+        <ImageView
+            android:id="@+id/dialog_blow_iv"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_20"
+            android:src="@drawable/ic_sort_asc" />
 
         <LinearLayout
+            android:id="@+id/dialog_content_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_toLeftOf="@+id/dialog_comment_send"
+            android:background="@drawable/remark_detail_shape"
+            android:orientation="horizontal">
 
-            <com.example.mydialog.remark.BackEditText
-                android:id="@+id/dialog_comment_et"
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="86dp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#F8F8F8"
-                android:gravity="left|top"
-                android:padding="@dimen/dp_8"
-                android:textCursorDrawable="@drawable/my_cursor"
-                tools:text="是单点就爱看是单点就爱看是单点就爱看是单点就爱看" />
+                android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/image_rl"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginLeft="@dimen/dp_20">
+                <com.example.mydialog.remark.BackEditText
+                    android:id="@+id/dialog_comment_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F8F8F8"
+                    android:gravity="left|top"
+                    android:padding="@dimen/dp_8"
+                    android:textCursorDrawable="@drawable/my_cursor"
+                    tools:text="是单点就爱看是单点就爱看是单点就爱看是单点就爱看" />
 
-                <ImageView
-                    android:id="@+id/dialog_comment_iv"
-                    android:layout_width="@dimen/dp_60"
-                    android:layout_height="@dimen/dp_60"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/acc_family_btn" />
-            </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/image_rl"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10">
+
+                    <ImageView
+                        android:id="@+id/dialog_comment_iv"
+                        android:layout_width="@dimen/dp_60"
+                        android:layout_height="@dimen/dp_60"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/acc_family_btn" />
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/dialog_comment_send"
-        android:layout_width="@dimen/dp_54"
-        android:layout_height="@dimen/dp_31"
-        android:layout_alignBottom="@id/dialog_content_ll"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/dp_10"
-        android:layout_marginBottom="@dimen/dp_11"
-        android:background="@drawable/shape_remark_dialog_add"
-        android:gravity="center"
-        android:text="发表"
-        android:textColor="#40663A"
-        android:textSize="@dimen/sp_15" />
+        <TextView
+            android:id="@+id/dialog_comment_send"
+            android:layout_width="@dimen/dp_54"
+            android:layout_height="@dimen/dp_31"
+            android:layout_alignBottom="@id/dialog_content_ll"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_11"
+            android:background="@drawable/shape_remark_dialog_add"
+            android:gravity="center"
+            android:text="发表"
+            android:textColor="#40663A"
+            android:textSize="@dimen/sp_15" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
+
+
+
+
+
+
+
+
+

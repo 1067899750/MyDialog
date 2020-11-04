@@ -1,5 +1,6 @@
 package com.example.mydialog.remark.one;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -75,7 +76,7 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
         lp.gravity = Gravity.BOTTOM;
         lp.alpha = 1f;
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(lp);
         window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
@@ -167,8 +168,8 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
             if (isBlow) {
                 //缩小
                 mDialogBlowIv.setImageResource(R.drawable.ic_sort_asc);
-                contentLp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 spaceLp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                mContentEt.setLayoutParams(spaceLp);
             } else {
                 //放大
                 mDialogBlowIv.setImageResource(R.drawable.ic_sort_desc);
@@ -182,16 +183,12 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
                 //状态栏高度
                 final int statusBarHeight = NavigationBarUtil.getStatusBarHeight(mContext);
                 Log.d("--->", mKeyBoardHeight + "");
-                contentLp.height = screenHeight - navigatorHeight - statusBarHeight - mKeyBoardHeight
-                        - contentLp.topMargin - contentLp.bottomMargin;
-
                 //图片试图布局
                 LinearLayout.LayoutParams imageLp = (LinearLayout.LayoutParams) mImageRl.getLayoutParams();
-                spaceLp.height = contentLp.height - mDialogCommentIv.getHeight()
-                        - imageLp.bottomMargin - imageLp.topMargin;
+                spaceLp.height = screenHeight - navigatorHeight - statusBarHeight - mKeyBoardHeight- mDialogCommentIv.getHeight()
+                        - imageLp.bottomMargin - imageLp.topMargin - contentLp.bottomMargin - contentLp.topMargin;
+                mContentEt.setLayoutParams(spaceLp);
             }
-            mContentLl.setLayoutParams(contentLp);
-            mContentEt.setLayoutParams(spaceLp);
             isBlow = !isBlow;
         }
     }
