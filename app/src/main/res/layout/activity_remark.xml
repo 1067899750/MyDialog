@@ -7,6 +7,16 @@
     tools:context=".remark.RemarkActivity">
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_100"
+        android:layout_marginRight="@dimen/dp_20"
+        android:text="hdaskjdhaskdajdkasduasiduasiod"
+        android:textColor="#D81717"
+        android:textSize="@dimen/sp_18" />
+
     <RelativeLayout
         android:id="@+id/web_rl"
         android:layout_width="match_parent"
@@ -104,5 +114,5 @@
         android:id="@+id/point_dialog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </RelativeLayout>

@@ -121,6 +121,12 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
 
             }
         });
+        findViewById(R.id.bg_view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
     }
 
     @Override
