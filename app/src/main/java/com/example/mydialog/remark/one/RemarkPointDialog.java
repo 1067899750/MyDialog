@@ -1,6 +1,5 @@
 package com.example.mydialog.remark.one;
 
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -10,13 +9,12 @@ import android.text.InputFilter;
 import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -48,11 +46,11 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
     private ImageView mDialogBlowIv;
     private ImageView mDialogCommentIv;
     private LinearLayout mContentLl;
-    private RelativeLayout mDialogContent;
-    private Space mLineSpace;
+    private RelativeLayout mImageRl;
     private int maxLen = 200;
     //是否放大
     private boolean isBlow = false;
+    private int mKeyBoardHeight;
 
     public RemarkPointDialog(Context context, String hintText, SendListener sendBackListener) {
         super(context, R.style.RemarkDialogFragment);
@@ -81,7 +79,7 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
         window.setAttributes(lp);
         window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
-        mDialogContent = findViewById(R.id.dialog_content);
+        mImageRl = findViewById(R.id.image_rl);
         mContentLl = findViewById(R.id.dialog_content_ll);
         mContentEt = findViewById(R.id.dialog_comment_et);
         mContentEt.setHint(mHintText);
@@ -107,14 +105,21 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
         //图片
         mDialogCommentIv = findViewById(R.id.dialog_comment_iv);
         mDialogCommentIv.setImageResource(R.drawable.acc_family_btn);
-        mLineSpace = findViewById(R.id.line_space);
-    }
 
+        mKeyBoardHeight = DisplayUtil.dip2px(mContext, 280);
+        SoftKeyBoardListener.setListener((Activity) mContext, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
+            @Override
+            public void keyBoardShow(int height) {
+                Log.d("--->", height + "");
+                mKeyBoardHeight = height;
 
-    @Override
-    public void dismiss() {
-        super.dismiss();
-        KeyBoardManagerUtils.closeSoftKeyboardWithHandler((Activity) mContext, 200);
+            }
+
+            @Override
+            public void keyBoardHide(int height) {
+
+            }
+        });
     }
 
     @Override
@@ -156,14 +161,14 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
         if (mId == R.id.dialog_comment_send) {
             checkContent();
         } else if (mId == R.id.dialog_blow_iv) {
-            ViewGroup.LayoutParams contentLp = mContentLl.getLayoutParams();
-            ViewGroup.LayoutParams spaceLp = mLineSpace.getLayoutParams();
+            RelativeLayout.LayoutParams contentLp = (RelativeLayout.LayoutParams) mContentLl.getLayoutParams();
+            ViewGroup.LayoutParams spaceLp = mContentEt.getLayoutParams();
             //放大缩小
             if (isBlow) {
                 //缩小
                 mDialogBlowIv.setImageResource(R.drawable.ic_sort_asc);
                 contentLp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                spaceLp.height = 0;
+                spaceLp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             } else {
                 //放大
                 mDialogBlowIv.setImageResource(R.drawable.ic_sort_desc);
@@ -176,14 +181,17 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
                 final int navigatorHeight = NavigationBarUtil.getNavigationBarHeight(mContext);
                 //状态栏高度
                 final int statusBarHeight = NavigationBarUtil.getStatusBarHeight(mContext);
-                //键盘的高度
-                int koyBoardHeight = KoyBoardUtil.getKoyBoardHeight(mContext);
-                contentLp.height = screenHeight - navigatorHeight - statusBarHeight - DisplayUtil.dip2px(mContext, 280);
-                spaceLp.height = contentLp.height - mDialogCommentIv.getHeight() - mContentEt.getHeight()
-                        - DisplayUtil.dip2px(mContext, 15);
+                Log.d("--->", mKeyBoardHeight + "");
+                contentLp.height = screenHeight - navigatorHeight - statusBarHeight - mKeyBoardHeight
+                        - contentLp.topMargin - contentLp.bottomMargin;
+
+                //图片试图布局
+                LinearLayout.LayoutParams imageLp = (LinearLayout.LayoutParams) mImageRl.getLayoutParams();
+                spaceLp.height = contentLp.height - mDialogCommentIv.getHeight()
+                        - imageLp.bottomMargin - imageLp.topMargin;
             }
             mContentLl.setLayoutParams(contentLp);
-            mLineSpace.setLayoutParams(spaceLp);
+            mContentEt.setLayoutParams(spaceLp);
             isBlow = !isBlow;
         }
     }
@@ -205,6 +213,13 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
          * @param inputText
          */
         void sendComment(String inputText);
+    }
+
+
+    @Override
+    public void dismiss() {
+        super.dismiss();
+        KeyBoardManagerUtils.closeSoftKeyboardWithHandler((Activity) mContext, 200);
     }
 
 }

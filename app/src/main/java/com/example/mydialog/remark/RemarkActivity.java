@@ -76,7 +76,7 @@ public class RemarkActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.web_remark_ll:
                 //写评论
-                showCommentDialogTwo();
+                showCommentDialogOne();
                 break;
             case R.id.remark_iv:
                 //评论

@@ -46,13 +46,8 @@
                 android:textCursorDrawable="@drawable/my_cursor"
                 tools:text="是单点就爱看是单点就爱看是单点就爱看是单点就爱看" />
 
-            <Space
-                android:id="@+id/line_space"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
             <RelativeLayout
+                android:id="@+id/image_rl"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="bottom"
