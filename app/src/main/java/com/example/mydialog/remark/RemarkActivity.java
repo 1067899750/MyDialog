@@ -2,20 +2,16 @@ package com.example.mydialog.remark;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.mydialog.R;
-import com.example.mydialog.remark.one.RemarkPointDialog;
+import com.example.mydialog.remark.one.RemarkAddPictureDialog;
 import com.example.mydialog.remark.two.BaseRemarkPointDialog;
 
 /**
@@ -28,7 +24,7 @@ public class RemarkActivity extends AppCompatActivity implements View.OnClickLis
     private ImageView remarkIv;
     private ImageView collectIv;
     private ImageView pointIv;
-    private RemarkPointDialog mRemarkPointDialog;
+    private RemarkAddPictureDialog mRemarkPointDialog;
     private BaseRemarkPointDialog mPointDialog;
 
     public static void startRemarkActivity(Activity activity) {
@@ -95,7 +91,7 @@ public class RemarkActivity extends AppCompatActivity implements View.OnClickLis
      * 一种 Dialog
      */
     private void showCommentDialogOne() {
-        mRemarkPointDialog = new RemarkPointDialog(this, "请写下您的精彩评论吧...", new RemarkPointDialog.SendListener() {
+        mRemarkPointDialog = new RemarkAddPictureDialog(this, "请写下您的精彩评论吧...", new RemarkAddPictureDialog.SendListener() {
             @Override
             public void sendComment(String inputText) {
                 Toast.makeText(getApplicationContext(), inputText, Toast.LENGTH_SHORT).show();

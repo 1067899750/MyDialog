@@ -1,6 +1,5 @@
 package com.example.mydialog.remark.one;
 
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -19,13 +18,11 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mydialog.R;
 import com.example.mydialog.remark.BackEditText;
-import com.example.mydialog.remark.KoyBoardUtil;
 import com.example.mydialog.untils.DisplayUtil;
 import com.example.mydialog.untils.EmojiRegexUtil;
 import com.example.mydialog.untils.KeyBoardManagerUtils;
@@ -38,7 +35,7 @@ import com.example.mydialog.untils.ValueUtil;
  * @describe
  * @create 2020/8/17 11:21
  */
-public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnClickListener {
+public class RemarkAddPictureDialog extends Dialog implements TextWatcher, View.OnClickListener {
     private Context mContext;
     public SendListener mSendListener;
     private TextView mSendTv;
@@ -53,7 +50,7 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
     private boolean isBlow = false;
     private int mKeyBoardHeight;
 
-    public RemarkPointDialog(Context context, String hintText, SendListener sendBackListener) {
+    public RemarkAddPictureDialog(Context context, String hintText, SendListener sendBackListener) {
         super(context, R.style.RemarkDialogFragment);
         this.mContext = context;
         this.mHintText = hintText;
@@ -64,7 +61,7 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.remark_dialog_comment);
+        setContentView(R.layout.remark_picture_dialog_comment);
         // 外部点击取消
         setCanceledOnTouchOutside(true);
         setCancelable(true);
@@ -175,7 +172,6 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
                 //缩小
                 mDialogBlowIv.setImageResource(R.drawable.ic_sort_asc);
                 spaceLp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                mContentEt.setLayoutParams(spaceLp);
             } else {
                 //放大
                 mDialogBlowIv.setImageResource(R.drawable.ic_sort_desc);
@@ -193,8 +189,8 @@ public class RemarkPointDialog extends Dialog implements TextWatcher, View.OnCli
                 LinearLayout.LayoutParams imageLp = (LinearLayout.LayoutParams) mImageRl.getLayoutParams();
                 spaceLp.height = screenHeight - navigatorHeight - statusBarHeight - mKeyBoardHeight- mDialogCommentIv.getHeight()
                         - imageLp.bottomMargin - imageLp.topMargin - contentLp.bottomMargin - contentLp.topMargin;
-                mContentEt.setLayoutParams(spaceLp);
             }
+            mContentEt.setLayoutParams(spaceLp);
             isBlow = !isBlow;
         }
     }
