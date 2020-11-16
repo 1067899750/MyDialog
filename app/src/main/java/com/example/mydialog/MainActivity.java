@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.calenderBtn).setOnClickListener(this);
         findViewById(R.id.remarkBtn).setOnClickListener(this);
         findViewById(R.id.musicBtn).setOnClickListener(this);
+        findViewById(R.id.drop_list).setOnClickListener(this);
+        findViewById(R.id.select_text).setOnClickListener(this);
     }
 
     @Override
