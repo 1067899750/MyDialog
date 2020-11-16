@@ -97,6 +97,11 @@ public class RemarkActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(getApplicationContext(), inputText, Toast.LENGTH_SHORT).show();
             }
 
+            @Override
+            public void addPicture() {
+
+            }
+
         });
         mRemarkPointDialog.show();
     }

@@ -3,6 +3,7 @@ package com.example.mydialog.remark.one;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -28,6 +29,8 @@ import com.example.mydialog.untils.EmojiRegexUtil;
 import com.example.mydialog.untils.KeyBoardManagerUtils;
 import com.example.mydialog.untils.NavigationBarUtil;
 import com.example.mydialog.untils.ValueUtil;
+
+import java.io.File;
 
 
 /**
@@ -187,8 +190,13 @@ public class RemarkAddPictureDialog extends Dialog implements TextWatcher, View.
                 Log.d("--->", mKeyBoardHeight + "");
                 //图片试图布局
                 LinearLayout.LayoutParams imageLp = (LinearLayout.LayoutParams) mImageRl.getLayoutParams();
-                spaceLp.height = screenHeight - navigatorHeight - statusBarHeight - mKeyBoardHeight- mDialogCommentIv.getHeight()
-                        - imageLp.bottomMargin - imageLp.topMargin - contentLp.bottomMargin - contentLp.topMargin;
+                if (mImageRl.getVisibility() == View.VISIBLE) {
+                    spaceLp.height = screenHeight - navigatorHeight - statusBarHeight - mKeyBoardHeight - mDialogCommentIv.getHeight()
+                            - imageLp.bottomMargin - imageLp.topMargin - contentLp.bottomMargin - contentLp.topMargin - 16;
+                } else {
+                    spaceLp.height = screenHeight - navigatorHeight - statusBarHeight - mKeyBoardHeight
+                            - mDialogCommentIv.getHeight() - contentLp.bottomMargin - contentLp.topMargin;
+                }
             }
             mContentEt.setLayoutParams(spaceLp);
             isBlow = !isBlow;
@@ -205,6 +213,18 @@ public class RemarkAddPictureDialog extends Dialog implements TextWatcher, View.
         dismiss();
     }
 
+    /**
+     * 设置图片
+     *
+     * @param url
+     */
+    public void addPicture(String url) {
+        mImageRl.setVisibility(View.VISIBLE);
+        if (null != url) {
+            mDialogCommentIv.setImageURI(Uri.fromFile(new File(url)));
+        }
+    }
+
     public interface SendListener {
         /**
          * 发表评论
@@ -212,6 +232,11 @@ public class RemarkAddPictureDialog extends Dialog implements TextWatcher, View.
          * @param inputText
          */
         void sendComment(String inputText);
+
+        /**
+         * 添加图片
+         */
+        void addPicture();
     }
 
 
