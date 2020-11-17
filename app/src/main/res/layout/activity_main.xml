@@ -99,6 +99,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="复制和选着文本框"/>
+
+        <Button
+            android:id="@+id/emotion_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="表情包"/>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

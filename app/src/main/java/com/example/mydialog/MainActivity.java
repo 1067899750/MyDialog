@@ -8,6 +8,8 @@ import com.example.mydialog.assistive.AssistiveTouchActivity;
 import com.example.mydialog.bottonSatellite.BottomStatelliteMenuActivity;
 import com.example.mydialog.calender.CalenderActivity;
 import com.example.mydialog.drop.DropActivity;
+import com.example.mydialog.emotion.activity.EditTextActivity;
+import com.example.mydialog.emotion.activity.ListViewBarEditActivity;
 import com.example.mydialog.groupdialog.ViewGroupDialogActivity;
 import com.example.mydialog.lockPattern.LockPatternActivity;
 import com.example.mydialog.music.MusicActivity;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.musicBtn).setOnClickListener(this);
         findViewById(R.id.drop_list).setOnClickListener(this);
         findViewById(R.id.select_text).setOnClickListener(this);
+        findViewById(R.id.emotion_btn).setOnClickListener(this);
     }
 
     @Override
@@ -91,6 +94,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.select_text:
                 SelectTextActivity.StartSelectTextActivity(this);
+                break;
+            case R.id.emotion_btn:
+//                EditTextActivity.startActivity(this);
+                ListViewBarEditActivity.startActivity(this);
                 break;
             default:
                 break;

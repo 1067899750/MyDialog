@@ -17,7 +17,7 @@
         android:id="@+id/content_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/add_picture_ll"
         android:background="#ffffff">
 
         <ImageView
@@ -95,6 +95,63 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/add_picture_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:background="#ffffff">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/add_picture_btn"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_50"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_toLeftOf="@id/emotion_iv"
+                android:text="添加图片" />
+
+            <ImageView
+                android:id="@+id/emotion_iv"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_20"
+                android:src="@drawable/ic_emotion" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_emotion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.example.mydialog.emotion.emotionkeyboardview.NoHorizontalScrollerViewPager
+                android:id="@+id/emotion_vp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#80a3a4a7" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 </RelativeLayout>
 
 

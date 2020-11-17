@@ -33,6 +33,8 @@
         <activity android:name=".select.activity.HoriActivity" />
         <activity android:name=".select.activity.VertActivity" />
         <activity android:name=".drop.DropActivity" />
+        <activity android:name=".emotion.activity.EditTextActivity"/>
+        <activity android:name=".emotion.activity.ListViewBarEditActivity"/>
     </application>
 
 </manifest>
