@@ -36,15 +36,13 @@ public class FragmentFactory {
 
     /**
      * 获取fragment的方法
+     *
      * @param emotionType 表情类型，用于判断使用哪个map集合的表情
      */
-    public Fragment getFragment(int emotionType){
+    public Fragment getFragment(int emotionType) {
         Bundle bundle = new Bundle();
-
-        bundle.putInt(FragmentFactory.EMOTION_MAP_TYPE,emotionType);
-
-        EmotiomComplateFragment fragment= EmotiomComplateFragment.newInstance(EmotiomComplateFragment.class,bundle);
-
+        bundle.putInt(FragmentFactory.EMOTION_MAP_TYPE, emotionType);
+        EmotiomComplateFragment fragment = EmotiomComplateFragment.newInstance(EmotiomComplateFragment.class, bundle);
         return fragment;
     }
 

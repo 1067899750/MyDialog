@@ -91,7 +91,7 @@ public class RemarkActivity extends AppCompatActivity implements View.OnClickLis
      * 一种 Dialog
      */
     private void showCommentDialogOne() {
-        mRemarkPointDialog = new RemarkAddPictureDialog(this, getSupportFragmentManager(), "请写下您的精彩评论吧...", new RemarkAddPictureDialog.SendListener() {
+        mRemarkPointDialog = new RemarkAddPictureDialog(this, "请写下您的精彩评论吧...", new RemarkAddPictureDialog.SendListener() {
             @Override
             public void sendComment(String inputText) {
                 Toast.makeText(getApplicationContext(), inputText, Toast.LENGTH_SHORT).show();
@@ -103,7 +103,7 @@ public class RemarkActivity extends AppCompatActivity implements View.OnClickLis
             }
 
         });
-        mRemarkPointDialog.show();
+        mRemarkPointDialog.show(getSupportFragmentManager(), "");
     }
 
 

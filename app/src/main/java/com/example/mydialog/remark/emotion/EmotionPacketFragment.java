@@ -1,6 +1,7 @@
-package com.example.mydialog.emotion.fragment;
+package com.example.mydialog.remark.emotion;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
-
 import com.example.mydialog.R;
 import com.example.mydialog.emotion.adapter.EmotionGridViewAdapter;
 import com.example.mydialog.emotion.adapter.EmotionPagerAdapter;
 import com.example.mydialog.emotion.emotionkeyboardview.EmojiIndicatorView;
+import com.example.mydialog.emotion.fragment.FragmentFactory;
 import com.example.mydialog.untils.DisplayUtils;
 import com.example.mydialog.untils.emotion.EmotionUtils;
 import com.example.mydialog.untils.emotion.GlobalOnItemClickManagerUtils;
@@ -20,42 +21,57 @@ import com.example.mydialog.untils.emotion.GlobalOnItemClickManagerUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * @author puyantao
- * @description 可替换的模板表情，gridview实现
- * @date 2020/11/17 16:22
+ * @description 表情包试图
+ * @date 2020/11/18 9:08
  */
-public class EmotiomComplateFragment extends BaseFragment {
-    private EmotionPagerAdapter emotionPagerGvAdapter;
-    private ViewPager vp_complate_emotion_layout;
-    private EmojiIndicatorView ll_point_group;//表情面板对应的点列表
-    private int emotion_map_type;
+public class EmotionPacketFragment extends Fragment {
+    private EmotionPagerAdapter mEmotionPagerAdapter;
+    private ViewPager mViewPager;
+    //表情面板对应的点列表
+    private EmojiIndicatorView mEmojiIndicatorView;
+    private int mEmotionMapType;
 
-    /**
-     * 创建与Fragment对象关联的View视图时调用
-     *
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
-     */
+
+    public EmotionPacketFragment() {
+        // Required empty public constructor
+    }
+
+    public static EmotionPacketFragment newInstance() {
+        EmotionPacketFragment fragment = new EmotionPacketFragment();
+        Bundle args = new Bundle();
+        args.putInt(FragmentFactory.EMOTION_MAP_TYPE, EmotionUtils.EMOTION_CLASSIC_TYPE);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_complate_emotion, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            //获取map的类型
+            mEmotionMapType = getArguments().getInt(FragmentFactory.EMOTION_MAP_TYPE);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_emotion_packet, container, false);
         initView(rootView);
         initListener();
         return rootView;
     }
 
+
     /**
      * 初始化view控件
      */
     protected void initView(View rootView) {
-        vp_complate_emotion_layout = (ViewPager) rootView.findViewById(R.id.vp_complate_emotion_layout);
-        ll_point_group = (EmojiIndicatorView) rootView.findViewById(R.id.ll_point_group);
-        //获取map的类型
-        emotion_map_type = args.getInt(FragmentFactory.EMOTION_MAP_TYPE);
+        mViewPager = rootView.findViewById(R.id.vp_packet_emotion_layout);
+        mEmojiIndicatorView = rootView.findViewById(R.id.ll_point_group);
         initEmotion();
     }
 
@@ -63,7 +79,7 @@ public class EmotiomComplateFragment extends BaseFragment {
      * 初始化监听器
      */
     protected void initListener() {
-        vp_complate_emotion_layout.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             int oldPagerPos = 0;
 
             @Override
@@ -73,7 +89,7 @@ public class EmotiomComplateFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                ll_point_group.playByStartPointToNext(oldPagerPos, position);
+                mEmojiIndicatorView.playByStartPointToNext(oldPagerPos, position);
                 oldPagerPos = position;
             }
 
@@ -105,7 +121,7 @@ public class EmotiomComplateFragment extends BaseFragment {
         List<GridView> emotionViews = new ArrayList<>();
         List<String> emotionNames = new ArrayList<>();
         // 遍历所有的表情的key
-        for (String emojiName : EmotionUtils.getEmojiMap(emotion_map_type).keySet()) {
+        for (String emojiName : EmotionUtils.getEmojiMap(mEmotionMapType).keySet()) {
             emotionNames.add(emojiName);
             // 每20个表情作为一组,同时添加到ViewPager对应的view集合中
             if (emotionNames.size() == 20) {
@@ -123,12 +139,12 @@ public class EmotiomComplateFragment extends BaseFragment {
         }
 
         //初始化指示器
-        ll_point_group.initIndicator(emotionViews.size());
+        mEmojiIndicatorView.initIndicator(emotionViews.size());
         // 将多个GridView添加显示到ViewPager中
-        emotionPagerGvAdapter = new EmotionPagerAdapter(emotionViews);
-        vp_complate_emotion_layout.setAdapter(emotionPagerGvAdapter);
+        mEmotionPagerAdapter = new EmotionPagerAdapter(emotionViews);
+        mViewPager.setAdapter(mEmotionPagerAdapter);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(screenWidth, gvHeight);
-        vp_complate_emotion_layout.setLayoutParams(params);
+        mViewPager.setLayoutParams(params);
 
     }
 
@@ -149,12 +165,29 @@ public class EmotiomComplateFragment extends BaseFragment {
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(gvWidth, gvHeight);
         gv.setLayoutParams(params);
         // 给GridView设置表情图片
-        EmotionGridViewAdapter adapter = new EmotionGridViewAdapter(getActivity(), emotionNames, itemWidth, emotion_map_type);
+        EmotionGridViewAdapter adapter = new EmotionGridViewAdapter(getActivity(), emotionNames, itemWidth, mEmotionMapType);
         gv.setAdapter(adapter);
         //设置全局点击事件
-        gv.setOnItemClickListener(GlobalOnItemClickManagerUtils.getInstance(getActivity()).getOnItemClickListener(emotion_map_type));
+        gv.setOnItemClickListener(GlobalOnItemClickManagerUtils.getInstance(getActivity()).getOnItemClickListener(mEmotionMapType));
         return gv;
     }
 
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
