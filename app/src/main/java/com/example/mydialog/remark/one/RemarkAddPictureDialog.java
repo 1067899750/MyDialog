@@ -9,10 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Selection;
@@ -27,7 +23,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -35,30 +30,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mydialog.R;
-import com.example.mydialog.emotion.adapter.HorizontalRecyclerviewAdapter;
-import com.example.mydialog.emotion.adapter.NoHorizontalScrollerVPAdapter;
-import com.example.mydialog.emotion.emotionkeyboardview.NoHorizontalScrollerViewPager;
 import com.example.mydialog.emotion.emotionkeyboardview.EmotionKeyboard;
-import com.example.mydialog.emotion.fragment.EmotiomComplateFragment;
-import com.example.mydialog.emotion.fragment.FragmentFactory;
-import com.example.mydialog.emotion.model.ImageModel;
 import com.example.mydialog.remark.BackEditText;
-import com.example.mydialog.remark.RemarkActivity;
 import com.example.mydialog.remark.emotion.EmotionPacketFragment;
 import com.example.mydialog.untils.DisplayUtil;
 import com.example.mydialog.untils.EmojiRegexUtil;
 import com.example.mydialog.untils.KeyBoardManagerUtils;
 import com.example.mydialog.untils.NavigationBarUtil;
-import com.example.mydialog.untils.SharedPreferencedUtils;
 import com.example.mydialog.untils.ValueUtil;
-import com.example.mydialog.untils.emotion.EmotionUtils;
 import com.example.mydialog.untils.emotion.GlobalOnItemClickManagerUtils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-
 /**
  * @author puyantao
  * @describe
@@ -129,7 +111,7 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
         });
         //放大缩小按键
         mDialogBlowIv = view.findViewById(R.id.dialog_blow_iv);
-        mDialogBlowIv.setImageResource(R.drawable.ic_sort_asc);
+        mDialogBlowIv.setImageResource(R.drawable.emotion_expand);
         mDialogBlowIv.setOnClickListener(this);
 
         //图片
@@ -205,7 +187,7 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
                 //绑定表情面板
                 .setEmotionView(view.findViewById(R.id.ll_emotion_layout))
                 //绑定内容view
-                .bindToContent(mContentEt)
+                .bindToContent(view.findViewById(R.id.add_picture_rl))
                 //判断绑定那种EditView
                 .bindToEditText(mContentEt)
                 //绑定表情按钮
@@ -214,7 +196,7 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
         replaceFragment();
         //创建全局监听
         GlobalOnItemClickManagerUtils globalOnItemClickManager = GlobalOnItemClickManagerUtils.getInstance(mContext);
-        // false,则表示绑定contentView,此时外部提供的contentView必定也是EditText
+        // 此时外部提供的contentView必定也是EditText
         globalOnItemClickManager.attachToEditText((EditText) mContentEt);
     }
 
@@ -269,11 +251,11 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
             //放大缩小
             if (isBlow) {
                 //缩小
-                mDialogBlowIv.setImageResource(R.drawable.ic_sort_asc);
+                mDialogBlowIv.setImageResource(R.drawable.emotion_expand);
                 spaceLp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             } else {
                 //放大
-                mDialogBlowIv.setImageResource(R.drawable.ic_sort_desc);
+                mDialogBlowIv.setImageResource(R.drawable.emotion_shrink);
                 //屏幕高度
                 WindowManager windowManager = ((Activity) mContext).getWindowManager();
                 DisplayMetrics displayMetrics = new DisplayMetrics();

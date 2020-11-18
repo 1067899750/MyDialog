@@ -100,8 +100,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/add_picture_rl"
@@ -146,7 +146,6 @@
                 android:background="#80a3a4a7" />
 
         </LinearLayout>
-
     </LinearLayout>
 </RelativeLayout>
 
