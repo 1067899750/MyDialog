@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 SelectTextActivity.StartSelectTextActivity(this);
                 break;
             case R.id.emotion_btn:
-//                EditTextActivity.startActivity(this);
-                ListViewBarEditActivity.startActivity(this);
+                EditTextActivity.startActivity(this);
+//                ListViewBarEditActivity.startActivity(this);
                 break;
             default:
                 break;

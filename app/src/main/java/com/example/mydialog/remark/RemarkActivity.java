@@ -119,7 +119,7 @@ public class RemarkActivity extends AppCompatActivity implements View.OnClickLis
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (null != mRemarkPointDialog) {
-                mRemarkPointDialog.dismiss();
+                mRemarkPointDialog.isInterceptBackPress();
             }
 
             if (mPointDialog.getVisibility() == View.VISIBLE) {
@@ -131,6 +131,7 @@ public class RemarkActivity extends AppCompatActivity implements View.OnClickLis
         }
         return super.onKeyDown(keyCode, event);
     }
+
 
     @Override
     protected void onDestroy() {

@@ -33,6 +33,7 @@ import com.example.mydialog.R;
 import com.example.mydialog.emotion.emotionkeyboardview.EmotionKeyboard;
 import com.example.mydialog.remark.BackEditText;
 import com.example.mydialog.remark.emotion.EmotionPacketFragment;
+import com.example.mydialog.remark.emotion.EmotionPacketKeyboard;
 import com.example.mydialog.untils.DisplayUtil;
 import com.example.mydialog.untils.EmojiRegexUtil;
 import com.example.mydialog.untils.KeyBoardManagerUtils;
@@ -48,8 +49,6 @@ import java.io.File;
  */
 @SuppressLint("ValidFragment")
 public class RemarkAddPictureDialog extends DialogFragment implements TextWatcher, View.OnClickListener {
-    //当前被选中底部tab
-    private static final String CURRENT_POSITION_FLAG = "CURRENT_POSITION_FLAG";
     private Context mContext;
     public SendListener mSendListener;
     private TextView mSendTv;
@@ -68,7 +67,7 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
     private boolean isBlow = false;
     private int mKeyBoardHeight;
     //表情面板
-    private EmotionKeyboard mEmotionKeyboard;
+    private EmotionPacketKeyboard mEmotionKeyboard;
 
     public RemarkAddPictureDialog(Context context, String hintText, SendListener sendBackListener) {
         this.mContext = context;
@@ -96,13 +95,10 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
         mContentEt = view.findViewById(R.id.dialog_comment_et);
         mContentEt.setHint(mHintText);
         mSendTv = view.findViewById(R.id.dialog_comment_send);
+        mSendTv.setOnClickListener(this);
         //即限定最大输入字符数为20
         mContentEt.setFilters(new InputFilter[]{EmojiRegexUtil.getInputFilter(true)});
         mContentEt.addTextChangedListener(this);
-        mSendTv.setOnClickListener(this);
-        mContentEt.setFocusable(true);
-        mContentEt.setFocusableInTouchMode(true);
-        mContentEt.requestFocus();
         mContentEt.setBackListener(new BackEditText.BackListener() {
             @Override
             public void back(TextView textView) {
@@ -183,11 +179,11 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
      * 初始化表情包
      */
     private void initEmotion(View view) {
-        mEmotionKeyboard = EmotionKeyboard.with((Activity) mContext)
+        mEmotionKeyboard = EmotionPacketKeyboard.with((Activity) mContext)
                 //绑定表情面板
                 .setEmotionView(view.findViewById(R.id.ll_emotion_layout))
                 //绑定内容view
-                .bindToContent(view.findViewById(R.id.add_picture_rl))
+                .bindToContent(view.findViewById(R.id.bg_view))
                 //判断绑定那种EditView
                 .bindToEditText(mContentEt)
                 //绑定表情按钮
