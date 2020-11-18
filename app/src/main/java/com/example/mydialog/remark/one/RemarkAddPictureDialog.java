@@ -94,16 +94,17 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
         this.mSendListener = sendBackListener;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.remark_picture_dialog_comment, container, false);
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -163,6 +164,11 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         Dialog dialog = getDialog();
@@ -184,6 +190,11 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
             window.setAttributes(lp);
             window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     /**
