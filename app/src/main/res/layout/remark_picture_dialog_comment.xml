@@ -4,15 +4,15 @@
     android:id="@+id/dialog_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/transparent">
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
 
     <View
         android:id="@+id/bg_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_above="@id/content_rl"
+        android:layout_weight="1"
         android:background="@android:color/transparent" />
 
     <RelativeLayout
@@ -28,7 +28,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_20"
-            android:src="@drawable/ic_sort_asc" />
+            android:src="@drawable/picture_blow" />
 
         <LinearLayout
             android:id="@+id/dialog_content_ll"
@@ -36,9 +36,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_17"
             android:layout_marginBottom="@dimen/dp_10"
-            android:layout_toLeftOf="@+id/dialog_comment_send"
+            android:layout_toLeftOf="@+id/dialog_blow_iv"
             android:background="@drawable/remark_detail_shape"
             android:orientation="horizontal">
 
@@ -66,26 +66,87 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="bottom"
-                    android:layout_marginLeft="@dimen/dp_20"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_marginBottom="@dimen/dp_10">
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/dialog_comment_iv"
-                        android:layout_width="@dimen/dp_60"
-                        android:layout_height="@dimen/dp_60"
+                        android:layout_width="@dimen/dp_50"
+                        android:layout_height="@dimen/dp_50"
                         android:layout_centerInParent="true"
-                        android:background="@drawable/acc_family_btn" />
+                        android:background="#B31818"
+                        android:scaleType="fitXY" />
+
+                    <ImageView
+                        android:id="@+id/picture_delete_iv"
+                        android:layout_width="@dimen/dp_11"
+                        android:layout_height="@dimen/dp_11"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/picture_delete" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/add_picture_bottom_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff">
+
+        <RelativeLayout
+            android:id="@+id/add_picture_rl"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_25"
+            android:layout_toLeftOf="@id/add_gif_rl">
+
+            <ImageView
+                android:id="@+id/add_picture_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/picture_image" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/add_gif_rl"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_25"
+            android:layout_toLeftOf="@id/emotion_iv">
+
+            <ImageView
+                android:id="@+id/add_gif_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/picture_gif_iv" />
+
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/emotion_iv"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_25"
+            android:layout_toLeftOf="@id/dialog_comment_send"
+            android:src="@drawable/ic_emotion" />
 
         <TextView
             android:id="@+id/dialog_comment_send"
             android:layout_width="@dimen/dp_54"
             android:layout_height="@dimen/dp_31"
-            android:layout_alignBottom="@id/dialog_content_ll"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_10"
             android:layout_marginBottom="@dimen/dp_11"
             android:background="@drawable/shape_remark_dialog_add"
@@ -95,40 +156,6 @@
             android:textSize="@dimen/sp_15" />
 
     </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/add_picture_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:id="@+id/add_picture_rl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/add_picture_btn"
-                android:layout_width="@dimen/dp_100"
-                android:layout_height="@dimen/dp_50"
-                android:layout_marginRight="@dimen/dp_20"
-                android:layout_toLeftOf="@id/emotion_iv"
-                android:text="添加图片" />
-
-            <ImageView
-                android:id="@+id/emotion_iv"
-                android:layout_width="@dimen/dp_40"
-                android:layout_height="@dimen/dp_40"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dp_20"
-                android:src="@drawable/ic_emotion" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/ll_emotion_layout"

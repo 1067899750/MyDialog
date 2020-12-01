@@ -30,7 +30,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mydialog.R;
-import com.example.mydialog.emotion.emotionkeyboardview.EmotionKeyboard;
 import com.example.mydialog.remark.BackEditText;
 import com.example.mydialog.remark.emotion.EmotionPacketFragment;
 import com.example.mydialog.remark.emotion.EmotionPacketKeyboard;
@@ -42,6 +41,7 @@ import com.example.mydialog.untils.ValueUtil;
 import com.example.mydialog.untils.emotion.GlobalOnItemClickManagerUtils;
 
 import java.io.File;
+
 /**
  * @author puyantao
  * @describe
@@ -58,9 +58,10 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
     private ImageView mDialogCommentIv;
     private LinearLayout mContentLl;
     private RelativeLayout mImageRl;
-    private Button mAddPictureBtn;
     private RelativeLayout mAddPictureRl;
+    private RelativeLayout mAddPictureBottomRl;
     private ImageView mEmotionIv;
+    private RelativeLayout mAddGifRl;
 
     private int maxLen = 200;
     //是否放大
@@ -107,16 +108,17 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
         });
         //放大缩小按键
         mDialogBlowIv = view.findViewById(R.id.dialog_blow_iv);
-        mDialogBlowIv.setImageResource(R.drawable.emotion_expand);
+        mDialogBlowIv.setImageResource(R.drawable.picture_blow);
         mDialogBlowIv.setOnClickListener(this);
 
         //图片
         mDialogCommentIv = view.findViewById(R.id.dialog_comment_iv);
         mDialogCommentIv.setImageResource(R.drawable.acc_family_btn);
-        mAddPictureBtn = view.findViewById(R.id.add_picture_btn);
-        mAddPictureBtn.setOnClickListener(this);
         mAddPictureRl = view.findViewById(R.id.add_picture_rl);
+        mAddPictureRl.setOnClickListener(this);
+        mAddPictureBottomRl = view.findViewById(R.id.add_picture_bottom_rl);
         mEmotionIv = view.findViewById(R.id.emotion_iv);
+        mAddGifRl = view.findViewById(R.id.add_gif_rl);
 
         mKeyBoardHeight = DisplayUtil.dip2px(mContext, 280);
         SoftKeyBoardListener.setListener((Activity) mContext, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
@@ -132,12 +134,7 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
 
             }
         });
-        view.findViewById(R.id.bg_view).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        view.findViewById(R.id.bg_view).setOnClickListener(this);
         initEmotion(view);
     }
 
@@ -247,11 +244,11 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
             //放大缩小
             if (isBlow) {
                 //缩小
-                mDialogBlowIv.setImageResource(R.drawable.emotion_expand);
+                mDialogBlowIv.setImageResource(R.drawable.picture_blow);
                 spaceLp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             } else {
                 //放大
-                mDialogBlowIv.setImageResource(R.drawable.emotion_shrink);
+                mDialogBlowIv.setImageResource(R.drawable.picture_shrink);
                 //屏幕高度
                 WindowManager windowManager = ((Activity) mContext).getWindowManager();
                 DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -267,20 +264,25 @@ public class RemarkAddPictureDialog extends DialogFragment implements TextWatche
                 if (mImageRl.getVisibility() == View.VISIBLE) {
                     //减去16因为设置padding的原因
                     spaceLp.height = screenHeight - navigatorHeight - statusBarHeight - mKeyBoardHeight
-                            - mDialogCommentIv.getHeight() - mAddPictureRl.getHeight()
+                            - mDialogCommentIv.getHeight() - mAddPictureBottomRl.getHeight()
                             - imageLp.bottomMargin - imageLp.topMargin - contentLp.bottomMargin - contentLp.topMargin - 8;
                 } else {
                     spaceLp.height = screenHeight - navigatorHeight - statusBarHeight - mKeyBoardHeight
-                            - mAddPictureRl.getHeight() - contentLp.bottomMargin - contentLp.topMargin;
+                            - mAddPictureBottomRl.getHeight() - contentLp.bottomMargin - contentLp.topMargin;
                 }
             }
             mContentEt.setLayoutParams(spaceLp);
             isBlow = !isBlow;
-        } else if (mId == R.id.add_picture_btn) {
-            // TODO: 2020/11/5 添加图片，代加
+        } else if (mId == R.id.add_picture_rl) {
+            //添加图片
             if (null != mSendListener) {
                 mSendListener.addPicture();
             }
+        } else if (mId == R.id.add_gif_rl) {
+            //添加gif图片
+
+        } else if (mId == R.id.bg_view){
+            dismiss();
         }
     }
 
