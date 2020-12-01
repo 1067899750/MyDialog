@@ -176,6 +176,73 @@
             android:background="#80a3a4a7" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/gif_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffffff"
+        android:visibility="gone">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/gif_picture_rv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_69"
+            android:layout_marginLeft="@dimen/dp_14"
+            android:layout_marginTop="@dimen/dp_17" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gif_picture_rv"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_17">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_13"
+                android:layout_toLeftOf="@id/gif_cancel_tv"
+                android:background="@drawable/shape_picture_gif_bg"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/picture_search_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_7"
+                    android:src="@drawable/picture_gif_search" />
+
+                <EditText
+                    android:id="@+id/picture_search_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_marginLeft="@dimen/dp_7"
+                    android:layout_marginRight="@dimen/dp_7"
+                    android:background="#F8F8F8"
+                    android:gravity="center_vertical"
+                    android:hint="试试输入文字搜GIF"
+                    android:textColor="#333333"
+                    android:textColorHint="#999999"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/gif_cancel_tv"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_20"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_16"
+                android:background="#ffffffff"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="#333333" />
+        </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>
 
 
